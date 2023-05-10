@@ -1,3 +1,41 @@
 from django.shortcuts import render
 
 # Create your views here.
+def agradecimiento(request):
+    return render(request, 'core/html/Agradecimiento.html')
+
+def buscador (request):
+    return render(request,'core/html/Buscador.html')
+
+def carrito (request):
+    return render(request,'core/html/Carrito.html')  
+
+def celulares (request):
+    return render(request,'core/html/Celulares.html') 
+
+def ingresarProducto (request):
+    return render(request,'core/html/IngresarProducto.html')
+
+def InicioSesion (request):
+    return render(request,'core/html/InicioSesion.html')
+
+def olvidoClave (request):
+    return render(request,'core/html/olvidoClave.html')
+
+def PaginaPrincipal (request):
+    return render(request,'core/html/PaginaPrincipal.html')
+      
+def PovAdmin (request):
+    return render(request,'core/html/PovAdmin.html') 
+ 
+def Producto1 (request):
+    return render(request,'core/html/Producto1.html') 
+ 
+def RegistroUsuario (request):
+    return render(request,'core/html/RegistroUsuario.html') 
+ 
+def RestablecerContraseña (request):
+    return render(request,'core/html/RestablecerContraseña.html')
+
+def Usuario (request):
+    return render(request,'core/html/Usuario.html')    

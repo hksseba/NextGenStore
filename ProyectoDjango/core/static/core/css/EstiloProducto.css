@@ -1,0 +1,50 @@
+.pro img{
+    width: 100%;
+}
+
+.nombre h1 {
+    padding-top: 9%;
+}
+
+.precio{
+  font-size: 35px;
+}
+
+.descuento{
+  font-size: 25px;
+  color: rgb(222, 26, 12);
+}
+
+.mi-contenedor {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .mi-contenedor p {
+    text-align: center;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.5;
+  }
+
+  .mi-contenedor h3 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.5;
+  }
+
+.mi-button button{
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}

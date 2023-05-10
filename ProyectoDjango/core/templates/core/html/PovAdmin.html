@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="../css/Footer.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+		//evento que verifica que el html este cargado antes de ejecutar
+		$(document).ready(function(){
+			//agrego evento click al botón
+			$("#consultar").click(function(){
+				//metodo get para el servicio web y una variable data para guardar el JSON
+				$.get("https://jsonplaceholder.typicode.com/users",function(data){
+					//ciclo for para recorrer el JSON y guarda cada elemento de la lista en la variable item
+					$.each(data,function(i,item){
+						$("#tabla").append("<tr>"+
+												"<td>"+ item.id +"</td>"+
+												"<td>"+ item.name +"</td>"+
+												"<td>"+ item.email +"</td>"+
+										   "</tr>");
+					});
+				});
+			});
+		});
+	</script>
+    <title>Document</title>
+</head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <img src="../img/laptop.png" alt="logo" class="mr-2" height="30">
+            <a class="navbar-brand">NextGenStore</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse mr-auto" id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../html/PaginaPrincipal.html">Inicio
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../html/Buscador.html">Productos</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Inicio</a>
+                            <a class="dropdown-item" href="#">Productos</a>
+                            
+                        </div>
+                    </li> 
+                    <div class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                        <a href="Buscador.html"><button class="btn btn-outline-warning my-2 my-sm-0" href="../html/Buscador.html" type="submit">Buscar</button></a>
+                    </div>                
+                </ul>
+                <li>
+                    <a class="nav-item" href="../html/Carrito.html"><img src="../img/online-shopping.png" class="mr-2" height="30" ></a>
+                </li> 
+                <li>
+                    <a class="nav-item" href="../html/InicioSesion.html"><img src="../img/perfil.png" class="mr-2" height="30" ></a>   
+                </li>       
+            </div>
+        </nav>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-sm-12 col-md-10 col-md-offset-1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Precio descuento</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-sm-8 col-md-6">
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="../img/producto3.webp" style="width: 72px; height: 72px;"> </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#">HP ENVY 13</a></h4>
+                                        <h5 class="media-heading"><a href="#">ID:3729839</a></h5>
+                                        <span>Estado: </span><span class="text-success"><strong>En Stock</strong></span>
+                                    </div>
+                                </div></td>
+                                <td class="col-sm-1 col-md-1" style="text-align: center">
+                                <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                                </td>
+                            
+                                <td class="col-sm-1 col-md-1 text-center"><strong>1.099.000 </strong></td>
+                                <td class="col-sm-1 col-md-1 text-center"><strong>$729.000</strong></td>
+                                <td class="col-sm-1 col-md-1">
+                                <button type="button" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span> Remover
+                                </button></td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-6">
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="../img/producto1.jfif" style="width: 72px; height: 72px;"> </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#">Vivo Y21s Midnight Blue</a></h4>
+                                        <h5 class="media-heading"> <a href="#">ID:3747589</a></h5>
+                                        <span>Estado: </span><span class="text-danger"><strong>Sin Stock</strong></span>
+                                    </div>
+                                </div></td>
+                                <td class="col-md-1" style="text-align: center">
+                                <input type="email" class="form-control" id="exampleInputEmail1" value="0">
+                                </td>
+    
+                                <td class="col-md-1 text-center"><strong>$229.990</strong></td>
+                                <td class="col-md-1 text-center"><strong>$169.990</strong></td>
+
+                                <td class="col-md-1">
+                                <button type="button" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span> Remover
+                                </button></td> 
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>
+                                 <a href="../html/IngresarProducto.html">
+                                    <button type="button" class="btn btn-info ">
+                                        <span class="glyphicon glyphicon-shopping-cart "></span> Ingresar producto</button>
+                                 </a>   
+                                </button></td>
+                                <td>
+                                <button type="button" class="btn btn-success">
+                                    Guardar  <span class="glyphicon glyphicon-play"></span>
+                                </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-1"></div>
+            </div>
+            <div class="container">
+
+                <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-danger" id="consultar">Ver usuarios registrados en la pagina</button>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped" id="tabla">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE CLIENTE</th>
+                                    <th>EMAIL</th> 
+                                </tr>
+                            </thead>
+        
+                            <tbody>
+        
+                            </tbody>
+        
+                        </table>
+                    </div>
+                </div>
+        
+            </div>
+        
+
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script
+         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+         crossorigin="anonymous"></script>
+       </body>
+       </html>  
+</body>
+</html>

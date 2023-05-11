@@ -14,7 +14,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-		<img src="{% static 'core/img/laptop.png'%}" alt="logo" class="mr-2" height="30">
+		<img src="{% static 'core/img/laptop.png'%} " alt="logo" class="mr-2" height="30">
 		<a class="navbar-brand">NextGenStore</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -23,12 +23,12 @@
 		<div class="collapse navbar-collapse mr-auto" id="navbarNavDropdown">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="../html/PaginaPrincipal.html">Inicio
+					<a class="nav-link" href="{% url 'PaginaPrincipal'%}">Inicio
 						<span class="sr-only">(current)</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="../html/Buscador.html">Productos</a>
+					<a class="nav-link" href="{% url 'Productos'%}">Productos</a>
 				</li>
 				<li class="nav-item dropdown">
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -39,14 +39,14 @@
 				</li> 
 				<div class="form-inline">
 					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-					<a href="Buscador.html"><button class="btn btn-outline-warning my-2 my-sm-0" href="../html/Buscador.html" type="submit">Buscar</button></a>
+					<a href="Buscador.html"><button class="btn btn-outline-warning my-2 my-sm-0" href="{% url 'Productos'%}" type="submit">Buscar</button></a>
 				</div>                
 			</ul>
 			<li>
-				<a class="nav-item" href="../html/Carrito.html"><img src="../img/online-shopping.png" class="mr-2" height="30" ></a>
+				<a class="nav-item" href="{% url 'Carrito' %} "><img src="{% static 'core/img/online-shopping.png'%}" class="mr-2" height="30" ></a>
 			</li> 
 			<li>
-				<a class="nav-item" href="../html/InicioSesion.html"><img src="../img/perfil.png" class="mr-2" height="30" ></a>   
+				<a class="nav-item" href="{% url 'InicioSesion'%}"><img src="{% static 'core/img/perfil.png'%}" class="mr-2" height="30" ></a>   
 			</li>       
 		</div>
 	</nav>
@@ -56,7 +56,7 @@
 				<section id="banner" class="banner">
 					<h2 class="banner__titulo">Bienvenidos a nuestra tienda online</h2>
 					<p class="banner__descripcion">Aquí encontrarás todo lo que necesitas al mejor precio.</p>
-					<a href="Buscador.html" class="banner__boton">Ver productos</a>
+					<a href="{% url 'Productos'%}" class="banner__boton">Ver productos</a>
 				</section>
 				<section id="productos" class="productos">
 					<h2 class="productos__titulo">Productos destacados</h2>
@@ -71,11 +71,10 @@
 					<div class="bbb_deals">
 						<div class="bbb_deals_slider_container">
 							<div class=" bbb_deals_item">
-								<div class="bbb_deals_image"><img src="../img/producto1.jfif" alt=""></div>
+								<div class="bbb_deals_image"><img src="{/img/producto1.jfif" alt=""></div>
 								<div class="bbb_deals_content">
 									<div class="bbb_deals_info_line d-flex flex-row justify-content-start">
 										<div class="bbb_deals_item_category"><a>Celular</a></div>
-										<div class="bbb_deals_item_price_a ml-auto"><strike>$229.990</strike></div>
 									</div>
 									<div class="bbb_deals_info_line d-flex flex-row justify-content-start">
 										<div class="bbb_deals_item_name">Vivo Y21s</div>

@@ -10,44 +10,43 @@
     <link  rel="stylesheet" href="{% static 'core/css/IngresarNuevoPdto.css'%}">
     <title>Document</title>
 </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-            <img src="{% static 'core/img/laptop.png'%}" alt="logo" class="mr-2" height="30">
-            <a class="navbar-brand">NextGenStore</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse mr-auto" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../html/PaginaPrincipal.html">Inicio
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../html/Buscador.html">Productos</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Inicio</a>
-                            <a class="dropdown-item" href="#">Productos</a>
-                            
-                        </div>
-                    </li> 
-                    <div class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <a href="Buscador.html"><button class="btn btn-outline-warning my-2 my-sm-0" href="../html/Buscador.html" type="submit">Buscar</button></a>
-                    </div>                
-                </ul>
-                <li>
-                    <a class="nav-item" href="../html/Carrito.html"><img src="../img/online-shopping.png" class="mr-2" height="30" ></a>
-                </li> 
-                <li>
-                    <a class="nav-item" href="../html/InicioSesion.html"><img src="../img/perfil.png" class="mr-2" height="30" ></a>   
-                </li>       
-            </div>
-        </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <img src="{% static 'core/img/laptop.png'%} " alt="logo" class="mr-2" height="30">
+    <a class="navbar-brand">NextGenStore</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse mr-auto" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'PaginaPrincipal'%}">Inicio
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Productos'%}">Productos</a>
+            </li>
+            <li class="nav-item dropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Inicio</a>
+                    <a class="dropdown-item" href="#">Productos</a>
+                    
+                </div>
+            </li> 
+            <div class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <a href="Buscador.html"><button class="btn btn-outline-warning my-2 my-sm-0" href="{% url 'Productos'%}" type="submit">Buscar</button></a>
+            </div>                
+        </ul>
+        <li>
+            <a class="nav-item" href="{% url 'Carrito' %} "><img src="{% static 'core/img/online-shopping.png'%}" class="mr-2" height="30" ></a>
+        </li> 
+        <li>
+            <a class="nav-item" href="{% url 'InicioSesion'%}"><img src="{% static 'core/img/perfil.png'%}" class="mr-2" height="30" ></a>   
+        </li>       
+    </div>
+</nav>
         <div class="container">
             <div class="card bg-light mb-3">
                 <div class="card-body">

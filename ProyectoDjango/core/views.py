@@ -4,7 +4,7 @@ from django.shortcuts import render
 def agradecimiento(request):
     return render(request, 'core/html/Agradecimiento.html')
 
-def buscador (request):
+def productos (request):
     return render(request,'core/html/Buscador.html')
 
 def carrito (request):

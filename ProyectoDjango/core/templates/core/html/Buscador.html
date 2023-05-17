@@ -23,17 +23,17 @@
 				<a>Categorias</a>
 			</div>
 			<div class="vertical-menu">
-				<a href="Buscador.html" class="active">Varios</a>
-				<a href="Computadores.html">Computadores</a>
-				<a href="Celulares.html">Celulares</a>
-				<a href="Consolas.html">Consolas</a>
+				<a href="{% url 'productos'%}">Varios</a>
+				<a href="{% url 'computadores'%}">Computadores</a>
+				<a href="{% url 'celulares'%}" class="active">Celulares</a>
+				<a href="{% url 'consolas'%}">Consolas</a>
 			</div>
 		</div>
 	</div>
 	<div class="container mydiv">
 		<div class="row">
 			<div class="col-md-4">
-				<a href="Producto1.html">
+				<a href="{% url 'producto1'%}">
 					<div class="bbb_deals">
 						<div class="bbb_deals_slider_container">
 							<div class=" bbb_deals_item">

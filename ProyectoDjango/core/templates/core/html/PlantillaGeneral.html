@@ -15,7 +15,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-		<img src="{% static 'core/img/laptop.png'%} " alt="logo" class="mr-2" height="30">
+		<img src="{% static 'core/img/laptop.png' %}" alt="logo" class="mr-2" height="30">
 		<a class="navbar-brand">NextGenStore</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -24,12 +24,12 @@
 		<div class="collapse navbar-collapse mr-auto" id="navbarNavDropdown">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="{% url 'paginaprincipal'%}">Inicio
+					<a class="nav-link" href="{% url 'paginaprincipal' %}">Inicio
 						<span class="sr-only">(current)</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{% url 'productos'%}">Productos</a>
+					<a class="nav-link" href="{% url 'productos' %}">Productos</a>
 				</li>
 				<li class="nav-item dropdown">
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -40,7 +40,7 @@
 				</li> 
 				<div class="form-inline">
 					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-					<a href="Buscador.html"><button class="btn btn-outline-warning my-2 my-sm-0" href="{% url 'productos'%}" type="submit">Buscar</button></a>
+					<a href="{% url 'productos' %}"><button class="btn btn-outline-warning my-2 my-sm-0" href="{% url 'productos'%}" type="submit">Buscar</button></a>
 				</div>                
 			</ul>
 			<li>
@@ -82,8 +82,8 @@
 		   <div class="footer-col">
 			 <h4>Productos</h4>
 			 <ul>
-			   <li><a href="../html/Buscador.html">Productos</a></li>
-			   <li><a href="../html/Carrito.html">Carrito de compras</a></li>
+			   <li><a href="{% url 'productos' %}">Productos</a></li>
+			   <li><a href="{% url 'carrito' %}">Carrito de compras</a></li>
 			 </ul>
 		   </div>
 		   <div class="footer-col">
@@ -97,6 +97,7 @@
 		</div>
 	 </footer>
 	 {% block js %}
+	 
 	 {% endblock js %}
 </body>
 </html>

@@ -40,8 +40,8 @@ def Producto1 (request):
 def RegistroUsuario (request):
     return render(request,'core/html/RegistroUsuario.html') 
  
-def RestablecerContraseña (request):
-    return render(request,'core/html/RestablecerContraseña.html')
+def RestablecerContrasena (request):
+    return render(request,'core/html/RestablecerContrasena.html')
 
 def Usuario (request):
     return render(request,'core/html/Usuario.html')    

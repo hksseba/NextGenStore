@@ -3,7 +3,7 @@ var clave = document.getElementById("contrasena");
 var clave1 = document.getElementById("rcontrasena");
 
 
-const formulario = document.getElementById("formrContraseña");
+const formulario = document.getElementById("formrContrasena");
 var msj = document.getElementById("warnings");
 var tieneMinuscula = false;
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])/

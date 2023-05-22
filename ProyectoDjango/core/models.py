@@ -41,6 +41,8 @@ class Usuario (models.Model):
     correo_usuario = models.CharField(max_length=40, verbose_name='Correo del usuario')
     clave_usuario = models.CharField(max_length=15, verbose_name='Contraseña del usuario')
     respuesta_usuario = models.CharField(max_length=40, verbose_name='Respuesta secreta del usuario')
+    rol = models.ForeignKey(Rol,on_delete=models.CASCADE)
+    pregunta = models.ForeignKey(Pregunta,on_delete=models.CASCADE)
 
 class Pedido (models.Model):
     id_pedido = models.AutoField(primary_key = True, verbose_name='Id del pedido')
@@ -50,6 +52,7 @@ class Pedido (models.Model):
     estado_pedido = models.CharField(max_length=50, verbose_name='Estado del pedido')
     costo_pedido = models.IntegerField(max_length=12, verbose_name='Costo del pedido')
     total_pedido = models.IntegerField(max_length=12, verbose_name='Total del pedido')
+    usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
 
 class Direccion (models.Model):
     id_direccion  = models.AutoField(primary_key = True, verbose_name='Id de la direccion')

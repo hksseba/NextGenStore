@@ -5,23 +5,38 @@ class Rol (models.Model):
     id_rol = models.AutoField(primary_key = True, verbose_name='Id del rol')
     nombre_rol = models.CharField(max_length=20, verbose_name='Nombre del rol', null = True, blank = False)
 
+    def __str__(self) -> str:
+        return self.nombre_rol
+
 class Pregunta (models.Model):
     id_pregunta  = models.AutoField(primary_key = True, verbose_name='Id de la pregunta')
     nombre_pregunta = models.CharField(max_length=20, verbose_name='Nombre de la pregunta', null = True, blank = False)
+
+    def __str__(self) -> str:
+        return self.nombre_pregunta
 
 class Region (models.Model):
     id_region = models.AutoField(primary_key = True, verbose_name='Id de la region')
     nombre_region = models.CharField(max_length=20, verbose_name='Nombre de la region', null = True, blank = False)
 
+    def __str__(self) -> str:
+        return self.nombre_region
+
 class Categoria (models.Model):
     id_categoria  = models.AutoField(primary_key = True, verbose_name='Id de la categoria')
     nombre_categoria = models.CharField(max_length=20, verbose_name='Nombre de la categoria', null = True, blank = False)
+
+    def __str__(self) -> str:
+        return self.nombre_categoria
 
 class Comuna (models.Model):
     id_comuna  = models.AutoField(primary_key = True, verbose_name='Id de la comuna')
     nombre_comuna = models.CharField(max_length=20, verbose_name='Nombre de la comuna', null = True, blank = False)
     costo_dia = models.IntegerField(max_length=20, verbose_name='costo por dia', null = True, blank = False)
     region = models.ForeignKey(Region,on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.nombre_comuna
 
 class Producto (models.Model):
     id_producto  = models.AutoField(primary_key = True, verbose_name='Id del producto')
@@ -31,6 +46,9 @@ class Producto (models.Model):
     foto_producto = models.ImageField(max_length=20, verbose_name='Imagen del producto', null = True, blank = False)
     stock_producto = models.IntegerField(max_length=20, verbose_name='Stock del producto', null = True, blank = False)
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.nombre_producto, self.desc_producto
 
 class Usuario (models.Model):
     id_usuario = models.AutoField(primary_key = True, verbose_name='Id del usuario')
@@ -44,6 +62,9 @@ class Usuario (models.Model):
     rol = models.ForeignKey(Rol,on_delete=models.CASCADE)
     pregunta = models.ForeignKey(Pregunta,on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return self.nombre_usuario, self.apellido_usuario, self.rut
+
 class Pedido (models.Model):
     id_pedido = models.AutoField(primary_key = True, verbose_name='Id del pedido')
     fecha_pedido = models.DateField(verbose_name = 'Fecha del pedido')
@@ -54,6 +75,9 @@ class Pedido (models.Model):
     total_pedido = models.IntegerField(max_length=12, verbose_name='Total del pedido')
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return self.estado_pedido
+
 class Direccion (models.Model):
     id_direccion  = models.AutoField(primary_key = True, verbose_name='Id de la direccion')
     nombre_direccion = models.CharField(max_length=20, verbose_name='Nombre de la direccion', null = True, blank = False)
@@ -61,12 +85,14 @@ class Direccion (models.Model):
     comuna = models.ForeignKey(Comuna,on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return self.nombre_direccion
+
 class Detalle (models.Model):
     id_detalle  = models.AutoField(primary_key = True, verbose_name='Id de la direccion')
     cantidad = models.IntegerField(max_length=20, verbose_name='Cantidad de productos', null = True, blank = False)
     subtotal = models.IntegerField(max_length=10, verbose_name='Subtotal', null = True, blank = False)
     producto = models.ForeignKey(Producto,on_delete=models.CASCADE)
     pedido = models.ForeignKey(Pedido,on_delete=models.CASCADE)
-
 
    

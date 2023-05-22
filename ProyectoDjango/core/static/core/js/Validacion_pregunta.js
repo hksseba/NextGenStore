@@ -9,12 +9,13 @@ var msj = document.getElementById("warnings");
 
 formulario.addEventListener('submit',e =>{
 
-    e.preventDefault();
+    
     let msjMostrar = "";
     let enviar = false;
 
     if(enviar){
         msj.innerHTML = msjMostrar;
+        e.preventDefault();
     }
     else{
         msj.innerHTML = "Enviado";

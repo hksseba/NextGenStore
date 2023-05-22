@@ -30,6 +30,7 @@
 								<p>Puedes restablecer tu contraseña aqui.</p>
 								<p>Ingrese su correo</p>
 								<form action="" method="POST" id="formrPregunta">
+									{% csrf_token %}
 									<div class="form">
 										<input type="text" name="" id="email" class="field" placeholder="Correo">
 										<label for="lang">Seleccione la pregunta</label>

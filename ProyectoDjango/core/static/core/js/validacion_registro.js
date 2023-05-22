@@ -12,7 +12,7 @@ const patternTel = /^[0-9]*$/;
 
 formulario.addEventListener('submit',e =>{
 
-    e.preventDefault();
+  
     let msjMostrar = "";
 
     
@@ -53,6 +53,7 @@ formulario.addEventListener('submit',e =>{
   }else{
     msjMostrar = msjMostrar + "";
     msj.innerHTML= msjMostrar;
+    e.preventDefault();
   
   }
   if (validarCorreo(correo)){

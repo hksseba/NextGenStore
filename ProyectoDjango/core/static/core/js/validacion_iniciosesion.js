@@ -12,7 +12,7 @@ const campoEmail = document.getElementById("email");
 
 // Agregar un evento de escucha al formulario al enviar
 formulario.addEventListener("submit", function (event) {
-  event.preventDefault(); // Evitar el envío del formulario
+ 
   let msjMostrar="";
   let enviar = false;
 
@@ -33,6 +33,7 @@ formulario.addEventListener("submit", function (event) {
 }else{
   msjMostrar = msjMostrar + "";
   msj.innerHTML= msjMostrar;
+  e.preventDefault();
 
 } */
 

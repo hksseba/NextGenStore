@@ -17,6 +17,7 @@
         <div class="card bg-light mb-3">
             <div class="card-body">
                 <form action="" method="POST" id="formProducto">
+                  {% csrf_token %}
                     <form>
                     <h2>Ingrese un nuevo producto</h2>
                     <div class="form-group">

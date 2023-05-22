@@ -27,6 +27,7 @@
 								<p>Puedes cambiar tu contraseña aqui.</p>
 								<p>Escriba su nueva contraseña</p>
 								<form action="" method="POST" id="formrContrasena">
+									{% csrf_token %}
 									<div class="form">
 									<input type="password" name="" id="contrasena" class="field" placeholder="Contraseña">
 									<p>Repita la contraseña</p>

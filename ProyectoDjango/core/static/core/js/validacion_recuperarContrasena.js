@@ -10,7 +10,7 @@ const pattern = /^(?=.*[a-z])(?=.*[A-Z])/
 
 formulario.addEventListener('submit',e =>{
 
-    e.preventDefault();
+    
     let msjMostrar = "";
 
     

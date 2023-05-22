@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#formProducto").submit(function (e) {
-        e.preventDefault();
+       
         var nombreProducto = $("#nombreProducto").val();
         var stock = $("#StockProducto").val();
         var precio = $("#Precio").val();
@@ -40,6 +40,7 @@ $(document).ready(function () {
 
         if(enviar){
             $("#warnings").html(msjMostrar);
+            e.preventDefault();
         }
         else{
             $("#warnings").html("Enviado");

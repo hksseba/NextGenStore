@@ -22,6 +22,7 @@
                     <div class="right">
                       <h2>Inicio Sesión</h2>
                       <form action="" method="POST" id="forminicio">
+                        {% csrf_token %}
                         <div class="form">                       
                         <input type="email" name="" id="email" class="field" placeholder="Correo Electronico">
                         <input type="password" name="" id="contrasena" class="field" placeholder="Contraseña">

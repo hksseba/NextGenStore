@@ -15,7 +15,7 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-		<img src="{% static 'core/img/laptop.png' %}" alt="logo" class="mr-2" height="30">
+		<img src="{% static 'core/img/laptop.png' %} " alt="logo" class="mr-2" height="30">
 		<a class="navbar-brand">NextGenStore</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -40,14 +40,14 @@
 				</li> 
 				<div class="form-inline">
 					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
-					<a href="{% url 'productos' %}"><button class="btn btn-outline-warning my-2 my-sm-0" href="{% url 'productos'%}" type="submit">Buscar</button></a>
+					<a href="{% url 'productos' %}"><button class="btn btn-outline-warning my-2 my-sm-0" href="{% url 'productos' %}" type="submit">Buscar</button></a>
 				</div>                
 			</ul>
 			<li>
-				<a class="nav-item" href="{% url 'carrito' %} "><img src="{% static 'core/img/online-shopping.png'%}" class="mr-2" height="30" ></a>
+				<a class="nav-item" href="{% url 'carrito' %} "><img src="{% static 'core/img/online-shopping.png' %}" class="mr-2" height="30" ></a>
 			</li> 
 			<li>
-				<a class="nav-item" href="{% url 'iniciosesion'%}"><img src="{% static 'core/img/perfil.png'%}" class="mr-2" height="30" ></a>   
+				<a class="nav-item" href="{% url 'iniciosesion'%}"><img src="{% static 'core/img/perfil.png' %}" class="mr-2" height="30" ></a>   
 			</li>       
 		</div>
 	</nav>
@@ -59,45 +59,10 @@
 
 	{% endblock productos %}
 
+	{% block js %}
+
+	{% endblock js %}
 	
-	<footer class="footer">
-		<div class="container">
-		 <div class="row">
-		   <div class="footer-col">
-			 <h4>Compañia</h4>
-			 <ul>
-			   <li><a href="#">Politicas de privacidad</a></li>
-			   <li><a href="#">Terminos y condiciones</a></li>
-			   <li><a href="#">Politicas de cookies</a></li>
-			 </ul>
-		   </div>
-		   <div class="footer-col">
-			 <h4>Ayuda</h4>
-			 <ul>
-			   <li><p>+56912378762 Sebastian Silva</p></li>
-			   <li><p>+56976521254 Gabriel Maneiro</p></li>
-			   <li><p>+56923189382 Claudio Diaz</p></li>
-			 </ul>
-		   </div>
-		   <div class="footer-col">
-			 <h4>Productos</h4>
-			 <ul>
-			   <li><a href="{% url 'productos' %}">Productos</a></li>
-			   <li><a href="{% url 'carrito' %}">Carrito de compras</a></li>
-			 </ul>
-		   </div>
-		   <div class="footer-col">
-			<div class="social-links">
-				<a href="#"><i class="fa fa-facebook-f"></i></a>
-				<a href="#"><i class="fa fa-twitter"></i></a>
-				<a href="#"><i class="fa fa-instagram"></i></a>
-			  </div>
-		   </div>
-		 </div>
-		</div>
-	 </footer>
-	 {% block js %}
-	 
-	 {% endblock js %}
+	
 </body>
 </html>

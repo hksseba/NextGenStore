@@ -1,6 +1,7 @@
 var nombre = document.getElementById("nombre");
 var clave = document.getElementById("contrasena");
 var clave1 = document.getElementById("contrasena1");
+var correo = document.getElementById ("email");
 var fono = document.getElementById("telefono");
 const formulario = document.getElementById("formregistro");
 var msj = document.getElementById("warnings");

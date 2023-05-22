@@ -1,4 +1,5 @@
 var nombre = document.getElementById("nombre");
+var apellido = document.getElementById("apellido");
 var clave = document.getElementById("contrasena");
 var clave1 = document.getElementById("contrasena1");
 var correo = document.getElementById ("email");
@@ -21,11 +22,26 @@ formulario.addEventListener('submit',e =>{
         msjMostrar = msjMostrar + "<br>El nombre debe tener entre 4 y 20 caracteres.";
         enviar = true;       
     }
+
+    if(apellido.value.trim().length < 4 || apellido.value.trim().length > 20){
+      msjMostrar = msjMostrar + "<br>El apellido debe tener entre 4 y 20 caracteres.";
+      enviar = true;       
+  }
     const regex = /^[a-zA-Z-á-é-í-ó-ú]*$/;
+
     if(regex.test(nombre.value)){
 
     }else{
       msjMostrar = msjMostrar + "<br>El nombre no debe contener numeros";
+      msj.innerHTML = msjMostrar;
+      enviar = true;
+    }
+ 
+    
+    if(regex.test(apellido.value)){
+
+    }else{
+      msjMostrar = msjMostrar + "<br>El apellido no debe contener numeros";
       msj.innerHTML = msjMostrar;
       enviar = true;
     }

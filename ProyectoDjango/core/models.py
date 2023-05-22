@@ -33,10 +33,23 @@ class Producto (models.Model):
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
 
 class Usuario (models.Model):
-
+    id_usuario = models.AutoField(primary_key = True, verbose_name='Id del usuario')
+    rut = models.CharField(max_length=20, verbose_name = 'Rut del usuario')
+    nombre_usuario = models.CharField(max_length=25, verbose_name='Nombre del usuario')
+    apellido_usuario = models.CharField(max_length=25, verbose_name='Apellido del usuario')
+    telefono_usuario = models.IntegerField(max_length=9, verbose_name='Telefono del usuario')
+    correo_usuario = models.CharField(max_length=40, verbose_name='Correo del usuario')
+    clave_usuario = models.CharField(max_length=15, verbose_name='Contraseña del usuario')
+    respuesta_usuario = models.CharField(max_length=40, verbose_name='Respuesta secreta del usuario')
 
 class Pedido (models.Model):
-
+    id_pedido = models.AutoField(primary_key = True, verbose_name='Id del pedido')
+    fecha_pedido = models.DateField(verbose_name = 'Fecha del pedido')
+    fecha_despacho = models.DateField(verbose_name = 'Fecha despacho del pedido')
+    fecha_entrega = models.DateField(verbose_name = 'Fecha de entrega del pedido')
+    estado_pedido = models.CharField(max_length=50, verbose_name='Estado del pedido')
+    costo_pedido = models.IntegerField(max_length=12, verbose_name='Costo del pedido')
+    total_pedido = models.IntegerField(max_length=12, verbose_name='Total del pedido')
 
 class Direccion (models.Model):
     id_direccion  = models.AutoField(primary_key = True, verbose_name='Id de la direccion')

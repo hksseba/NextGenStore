@@ -10,7 +10,7 @@ class Rol (models.Model):
 
 class Pregunta (models.Model):
     id_pregunta  = models.AutoField(primary_key = True, verbose_name='Id de la pregunta')
-    nombre_pregunta = models.CharField(max_length=20, verbose_name='Nombre de la pregunta', null = True, blank = False)
+    nombre_pregunta = models.CharField(max_length=50, verbose_name='Nombre de la pregunta', null = True, blank = False)
 
     def __str__(self) -> str:
         return self.nombre_pregunta

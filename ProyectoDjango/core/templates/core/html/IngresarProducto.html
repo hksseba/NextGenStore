@@ -30,6 +30,10 @@
                       <input type="text" minlength="10"  class="form-control" id="nombreProducto">
                     </div>
                     <div class="form-group">
+                      <p class="h5"> Descripcion del producto</p>  
+                        <input type="text" minlength="10"  class="form-control" id="descProducto">
+                      </div>
+                    <div class="form-group">
                         <p class="h5"> Stock del producto</p>
                         <input type="number" class="form-control" id="StockProducto" aria-describedby="Stock" min="0" max="100">
                       </div>
@@ -40,6 +44,11 @@
                         </div>
                         <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="Precio" min="1" max="10000000">
                       </div>
+                      <select class="form-control" name="raza" id="raza">
+                        {% for c in categorias %}
+                        <option value="{{ x.codigo }}">{{ c.nombreCategoria }}</option>
+                        {% endfor %}
+                    </select>
                      <button type="submit" class="btn btn-primary">Guardar</button>
                      <p class="warnings" id="warnings"></p>
                     <a href="PovAdmin.html"><button type="button" class="btn btn-secondary">Volver</button></a> 

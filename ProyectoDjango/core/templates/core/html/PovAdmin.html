@@ -5,29 +5,11 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="{% static 'core/css/Footer.css'%}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript">
-		//evento que verifica que el html este cargado antes de ejecutar
-		$(document).ready(function(){
-			//agrego evento click al botón
-			$("#consultar").click(function(){
-				//metodo get para el servicio web y una variable data para guardar el JSON
-				$.get("https://jsonplaceholder.typicode.com/users",function(data){
-					//ciclo for para recorrer el JSON y guarda cada elemento de la lista en la variable item
-					$.each(data,function(i,item){
-						$("#tabla").append("<tr>"+
-												"<td>"+ item.id +"</td>"+
-												"<td>"+ item.name +"</td>"+
-												"<td>"+ item.email +"</td>"+
-										   "</tr>");
-					});
-				});
-			});
-		});
-	</script>
+
 	{% endblock links %}
 
 	{% block titulo %}
-    <title>Document</title>
+    <title>Vista de administrador</title>
 	{% endblock titulo %}
     
     {% block productos %}
@@ -38,70 +20,42 @@
                         <thead>
                             <tr>
                                 <th>Producto</th>
-                                <th>Cantidad</th>
+                                <th class="text-center">Stock</th>
                                 <th class="text-center">Precio</th>
-                                <th class="text-center">Precio descuento</th>
+                                <th class="text-center">Categoria</th>
                                 <th> </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="col-sm-8 col-md-6">
-                                <div class="media">
-                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{% static 'core/img/producto3.webp'%}" style="width: 72px; height: 72px;"> </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="#">HP ENVY 13</a></h4>
-                                        <h5 class="media-heading"><a href="#">ID:3729839</a></h5>
-                                        <span>Estado: </span><span class="text-success"><strong>En Stock</strong></span>
-                                    </div>
-                                </div></td>
-                                <td class="col-sm-1 col-md-1" style="text-align: center">
-                                <input type="email" class="form-control" id="exampleInputEmail1" value="3">
-                                </td>
-                            
-                                <td class="col-sm-1 col-md-1 text-center"><strong>1.099.000 </strong></td>
-                                <td class="col-sm-1 col-md-1 text-center"><strong>$729.000</strong></td>
-                                <td class="col-sm-1 col-md-1">
-                                <button type="button" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-remove"></span> Remover
-                                </button></td>
-                            </tr>
-                            <tr>
                                 <td class="col-md-6">
                                 <div class="media">
-                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{% static 'core/img/producto1.jfif'%}" style="width: 72px; height: 72px;"> </a>
+                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ m.fotoProducto.url }}" style="width: 72px; height: 72px;"> </a>
                                     <div class="media-body">
-                                        <h4 class="media-heading"><a href="#">Vivo Y21s Midnight Blue</a></h4>
-                                        <h5 class="media-heading"> <a href="#">ID:3747589</a></h5>
+                                        <h4 class="media-heading"><a href="#">{{p.nombre_producto}}</a></h4>
+                                        <h5 class="media-heading"> <a href="#">{{p.id_producto}}</a></h5>
                                         <span>Estado: </span><span class="text-danger"><strong>Sin Stock</strong></span>
                                     </div>
                                 </div></td>
-                                <td class="col-md-1" style="text-align: center">
-                                <input type="email" class="form-control" id="exampleInputEmail1" value="0">
-                                </td>
-    
-                                <td class="col-md-1 text-center"><strong>$229.990</strong></td>
-                                <td class="col-md-1 text-center"><strong>$169.990</strong></td>
+                                <td class="col-md-1 text-center"><strong>{{p.stock_producto}}</strong></td>
+                                <td class="col-md-1 text-center"><strong>{{p.precio_producto}}</strong></td>
+                                <td class="col-md-1 text-center"><strong>{{p.categoria}}</strong></td>
 
                                 <td class="col-md-1">
                                 <button type="button" class="btn btn-danger">
                                     <span class="glyphicon glyphicon-remove"></span> Remover
                                 </button></td> 
-                                
-                                 
+                                <td class="col-md-1">
+                                    <button type="button" class="btn btn-info">
+                                        <span class="glyphicon glyphicon-remove"></span> Editar
+                                    </button></td> 
                             <tr>
                                 <td>   </td>
                                 <td>   </td>
                                 <td>   </td>
                                 <td>
-                                 <a href="{% url 'ingresarproducto' %}">
-                                    <button type="button" class="btn btn-info ">
-                                        <span class="glyphicon glyphicon-shopping-cart "></span> Ingresar producto</button>
-                                 </a>   
-                                </button></td>
-                                <td>
                                 <button type="button" class="btn btn-success">
-                                    Guardar  <span class="glyphicon glyphicon-play"></span>
+                                    Ingresar producto  <span class="glyphicon glyphicon-play"></span>
                                 </button></td>
                             </tr>
                         </tbody>
@@ -110,34 +64,6 @@
                 <div class="col-1"></div>
             </div>
 
-            <div class="container">
-
-                <div class="row" style="text-align: center;">
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-danger" id="consultar">Ver usuarios registrados en la pagina</button>
-                    </div>
-                </div>
-        
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped" id="tabla">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>NOMBRE CLIENTE</th>
-                                    <th>EMAIL</th> 
-                                </tr>
-                            </thead>
-        
-                            <tbody>
-        
-                            </tbody>
-        
-                        </table>
-                    </div>
-                </div>
-        
-            </div>
         {% endblock productos %}
         {% block js %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script

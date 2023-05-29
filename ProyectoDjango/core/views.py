@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Producto,Pedido,Usuario,Direccion
+from .models import Producto,Pedido,Usuario,Direccion,Categoria
 # Create your views here.
 def agradecimiento(request):    
     lista = Pedido.objects.all()
@@ -62,9 +62,10 @@ def ingresarProducto(request):
     vPrecio = request.POST['precioProdcto']
     vFoto = request.FILES['fotoProducto']
     vStock = request.POST['stockProducto']
+    vCategoria = request.POST['categoriaProducto']
 
-   
-    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, fotoProducto = vFoto, stock_producto = vStock)
+    vRegistroCategoria = Categoria.objects.get(categoria= vCategoria)
+    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, fotoProducto = vFoto, stock_producto = vStock, categoria = vCategoria),
     
     return redirect('PovAdmin')
 

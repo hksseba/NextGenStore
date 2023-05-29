@@ -44,7 +44,7 @@
                         </div>
                         <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="Precio" min="1" max="10000000" name = "precioProdcto">
                       </div>
-                      <select class="form-control" name="raza" id="raza">
+                      <select class="form-control" name="raza" id="raza" name="categoriaProducto">
                         {% for c in categorias %}
                         <option value="{{ x.codigo }}">{{ c.nombreCategoria }}</option>
                         {% endfor %}

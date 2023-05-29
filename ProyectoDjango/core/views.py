@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Producto
 # Create your views here.
 def agradecimiento(request):
@@ -20,7 +20,16 @@ def consolas (request):
     return render(request, 'core/html/Consolas.html')
 
 def ingresarProducto(request):
-    return render(request,'core/html/IngresarProducto.html')
+    vChip = request.POST['chip']
+    vNombre = request.POST['nombre']
+    vEdad = request.POST['edad']
+    vRaza = request.POST['raza']
+    vFoto = request.FILES['foto']
+
+    vRegistroRaza = Producto.objects.get(codigo = vRaza)
+    Producto.objects.create(codigoChip = vChip, nombreMascota = vNombre, edadMascota = vEdad, fotoMascota = vFoto, raza = vRegistroRaza)
+    
+    return redirect('ingresarproducto')
 
 def inicioSesion (request):
     return render(request,'core/html/InicioSesion.html')

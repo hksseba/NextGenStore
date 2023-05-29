@@ -16,14 +16,14 @@
     <div class="container">
         <div class="card bg-light mb-3">
             <div class="card-body">
-                <form action="{% url 'ingresarProducto' %}" method="POST" id="formProducto">
+                <form action="{% url 'agregar' %}" method="POST" enctype="multipart/form-data" id="formProducto">
                   {% csrf_token %}
-                    <form>
+                    
                     <h2>Ingrese un nuevo producto</h2>
                     <div class="form-group">
                         <p class="h5"> Adjunta una imagen del producto</p>
                         <hr>
-                        <input type="file" id="ejemplo_archivo_1" name="fotoProducto">
+                        <input type="file" id="fotoProducto" name="fotoProducto">
                       </div>
                     <div class="form-group">
                     <p class="h5"> Nombre del producto</p>  
@@ -44,15 +44,15 @@
                         </div>
                         <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="Precio" min="1" max="10000000" name = "precioProdcto">
                       </div>
-                      <select class="form-control" name="raza" id="raza" name="categoriaProducto">
+                      <select class="form-control" id="categoriaProducto" name="categoriaProducto">
                         {% for c in categorias %}
-                        <option value="{{ x.codigo }}">{{ c.nombreCategoria }}</option>
+                        <option value="{{ c.id_categoria }}">{{ c.nombre_categoria }}</option>
                         {% endfor %}
                     </select>
                      <button type="submit" class="btn btn-primary">Guardar</button>
                      <p class="warnings" id="warnings"></p>
                     <a href="PovAdmin.html"><button type="button" class="btn btn-secondary">Volver</button></a> 
-                    </form>
+                    
                   </form>
             </div>
         </div>    

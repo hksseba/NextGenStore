@@ -56,14 +56,14 @@ def formDireccion(request):
     
     return redirect('PaginaPrincipal')
 
-def agregar(request):
+def ingresarProducto(request):
     listaCategorias = Categoria.objects.all()
     contexto = {
-        "categorias": listaCategoria
+        "categorias": listaCategorias
     }
     return render(request, 'core/html/IngresarProducto.html', contexto)
 
-def ingresarProducto(request):
+def agregar (request):
     vNombre = request.POST['nombreProducto']
     vDesc = request.POST['descProducto']
     vPrecio = request.POST['precioProdcto']
@@ -71,8 +71,8 @@ def ingresarProducto(request):
     vStock = request.POST['stockProducto']
     vCategoria = request.POST['categoriaProducto']
 
-    vRegistroCategoria = Categoria.objects.get(categoria= vCategoria)
-    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, fotoProducto = vFoto, stock_producto = vStock, categoria = vCategoria),
+    vRegistroCategoria = Categoria.objects.get(id_categoria= vCategoria)
+    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, foto_producto = vFoto, stock_producto = vStock, categoria = vRegistroCategoria),
     
     return redirect('agregar')
 

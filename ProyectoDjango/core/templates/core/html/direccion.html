@@ -1,0 +1,113 @@
+{% extends 'core/html/PlantillaGeneral.html' %}
+
+{% load static %}
+
+    	{% block titulo %}
+        <title>Document</title>
+        {% endblock titulo %}
+
+    {% block links %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/Estilos.css">
+    <link rel="stylesheet" href="../css/Login.css">
+    <link rel="stylesheet" href="../css/Footer.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          var url = 'https://gist.githubusercontent.com/juanbrujo/0fd2f4d126b3ce5a95a7dd1f28b3d8dd/raw/b8575eb82dce974fd2647f46819a7568278396bd/comunas-regiones.json';
+    
+          $.getJSON(url, function(data) {
+            var regiones = data.regiones;
+    
+            // Llenar el select de regiones
+            regiones.forEach(function(region) {
+              $('#region-select').append('<option value="' + region.region + '">' + region.region + '</option>');
+            });
+    
+            // Actualizar el select de comunas al cambiar la selección de región
+            $('#region-select').change(function() {
+              var seleccion = $(this).val();
+              var regionSeleccionada = regiones.find(function(region) {
+                return region.region === seleccion;
+              });
+    
+              // Limpiar el select de comunas
+              $('#comuna-select').empty();
+              $('#comuna-select').append('<option value="">-- Selecciona --</option>');
+    
+              if (!regionSeleccionada) {
+                $('#seleccion').empty();
+                return;
+              }
+    
+              var comunas = regionSeleccionada.comunas;
+    
+              // Llenar el select de comunas
+              comunas.forEach(function(comuna) {
+                $('#comuna-select').append('<option value="' + comuna + '">' + comuna + '</option>');
+              });
+            });
+    
+            // Actualizar la selección al cambiar la comuna seleccionada
+            $('#comuna-select').change(function() {
+              var regionSeleccionada = $('#region-select').val();
+              var comunaSeleccionada = $(this).val();
+    
+              if (regionSeleccionada === '' || comunaSeleccionada === '') {
+                $('#seleccion').empty();
+                return;
+              }
+    
+            });
+          });
+        });
+      </script>
+    {%endblock links%}
+
+
+    {%block productos%}
+        <div class="row">
+            <div class="col-lg-2 col-md-1 col-xs-1"></div>
+            <div class="col-lg-8 col-md-10 col-xs-10 "  >
+              <div class="inicontainer">
+                <div class="contact-box">
+                    <div class="left"></div>
+                    <div class="right">
+                        <h2>Dirección</h2>
+                      <form action="" method="POST" id="formregistro">
+                        <div class="form">
+                            
+                         
+                          <select name="languages" id="region-select" class="field">
+                              <option value=""> Selecciona tú región </option>
+                            </select>
+                            
+                            <select name="languages" id="comuna-select" class="field">
+                              <option value=""> Selecciona tú comuna </option>
+                            </select>
+                            <div id="seleccion"></div>
+                            <input type="text" name="" id="direccion" class="field" placeholder="Ingresa tu dirección">
+                            <button type="submit" class="ebtn">Continuar</button>
+                    </form>                                                                                             
+                    </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-1 col-xs-1"></div>
+        </div>
+        {% endblock productos %}
+
+        {% block js %}
+     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+         crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+         crossorigin="anonymous"></script>
+      <script src="../js/validacion_registro.js"></script>
+      {% endblock js %}

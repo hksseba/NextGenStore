@@ -56,6 +56,13 @@ def formDireccion(request):
     
     return redirect('PaginaPrincipal')
 
+def agregar(request):
+    listaCategorias = Categoria.objects.all()
+    contexto = {
+        "categorias": listaCategoria
+    }
+    return render(request, 'core/html/IngresarProducto.html', contexto)
+
 def ingresarProducto(request):
     vNombre = request.POST['nombreProducto']
     vDesc = request.POST['descProducto']
@@ -67,7 +74,7 @@ def ingresarProducto(request):
     vRegistroCategoria = Categoria.objects.get(categoria= vCategoria)
     Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, fotoProducto = vFoto, stock_producto = vStock, categoria = vCategoria),
     
-    return redirect('PovAdmin')
+    return redirect('agregar')
 
 def inicioSesion (request):
     lista = Usuario.objects.all()

@@ -16,7 +16,7 @@
     <div class="container">
         <div class="card bg-light mb-3">
             <div class="card-body">
-                <form action="" method="POST" id="formProducto">
+                <form action="{% url 'ingresarProducto' %}" method="POST" id="formProducto">
                   {% csrf_token %}
                     <form>
                     <h2>Ingrese un nuevo producto</h2>
@@ -27,7 +27,7 @@
                       </div>
                     <div class="form-group">
                     <p class="h5"> Nombre del producto</p>  
-                      <input type="text" minlength="10"  class="form-control" id="nombreProducto" name = "nombreProducto">
+                      <input type="text" minlength="10"  class="form-control" id="nombreProducto" name= "nombreProducto">
                     </div>
                     <div class="form-group">
                       <p class="h5"> Descripcion del producto</p>  

@@ -20,4 +20,6 @@ urlpatterns = [
     path('restablecercontra',RestablecerContrasena, name="restablecercontra"),
     path('usuario',Usuario, name="usuario"),
     path('formDireccion',formDireccion, name="formDireccion"),
+    path('agregar',agregar, name="agregar"),
+
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Producto
 # Create your views here.
 def agradecimiento(request):
     return render(request, 'core/html/Agradecimiento.html')
@@ -32,7 +32,11 @@ def PaginaPrincipal (request):
     return render(request,'core/html/PaginaPrincipal.html')
       
 def PovAdmin (request):
-    return render(request,'core/html/PovAdmin.html') 
+    lista = Producto.objects.all()
+    contexto = {
+        "productos": lista
+    }
+    return render(request,'core/html/PovAdmin.html', contexto) 
  
 def Producto1 (request):
     return render(request,'core/html/Producto1.html') 

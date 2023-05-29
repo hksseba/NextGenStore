@@ -43,9 +43,12 @@ def consolas (request):
     }
     return render(request, 'core/html/Consolas.html', contexto)
 
-def direccion(request): 
-    vRegion = request.POST['region-select']
-    vComuna = request.POST['comuna-select']
+def direccion (request):
+    
+    return render(request, 'core/html/direccion.html')
+
+def formDireccion(request): 
+    vComuna = request.POST['comuna']
     vDireccion = request.POST['direccion']
     vNumero= request.POST['numdireccion']
 

@@ -16,26 +16,7 @@ formulario.addEventListener("submit", function (event) {
   let msjMostrar="";
   let enviar = false;
 
-/*   if(correo.value == ""  ){
-    msjMostrar = msjMostrar + "<br>Ingresa un correo";
-    msj.innerHTML= msjMostrar;
-    enviar = true;
-}else{
-  msjMostrar = msjMostrar + "";
-  msj.innerHTML= msjMostrar;
 
-}
-  
-  if(clave.value == ""  ){
-    msjMostrar = msjMostrar + "<br>Ingresa una contraseña";
-    msj.innerHTML= msjMostrar;
-    enviar = true;  
-}else{
-  msjMostrar = msjMostrar + "";
-  msj.innerHTML= msjMostrar;
-  e.preventDefault();
-
-} */
 
   if (correo.value !== correo1){
     enviar = true;

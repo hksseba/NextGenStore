@@ -11,9 +11,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/Estilos.css">
-    <link rel="stylesheet" href="../css/Login.css">
-    <link rel="stylesheet" href="../css/Footer.css">
+    <link rel="stylesheet" href="{% static 'core/css/Estilos.css'%}">
+    <link rel="stylesheet" href="{% static 'core/css/Login.css'%}">
+    <link rel="stylesheet" href="{% static 'core/css/Footer.css'%}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -78,20 +78,20 @@
                     <div class="left"></div>
                     <div class="right">
                         <h2>Dirección</h2>
-                      <form action="" method="POST" id="formregistro">
+                      <form action="{% url 'formDireccion' %}" method="POST" id="formdireccion">
+                        {% csrf_token %}
                         <div class="form">
-                            
-                         
-                          <select name="languages" id="region-select" class="field">
+                               
+                          <select name="region" id="region-select" class="field">
                               <option value=""> Selecciona tú región </option>
                             </select>
                             
-                            <select name="languages" id="comuna-select" class="field">
+                            <select name="comuna" id="comuna-select" class="field">
                               <option value=""> Selecciona tú comuna </option>
                             </select>
                             <div id="seleccion"></div>
-                            <input type="text" name="" id="direccion" class="field" placeholder="Ingresa tu dirección">
-                            <input type="text" name="" id="numdireccion" class="field" placeholder="Ingrese numero de su hogar">
+                            <input type="text" name="direccion" id="direccion" class="field" placeholder="Ingresa tu dirección">
+                            <input type="text" name="numdireccion" id="numdireccion" class="field" placeholder="Ingrese numero de su hogar">
                             <button type="submit" class="ebtn">Continuar</button>
                     </form>                                                                                             
                     </div>

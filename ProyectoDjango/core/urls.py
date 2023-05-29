@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario
+from .views import agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario,formDireccion
 
 urlpatterns = [
     path('recibo', agradecimiento,name="recibo"),
@@ -19,4 +19,5 @@ urlpatterns = [
     path('registrousuario',RegistroUsuario, name="registrousuario"),
     path('restablecercontra',RestablecerContrasena, name="restablecercontra"),
     path('usuario',Usuario, name="usuario"),
+    path('formDireccion',formDireccion, name="formDireccion"),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Producto,Pedido,Usuario,Rol,Pregunta
+from .models import Producto,Pedido,Usuario,Direccion
 # Create your views here.
 def agradecimiento(request):    
     lista = Pedido.objects.all()
@@ -42,6 +42,16 @@ def consolas (request):
         "productos": lista
     }
     return render(request, 'core/html/Consolas.html', contexto)
+
+def direccion(request): 
+    vRegion = request.POST['region-select']
+    vComuna = request.POST['comuna-select']
+    vDireccion = request.POST['direccion']
+    vNumero= request.POST['numdireccion']
+
+    Direccion.objects.create(nombre_direccion = vDireccion, num_direccion = vNumero, comuna = vComuna)
+    
+    return redirect('PaginaPrincipal')
 
 def ingresarProducto(request):
     vId = request.POST['Id del producto']
@@ -104,7 +114,7 @@ def RegistroUsuario (request):
 
     Usuario.objects.create(id_usuario = vId, rut = vRut, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = vPregunta)
     
-    return redirect('ingresarproducto')
+    return redirect('direccion')
  
 def RestablecerContrasena (request):
     vClave = request.POST['contrasena']

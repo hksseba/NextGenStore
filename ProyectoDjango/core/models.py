@@ -49,7 +49,7 @@ class Producto (models.Model):
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.nombre_producto, self.desc_producto
+        return self.nombre_producto
 
 class Usuario (models.Model):
     id_usuario = models.AutoField(primary_key = True, verbose_name='Id del usuario')

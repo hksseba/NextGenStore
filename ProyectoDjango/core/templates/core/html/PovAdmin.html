@@ -27,13 +27,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                        {% for p in productos %}
                             <tr>
                                 <td class="col-md-6">
                                 <div class="media">
-                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ m.fotoProducto.url }}" style="width: 72px; height: 72px;"> </a>
+                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ p.foto_producto.url }}" style="width: 72px; height: 72px;" > </a>
                                     <div class="media-body">
                                         <h4 class="media-heading"><a href="#">{{p.nombre_producto}}</a></h4>
-                                        <h5 class="media-heading"> <a href="#">{{p.id_producto}}</a></h5>
+                                        <h5 class="media-heading"> <a href="#">Id:{{p.id_producto}}</a></h5>
                                         <span>Estado: </span><span class="text-danger"><strong>Sin Stock</strong></span>
                                     </div>
                                 </div></td>
@@ -49,6 +50,10 @@
                                     <button type="button" class="btn btn-info">
                                         <span class="glyphicon glyphicon-remove"></span> Editar
                                     </button></td> 
+                            </tr>
+
+                         {% endfor %}
+
                             <tr>
                                 <td>   </td>
                                 <td>   </td>
@@ -58,6 +63,7 @@
                                     Ingresar producto  <span class="glyphicon glyphicon-play"></span>
                                 </button></td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>

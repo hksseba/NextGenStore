@@ -57,15 +57,14 @@ def formDireccion(request):
     return redirect('PaginaPrincipal')
 
 def ingresarProducto(request):
-    vId = request.POST['Id del producto']
     vNombre = request.POST['nombreProducto']
-    vDesc = request.POST['Descripcion del producto']
-    vPrecio = request.POST['Precio']
-    vFoto = request.FILES['ejemplo_archivo_1']
-    vStock = request.POST['StockProducto']
+    vDesc = request.POST['descProducto']
+    vPrecio = request.POST['precioProdcto']
+    vFoto = request.FILES['fotoProducto']
+    vStock = request.POST['stockProducto']
 
-    vProducto = Producto.objects.get(codigo = vId)
-    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, fotoProducto = vFoto, stock_producto = vStock, id_producto = vProducto)
+   
+    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, fotoProducto = vFoto, stock_producto = vStock)
     
     return redirect('PovAdmin')
 

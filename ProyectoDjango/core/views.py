@@ -66,13 +66,13 @@ def ingresarProducto(request):
 def agregar (request):
     vNombre = request.POST['nombreProducto']
     vDesc = request.POST['descProducto']
-    vPrecio = request.POST['precioProdcto']
+    vPrecio = request.POST['precioProducto']
     vFoto = request.FILES['fotoProducto']
     vStock = request.POST['stockProducto']
     vCategoria = request.POST['categoriaProducto']
 
     vRegistroCategoria = Categoria.objects.get(id_categoria= vCategoria)
-    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, foto_producto = vFoto, stock_producto = vStock, categoria = vRegistroCategoria),
+    Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, foto_producto = vFoto, stock_producto = vStock, categoria = vRegistroCategoria)
     
     return redirect('ingresarProducto')
 

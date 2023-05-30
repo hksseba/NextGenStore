@@ -74,7 +74,7 @@ def agregar (request):
     vRegistroCategoria = Categoria.objects.get(id_categoria= vCategoria)
     Producto.objects.create(nombre_producto = vNombre, desc_producto = vDesc, precio_producto = vPrecio, foto_producto = vFoto, stock_producto = vStock, categoria = vRegistroCategoria),
     
-    return redirect('agregar')
+    return redirect('ingresarProducto')
 
 def inicioSesion (request):
     lista = Usuario.objects.all()

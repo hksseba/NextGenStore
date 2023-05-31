@@ -46,18 +46,13 @@ def consolas (request):
 def direccion (request):
     
     listaComunas = Comuna.objects.all()
+    listaRegiones = Region.objects.all()
     contexto = {
-        "comunas": listaComunas       
+        "comunas": listaComunas ,
+        "regiones": listaRegiones   
     }    
     return render(request, 'core/html/direccion.html', contexto)
 
-def region (request):
-    
-    listaRegiones = region.objects.all()
-    contexto = {
-        "comunas": listaRegiones      
-    }    
-    return render(request, 'core/html/direccion.html', contexto)
 
 def formDireccion(request): 
     vComuna = request.POST['comuna']

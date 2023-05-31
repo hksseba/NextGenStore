@@ -33,14 +33,14 @@
                         <div class="form">
                                
                           <select name="region" id="region-select" class="field">
-                            {% for r in region %}
-                              <option value="{{x.id_region}}"> {{x.nombre_region}} </option>
+                            {% for r in regiones %}
+                              <option value="{{x.id_region}}"> {{r.nombre_region}} </option>
                             {% endfor %}
                             </select>
                             
                             <select name="comuna" id="comuna-select" class="field">
-                              {% for x in comuna %}
-                              <option value="{{x.id_comuna}}"> {{x.nombre_comuna}} </option>
+                              {% for c in comunas %}
+                              <option value="{{x.id_comuna}}"> {{c.nombre_comuna}} </option>
                               {% endfor %}
                             </select>
                             <div id="seleccion"></div>

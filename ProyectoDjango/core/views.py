@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Producto,Pedido,Usuario,Direccion,Categoria, Comuna, Region
+from .models import Producto,Pedido,Usuario,Direccion,Categoria, Comuna, Region, Rol
 # Create your views here.
 def agradecimiento(request):    
     lista = Pedido.objects.all()
@@ -130,7 +130,8 @@ def RegistroUsuario (request):
     vRespuesta = request.POST['respuesta']
     vPregunta = request.Post['lang']
 
-    Usuario.objects.create(id_usuario = vId, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = vPregunta)
+    vRol = Rol.objects.get(id_rol = 1)
+    Usuario.objects.create(rol = vRol, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = vPregunta)
     
     return redirect('direccion')
  

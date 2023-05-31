@@ -32,13 +32,13 @@
                         {% csrf_token %}
                         <div class="form">
                                
-                          <select name="region" id="region-select" class="field">
+                          <select name="region" id="region" class="field">
                             {% for r in regiones %}
                               <option value="{{x.id_region}}"> {{r.nombre_region}} </option>
                             {% endfor %}
                             </select>
                             
-                            <select name="comuna" id="comuna-select" class="field">
+                            <select name="comuna" id="comuna" class="field">
                               {% for c in comunas %}
                               <option value="{{x.id_comuna}}"> {{c.nombre_comuna}} </option>
                               {% endfor %}
@@ -64,5 +64,5 @@
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
          integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
          crossorigin="anonymous"></script>
-      <script src="../js/validacion_registro.js"></script>
+     
       {% endblock js %}

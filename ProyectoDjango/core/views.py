@@ -55,11 +55,12 @@ def direccion (request):
 
 
 def formDireccion(request): 
+    
     vComuna = request.POST['comuna']
     vDireccion = request.POST['direccion']
     vNumero= request.POST['numdireccion']
-
-    Direccion.objects.create(nombre_direccion = vDireccion, num_direccion = vNumero, comuna = vComuna)
+    vRegistroComuna = Comuna.objects.get(id_comuna = vComuna)
+    Direccion.objects.create(comuna = vRegistroComuna ,nombre_direccion = vDireccion, num_direccion = vNumero)
     
     return redirect('PaginaPrincipal')
 

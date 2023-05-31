@@ -21,7 +21,7 @@
                     <div class="left"></div>
                     <div class="right">
                         <h2>Registro</h2>
-                      <form action="" method="POST" id="formregistro">
+                      <form action="{% url 'agregarusuario' %}" method="POST" id="formregistro">
                         {% csrf_token %}
                         <div class="form">
                         <input type="text" name="nombre" id="nombre" class="field" placeholder="Nombre">
@@ -31,11 +31,13 @@
                         <input type="password" name="" id="contrasena1" class="field" placeholder="Confirmar contraseña">
                         <input type="text" name="telefono" id="telefono" class="field" placeholder="Celular" minlength="9" maxlength="9">
                         <label for="lang">Seleccione la pregunta</label>
-										<select name="pregunta" id="lang" class="field">
-											<option value="1">¿Cómo se llamaba tu primera mascota?</option>
-											<option value="2">¿Nombre de tu primer amigo/a?</option>
-											<option value="3">¿Cual fue tu primer colegio?</option>
+                        
+										<select name="pregunta" id="lang" class="field">      
+                      {% for p in preguntas %} 
+                    <option value="{{p.id_pregunta}}"> {{p.nombre_pregunta}} </option>
+                      {% endfor %}             
 										</select>
+                    
 										<input type="text" name="respuesta" id="respuesta" class="field" placeholder="Ingresa tu respuesta">
                         <button type="submit" class="ebtn">Registrarse</button>
                         <p class="warnings" id="warnings"></p>

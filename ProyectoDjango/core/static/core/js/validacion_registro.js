@@ -2,157 +2,96 @@ var nombre = document.getElementById("nombre");
 var apellido = document.getElementById("apellido");
 var clave = document.getElementById("contrasena");
 var clave1 = document.getElementById("contrasena1");
-var correo = document.getElementById ("email");
+var correo = document.getElementById("email");
 var fono = document.getElementById("telefono");
+var resp = document.getElementById("respuesta");
 const formulario = document.getElementById("formregistro");
 var msj = document.getElementById("warnings");
 var tieneMinuscula = false;
 const pattern = /^(?=.*[a-z])(?=.*[A-Z])/
 const patternTel = /^[0-9]*$/;
 
-formulario.addEventListener('submit',e =>{
+formulario.addEventListener('submit', e => {
+  let msjMostrar = "";
+  let enviar = false;
 
-  
-    let msjMostrar = "";
-
+  if (
+    nombre.value.trim() === "" ||
+    apellido.value.trim() === "" ||
+    clave.value.trim() === "" ||
+    clave1.value.trim() === "" ||
+    correo.value.trim() === "" ||
+    fono.value.trim() === "" ||
+    resp.value.trim() === ""
     
-    
-    let enviar = false;
-    if(nombre.value.trim().length < 4 || nombre.value.trim().length > 20){
-        msjMostrar = msjMostrar + "<br>El nombre debe tener entre 4 y 20 caracteres.";
-        enviar = true;       
-    }
-
-    if(apellido.value.trim().length < 4 || apellido.value.trim().length > 20){
-      msjMostrar = msjMostrar + "<br>El apellido debe tener entre 4 y 20 caracteres.";
-      enviar = true;       
-  }
-    const regex = /^[a-zA-Z-á-é-í-ó-ú]*$/;
-
-    if(regex.test(nombre.value)){
-
-    }else{
-      msjMostrar = msjMostrar + "<br>El nombre no debe contener numeros";
-      msj.innerHTML = msjMostrar;
-      enviar = true;
-    }
- 
-    
-    if(regex.test(apellido.value)){
-
-    }else{
-      msjMostrar = msjMostrar + "<br>El apellido no debe contener numeros";
-      msj.innerHTML = msjMostrar;
-      enviar = true;
-    }
-
-    if(correo.value == ""  ){
-      msjMostrar = msjMostrar + "<br>Ingresa un correo";
-      msj.innerHTML= msjMostrar;
-      enviar = true;
-  }else{
-    msjMostrar = msjMostrar + "";
-    msj.innerHTML= msjMostrar;
-    e.preventDefault();
-  
-  }
-  if (validarCorreo(correo)){
+  ) {
+    msjMostrar = "Por favor, complete todos los campos.";
     enviar = true;
+  } else if (
+    (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) ||
+    (apellido.value.trim().length < 4 || apellido.value.trim().length > 20) ||
+    !nombre.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/) ||
+    !apellido.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/) ||
+    !validarCorreo(correo.value.trim()) ||
+    clave.value.length < 8 || clave.value.length > 25 ||
+    !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(clave.value) ||
+    !clave.value.match(pattern) ||
+    !/\d/.test(clave.value) ||
+    clave.value !== clave1.value ||
+    fono.value.charAt(0) !== "9" ||
+    fono.value.length !== 9 ||
+    !patternTel.test(fono.value.trim())
+  ) {
+    enviar = true;
+    if (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) {
+      msjMostrar += "<br>El nombre debe tener entre 4 y 20 caracteres.";
+    }
+    if (apellido.value.trim().length < 4 || apellido.value.trim().length > 20) {
+      msjMostrar += "<br>El apellido debe tener entre 4 y 20 caracteres.";
+    }
+    if (!nombre.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/)) {
+      msjMostrar += "<br>El nombre no debe contener números.";
+    }
+    if (!apellido.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/)) {
+      msjMostrar += "<br>El apellido no debe contener números.";
+    }
+    if (!validarCorreo(correo.value.trim())) {
+      msjMostrar += "<br>Ingresa un correo válido.";
+    }
+    if (clave.value.length < 8 || clave.value.length > 25) {
+      msjMostrar += "<br>La contraseña debe tener entre 8 y 25 caracteres.";
+    }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(clave.value)) {
+      msjMostrar += "<br>Agrega un carácter especial a la contraseña.";
+    }
+    if (!clave.value.match(pattern)) {
+      msjMostrar += "<br>La contraseña debe contener minúsculas y mayúsculas.";
+    }
+    if (!/\d/.test(clave.value)) {
+      msjMostrar += "<br>Ingresa al menos un número en la contraseña.";
+    }
+    if (clave.value !== clave1.value) {
+      msjMostrar += "<br>Las contraseñas no coinciden.";
+    }
+    if (fono.value.charAt(0) !== "9") {
+      msjMostrar += "<br>El primer número del teléfono debe ser 9.";
+    }
+    if (fono.value.length !== 9) {
+      msjMostrar += "<br>Ingresa un número de teléfono válido (9 dígitos).";
+    }
+  } else {
+    msjMostrar = "<br>Enviado correctamente.";
+    formulario.reset();
   }
-  
-  if(clave.value == ""  ){
-      msjMostrar = msjMostrar + "<br>Ingresa una contraseña";
-      msj.innerHTML= msjMostrar;
-      enviar = true;
-    }
-    if(fono.value == ""  ){
-      msjMostrar = msjMostrar + "<br>Ingresa un numero telefonico";
-      msj.innerHTML= msjMostrar;
-      enviar = true;
-    }
 
-  
+  msj.innerHTML = msjMostrar;
 
+  if (enviar) {
+    e.preventDefault();
+  }
+});
 
-        
-        // Verificar si la contraseña tiene al menos 8 caracteres
-        if (clave.value.length < 8 || clave.value.length > 25 ) {
-            msjMostrar = msjMostrar + "<br> La contraseña debe tener un minimo 8 caracteres y un maximo de 25 caracteres "
-            msj.innerHTML= msjMostrar;
-            enviar = true;
-        }
-      
-        // Verificar si la contraseña contiene un carácter especial
-        var caracteresEspeciales = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-        if (!caracteresEspeciales.test(clave.value)) {
-            msjMostrar = msjMostrar + "<br> Agrega un caracter especial"
-            msj.innerHTML= msjMostrar;
-            enviar = true;
-        }
-      
-        if(pattern.test(clave.value)){
-
-        }
-        else{msjMostrar = msjMostrar + "<br> La contraseña debe contener minusculas y mayusculas"
-        msj.innerHTML= msjMostrar;
-        enviar = true;
-        }
-
-        
-
-        // Verificar si la contraseña contiene números y no están seguidos
-        if (!/\d/.test(clave.value)) {
-            msjMostrar = msjMostrar + "<br> Ingresa algun numero en la clave"
-            msj.innerHTML= msjMostrar;
-            enviar = true;
-        }
-        if (clave.value !== clave1.value) {
-          msjMostrar = msjMostrar + "<br> Las contraseñas no coinciden."
-          msj.innerHTML= msjMostrar;
-          enviar = true;
-        }
-        
-          if (fono.value.charAt(0) !== "9") {
-            enviar = true;
-            msjMostrar = msjMostrar + "<br> El primer numero debe ser 9"
-            msj.innerHTML= msjMostrar;
-            enviar = true;
-          } 
-          if(patternTel.test(fono.value)){
-
-          }
-        
-          // Verificar si el número de teléfono tiene un máximo de 9 dígitos
-        if (fono.value.length !== 9) {
-            msjMostrar = msjMostrar + "<br> Ingresa un numero de telefono valido"
-            msj.innerHTML= msjMostrar;
-            enviar = true;
-          }
-          if (enviar == false){
-            msjMostrar = msjMostrar + "<br> enmviadooodoasodsaodas"
-            msj.innerHTML= msjMostrar;
-            window.location.href = "InicioSesion.html";   
-            formulario.reset();      
-          } 
-             
-    });
-
-    function esMayuscula(letra){
-        if(letra == letra.toUpperCase()){
-            return true;
-        }
-        else{
-            enviar = true;
-        }
-    }
-
-    function validarCorreo(correo) {
-      var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-      if (!regex.test(correo)) {
-        
-        return false;
-      }
-    
-      return true;
-    }
+function validarCorreo(correo) {
+  var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(correo);
+}

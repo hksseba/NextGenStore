@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Producto,Pedido,Usuario,Direccion,Categoria, Comuna, Region, Rol
+from .models import Producto,Pedido,Usuario,Direccion,Categoria, Comuna, Region, Rol, Pregunta
 # Create your views here.
 def agradecimiento(request):    
     lista = Pedido.objects.all()
@@ -60,7 +60,8 @@ def formDireccion(request):
     vDireccion = request.POST['direccion']
     vNumero= request.POST['numdireccion']
     vRegistroComuna = Comuna.objects.get(id_comuna = vComuna)
-    Direccion.objects.create(comuna = vRegistroComuna ,nombre_direccion = vDireccion, num_direccion = vNumero)
+    vUsuario = Usuario.objects.get(id_usuario = 5)
+    Direccion.objects.create(usuario = vUsuario, comuna = vRegistroComuna ,nombre_direccion = vDireccion, num_direccion = vNumero)
     
     return redirect('PaginaPrincipal')
 
@@ -120,18 +121,26 @@ def Producto1 (request):
     return render(request,'core/html/Producto1.html', contexto) 
 
 def RegistroUsuario (request):
-    vId = request.POST['Id del usuario']
+    listaxd = Pregunta.objects.all()
+    contexto = {
+        "preguntas": listaxd
+    }
+    return render(request,'core/html/RegistroUsuario.html',contexto)
     
+
+def agregarusuario (request):
     vNombre = request.POST['nombre']
     vApellido = request.POST['apellido']
     vTelefono = request.POST['telefono']
     vCorreo = request.POST['email']
     vClave = request.POST['contrasena']
     vRespuesta = request.POST['respuesta']
-    vPregunta = request.Post['lang']
+    vPregunta = request.POST['pregunta']
 
     vRol = Rol.objects.get(id_rol = 1)
-    Usuario.objects.create(rol = vRol, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = vPregunta)
+    Preguntaxd = Pregunta.objects.get(id_pregunta = vPregunta)
+
+    Usuario.objects.create(rol = vRol, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = Preguntaxd)
     
     return redirect('direccion')
  

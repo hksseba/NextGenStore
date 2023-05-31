@@ -16,7 +16,7 @@ $(document).ready(function () {
         precio < 1
       ) {
         if (nombreProducto == "") {
-          msjMostrar += "Debe ingresar el nombre del sexo ";
+          msjMostrar += "Debe ingresar el nombre del producto ";
         } else if (!pattern.test(nombreProducto)) {
           msjMostrar += "<br>El nombre no puede contener caracteres especiales";
         } else if (!esMayuscula(nombreProducto.trim().charAt(0))) {

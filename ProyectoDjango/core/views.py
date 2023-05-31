@@ -113,7 +113,7 @@ def Producto1 (request):
 
 def RegistroUsuario (request):
     vId = request.POST['Id del usuario']
-    vRut = request.POST['Rut del usuario']
+    
     vNombre = request.POST['nombre']
     vApellido = request.POST['apellido']
     vTelefono = request.POST['telefono']
@@ -122,7 +122,7 @@ def RegistroUsuario (request):
     vRespuesta = request.POST['respuesta']
     vPregunta = request.Post['lang']
 
-    Usuario.objects.create(id_usuario = vId, rut = vRut, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = vPregunta)
+    Usuario.objects.create(id_usuario = vId, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = vPregunta)
     
     return redirect('direccion')
  

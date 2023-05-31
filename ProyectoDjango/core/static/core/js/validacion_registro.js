@@ -23,17 +23,19 @@ formulario.addEventListener('submit', e => {
     correo.value.trim() === "" ||
     fono.value.trim() === "" ||
     resp.value.trim() === ""
-    
   ) {
     msjMostrar = "Por favor, complete todos los campos.";
     enviar = true;
   } else if (
-    (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) ||
-    (apellido.value.trim().length < 4 || apellido.value.trim().length > 20) ||
+    nombre.value.trim().length < 4 ||
+    nombre.value.trim().length > 20 ||
+    apellido.value.trim().length < 4 ||
+    apellido.value.trim().length > 20 ||
     !nombre.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/) ||
     !apellido.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/) ||
     !validarCorreo(correo.value.trim()) ||
-    clave.value.length < 8 || clave.value.length > 25 ||
+    clave.value.length < 8 ||
+    clave.value.length > 25 ||
     !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(clave.value) ||
     !clave.value.match(pattern) ||
     !/\d/.test(clave.value) ||

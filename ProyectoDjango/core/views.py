@@ -87,9 +87,9 @@ def agregar (request):
 def inicioSesion (request):
     lista = Usuario.objects.all()
     contexto = {
-        "Usuario": lista
+       "Usuario": lista
     }
-    return render(request,'core/html/InicioSesion.html', contexto) 
+    return render(request,'core/html/InicioSesion.html',contexto) 
 
 def olvidoClave (request):
     lista = Usuario.objects.all()
@@ -140,7 +140,7 @@ def RestablecerContrasena (request):
 
     return render(request,'core/html/RestablecerContrasena.html')
 
-def Usuario (request):      
+def Usuario1 (request):      
     lista = Usuario.objects.all()
     contexto = {
         "productos": lista

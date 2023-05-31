@@ -35,10 +35,10 @@
 
 	{% block productos %}
 
-	{% for _ in range(3) %}
+	{% for p in productos %}	
 		<div class="container mydiv">
 			<div class="row">
-				{% for p in productos %}
+				{% for i in range(3) %}
 					<div class="col-md-4">
 						<a href="{% url 'producto1'%}">
 							<div class="bbb_deals">
@@ -70,6 +70,6 @@
 			</div>
 		</div>
 	{% endfor %}
-	
+
 	{% endblock productos %}
 

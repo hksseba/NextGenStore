@@ -33,7 +33,9 @@
                         <div class="form">
                                
                           <select name="region" id="region-select" class="field">
-                              <option value=""> Selecciona tú región </option>
+                            {% for r in region %}
+                              <option value="{{x.id_region}}"> {{x.nombre_region}} </option>
+                            {% endfor %}
                             </select>
                             
                             <select name="comuna" id="comuna-select" class="field">

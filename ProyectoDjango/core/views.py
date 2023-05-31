@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Producto,Pedido,Usuario,Direccion,Categoria, Comuna
+from .models import Producto,Pedido,Usuario,Direccion,Categoria, Comuna, Region
 # Create your views here.
 def agradecimiento(request):    
     lista = Pedido.objects.all()
@@ -47,7 +47,15 @@ def direccion (request):
     
     listaComunas = Comuna.objects.all()
     contexto = {
-        "comunas": listaComunas
+        "comunas": listaComunas       
+    }    
+    return render(request, 'core/html/direccion.html', contexto)
+
+def region (request):
+    
+    listaRegiones = region.objects.all()
+    contexto = {
+        "comunas": listaRegiones      
     }    
     return render(request, 'core/html/direccion.html', contexto)
 

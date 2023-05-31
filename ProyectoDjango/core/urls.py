@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario,formDireccion
+from .views import agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario,formDireccion, region
 
 urlpatterns = [
     path('recibo', agradecimiento,name="recibo"),
@@ -10,6 +10,7 @@ urlpatterns = [
     path('computadores',computadores, name="computadores"),
     path('consolas',consolas, name="consolas"),
     path('direccion',direccion, name="direccion"),
+    path('region',region, name="region"),
     path('ingresarproducto', ingresarProducto, name="ingresarProducto"),
     path('iniciosesion',inicioSesion, name="iniciosesion"), 
     path('olvidoclave',olvidoClave, name="olvidoclave"),

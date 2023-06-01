@@ -14,7 +14,8 @@ $(document).ready(function () {
         !esMayuscula(nombreProducto.trim().charAt(0)) ||
         precio == "" ||
         precio < 1
-      ) {
+      )
+      {
         if (nombreProducto == "") {
           msjMostrar += "Debe ingresar el nombre del producto ";
         } else if (!pattern.test(nombreProducto)) {

@@ -44,7 +44,6 @@ def consolas (request):
     return render(request, 'core/html/Consolas.html', contexto)
 
 def direccion (request):
-    
     listaComunas = Comuna.objects.all()
     listaRegiones = Region.objects.all()
     contexto = {
@@ -142,12 +141,11 @@ def agregarusuario (request):
 
     Usuario.objects.create(rol = vRol, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = Preguntaxd)
     
-    return redirect('direccion')
+    return redirect('registrousuario')
  
 def RestablecerContrasena (request):
     vClave = request.POST['contrasena']
     Usuario.objects.create(clave_usuario = vClave)
-
     return render(request,'core/html/RestablecerContrasena.html')
 
 def Usuario1 (request):      

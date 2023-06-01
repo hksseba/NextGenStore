@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Producto,Pedido,Usuario,Direccion,Categoria, Comuna, Region, Rol, Pregunta
+from .models import *
 # Create your views here.
 def agradecimiento(request):    
     lista = Pedido.objects.all()

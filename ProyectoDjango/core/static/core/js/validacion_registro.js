@@ -1,20 +1,45 @@
-var nombre = document.getElementById("nombre");
-var apellido = document.getElementById("apellido");
-var clave = document.getElementById("contrasena");
-var clave1 = document.getElementById("contrasena1");
-var correo = document.getElementById("email");
-var fono = document.getElementById("telefono");
-var resp = document.getElementById("respuesta");
+// Variables para los elementos del formulario
+const nombre = document.getElementById("nombre");
+const apellido = document.getElementById("apellido");
+const clave = document.getElementById("contrasena");
+const clave1 = document.getElementById("contrasena1");
+const correo = document.getElementById("email");
+const fono = document.getElementById("telefono");
+const resp = document.getElementById("respuesta");
 const formulario = document.getElementById("formregistro");
-var msj = document.getElementById("warnings");
-var tieneMinuscula = false;
-const pattern = /^(?=.*[a-z])(?=.*[A-Z])/
-const patternTel = /^[0-9]*$/;
+const msj = document.getElementById("warnings");
 
-formulario.addEventListener('submit', e => {
-  let msjMostrar = "";
-  let enviar = false;
+// Expresiones regulares
+const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/;
+const patternTel = /^[0-9]{9}$/;
 
+// Función para validar el correo electrónico
+function validarCorreo(correo) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(correo);
+}
+
+// Función para mostrar mensajes de error
+function mostrarError(mensaje) {
+  msj.innerHTML = mensaje;
+}
+
+// Función para limpiar los mensajes de error
+function limpiarErrores() {
+  msj.innerHTML = "";
+}
+
+// Función para validar el formulario al enviarlo
+formulario.addEventListener('submit', function(e) {
+  e.preventDefault(); // Evitar el envío del formulario
+
+  // Limpiar mensajes de error previos
+  limpiarErrores();
+
+  // Bandera para indicar si hay errores
+  let hayErrores = false;
+
+  // Validar campos requeridos
   if (
     nombre.value.trim() === "" ||
     apellido.value.trim() === "" ||
@@ -23,75 +48,74 @@ formulario.addEventListener('submit', e => {
     correo.value.trim() === "" ||
     fono.value.trim() === "" ||
     resp.value.trim() === ""
-    
   ) {
-    msjMostrar = "Por favor, complete todos los campos.";
-    enviar = true;
-  } else if (
-    (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) ||
-    (apellido.value.trim().length < 4 || apellido.value.trim().length > 20) ||
-    !nombre.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/) ||
-    !apellido.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/) ||
-    !validarCorreo(correo.value.trim()) ||
-    clave.value.length < 8 || clave.value.length > 25 ||
-    !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(clave.value) ||
-    !clave.value.match(pattern) ||
-    !/\d/.test(clave.value) ||
-    clave.value !== clave1.value ||
-    fono.value.charAt(0) !== "9" ||
-    fono.value.length !== 9 ||
-    !patternTel.test(fono.value.trim())
-  ) {
-    enviar = true;
-    if (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) {
-      msjMostrar += "<br>El nombre debe tener entre 4 y 20 caracteres.";
-    }
-    if (apellido.value.trim().length < 4 || apellido.value.trim().length > 20) {
-      msjMostrar += "<br>El apellido debe tener entre 4 y 20 caracteres.";
-    }
-    if (!nombre.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/)) {
-      msjMostrar += "<br>El nombre no debe contener números.";
-    }
-    if (!apellido.value.trim().match(/^[a-zA-Z-á-é-í-ó-ú]*$/)) {
-      msjMostrar += "<br>El apellido no debe contener números.";
-    }
-    if (!validarCorreo(correo.value.trim())) {
-      msjMostrar += "<br>Ingresa un correo válido.";
-    }
-    if (clave.value.length < 8 || clave.value.length > 25) {
-      msjMostrar += "<br>La contraseña debe tener entre 8 y 25 caracteres.";
-    }
-    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(clave.value)) {
-      msjMostrar += "<br>Agrega un carácter especial a la contraseña.";
-    }
-    if (!clave.value.match(pattern)) {
-      msjMostrar += "<br>La contraseña debe contener minúsculas y mayúsculas.";
-    }
-    if (!/\d/.test(clave.value)) {
-      msjMostrar += "<br>Ingresa al menos un número en la contraseña.";
-    }
-    if (clave.value !== clave1.value) {
-      msjMostrar += "<br>Las contraseñas no coinciden.";
-    }
-    if (fono.value.charAt(0) !== "9") {
-      msjMostrar += "<br>El primer número del teléfono debe ser 9.";
-    }
-    if (fono.value.length !== 9) {
-      msjMostrar += "<br>Ingresa un número de teléfono válido (9 dígitos).";
-    }
-  } else {
-    msjMostrar = "<br>Enviado correctamente.";
+    mostrarError("Por favor, complete todos los campos.");
+    hayErrores = true;
+  }
+
+  // Validar longitud del nombre y apellido
+  if (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) {
+    mostrarError("El nombre debe tener entre 4 y 20 caracteres.");
+    hayErrores = true;
+  }
+
+  if (!nombre.value.trim().match(/^[a-zA-ZáéíóúÁÉÍÓÚ\s-]*$/)) {
+    mostrarError("El nombre no debe contener números ni caracteres especiales.");
+    hayErrores = true;
+  }
+
+  if (apellido.value.trim().length < 4 || apellido.value.trim().length > 20) {
+    mostrarError("El apellido debe tener entre 4 y 20 caracteres.");
+    hayErrores = true;
+  }
+
+  if (!apellido.value.trim().match(/^[a-zA-ZáéíóúÁÉÍÓÚ\s-]*$/)) {
+    mostrarError("El apellido no debe contener números ni caracteres especiales.");
+    hayErrores = true;
+  }
+
+  // Validar formato de correo electrónico
+  if (!validarCorreo(correo.value.trim())) {
+    mostrarError("Ingresa un correo válido.");
+    hayErrores = true;
+  }
+
+  // Validar longitud y formato de contraseña
+  if (clave.value.length < 8 || clave.value.length > 25) {
+    mostrarError("La contraseña debe tener entre 8 y 25 caracteres.");
+    hayErrores = true;
+  }
+
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(clave.value)) {
+    mostrarError("Agrega un carácter especial a la contraseña.");
+    hayErrores = true;
+  }
+
+  if (!clave.value.match(pattern)) {
+    mostrarError("La contraseña debe contener minúsculas, mayúsculas, números y caracteres especiales.");
+    hayErrores = true;
+  }
+
+  if (!/\d/.test(clave.value)) {
+    mostrarError("Ingresa al menos un número en la contraseña.");
+    hayErrores = true;
+  }
+
+  // Validar coincidencia de contraseñas
+  if (clave.value !== clave1.value) {
+    mostrarError("Las contraseñas no coinciden.");
+    hayErrores = true;
+  }
+
+  // Validar número de teléfono
+  if (!fono.value.startsWith("9") || !patternTel.test(fono.value)) {
+    mostrarError("Ingresa un número de teléfono válido (9 dígitos) que comience con 9.");
+    hayErrores = true;
+  }
+
+  // Si no hay errores, mostrar mensaje de éxito y reiniciar el formulario
+  if (!hayErrores) {
+    mostrarError("Enviado correctamente.");
     formulario.reset();
   }
-
-  msj.innerHTML = msjMostrar;
-
-  if (enviar) {
-    e.preventDefault();
-  }
 });
-
-function validarCorreo(correo) {
-  var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(correo);
-}

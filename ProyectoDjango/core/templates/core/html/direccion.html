@@ -31,16 +31,16 @@
                       <form action="{% url 'formDireccion' %}" method="POST" id="formdireccion">
                         {% csrf_token %}
                         <div class="form">
-                               
+                          <input type="hidden" name="id_usuario" value="{{ id_usuario }}">      
                           <select name="region" id="region" class="field">
                             {% for r in regiones %}
-                              <option value="{{x.id_region}}"> {{r.nombre_region}} </option>
+                              <option value="{{r.id_region}}"> {{r.nombre_region}} </option>
                             {% endfor %}
                             </select>
                             
                             <select name="comuna" id="comuna" class="field">
                               {% for c in comunas %}
-                              <option value="{{x.id_comuna}}"> {{c.nombre_comuna}} </option>
+                              <option value="{{c.id_comuna}}"> {{c.nombre_comuna}} </option>
                               {% endfor %}
                             </select>
                             <div id="seleccion"></div>

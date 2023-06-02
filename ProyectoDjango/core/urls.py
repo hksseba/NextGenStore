@@ -9,7 +9,7 @@ urlpatterns = [
     path('celulares',celulares, name="celulares"),
     path('computadores',computadores, name="computadores"),
     path('consolas',consolas, name="consolas"),
-    path('direccion',direccion, name="direccion"),
+    path('direccion/<int:id_usuario>/',direccion, name="direccion"),
     path('ingresarproducto', ingresarProducto, name="ingresarProducto"),
     path('iniciosesion',inicioSesion, name="iniciosesion"), 
     path('olvidoclave',olvidoClave, name="olvidoclave"),
@@ -19,7 +19,7 @@ urlpatterns = [
     path('registrousuario',RegistroUsuario, name="registrousuario"),
     path('restablecercontra',RestablecerContrasena, name="restablecercontra"),
     path('usuario',Usuario1, name="usuario"),
-   path('formDireccion/<int:user_id>/', formDireccion, name='ingresar direccion'),
+   path('formDireccion', formDireccion, name='formDireccion'),
     path('agregar',agregar, name="agregar"),
     path('agregarusuario',agregarusuario, name="agregarusuario"),
 

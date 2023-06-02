@@ -43,30 +43,31 @@ def consolas (request):
     }
     return render(request, 'core/html/Consolas.html', contexto)
 
-def direccion (request):
-    
+def direccion(request, id_usuario):
     listaComunas = Comuna.objects.all()
     listaRegiones = Region.objects.all()
     contexto = {
-        "comunas": listaComunas ,
-        "regiones": listaRegiones   
-    }    
+        "comunas": listaComunas,
+        "regiones": listaRegiones,
+        "id_usuario": id_usuario
+    }
     return render(request, 'core/html/direccion.html', contexto)
 
 
-def formDireccion(request, user_id):
+def formDireccion(request):
+    
     vComuna = request.POST['comuna']
     vDireccion = request.POST['direccion']
     vNumero = request.POST['numdireccion']
-    vRegistroComuna = Comuna.objects.get(id_comuna=vComuna)
+    vRegistroComuna = Comuna.objects.get(id_comuna = vComuna)
+  
  
-    usuario = Usuario.objects.get(id_usuario=user_id)
-    usuario.direccion = vDireccion
-    usuario.save()
+    usuario1 = Usuario.objects.get(id_usuario=request.POST['id_usuario'])
     
-    Direccion.objects.create(usuario=usuario, comuna=vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
+    Direccion.objects.create(usuario=usuario1,comuna =vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
     
-    return redirect('PaginaPrincipal')
+    return redirect('paginaprincipal')
+
 
 
 def ingresarProducto(request):
@@ -132,7 +133,7 @@ def RegistroUsuario (request):
     return render(request,'core/html/RegistroUsuario.html',contexto)
     
 
-def agregarusuario (request):
+def agregarusuario(request):
     vNombre = request.POST['nombre']
     vApellido = request.POST['apellido']
     vTelefono = request.POST['telefono']
@@ -140,13 +141,15 @@ def agregarusuario (request):
     vClave = request.POST['contrasena']
     vRespuesta = request.POST['respuesta']
     vPregunta = request.POST['pregunta']
-    user_id = request.POST.get('user_id')
-    vRol = Rol.objects.get(id_rol = 1)
-    Preguntaxd = Pregunta.objects.get(id_pregunta = vPregunta)
-
-    Usuario.objects.create(rol = vRol, nombre_usuario = vNombre, apellido_usuario = vApellido, telefono_usuario = vTelefono, correo_usuario = vCorreo, clave_usuario = vClave, respuesta_usuario = vRespuesta, pregunta = Preguntaxd)
     
-    return redirect('ingresar_direccion', user_id=user_id)
+    vRol = Rol.objects.get(id_rol=1)
+    Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
+
+    usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
+    
+    return redirect('direccion', id_usuario=usuario.id_usuario)
+
+
  
 def RestablecerContrasena (request):
     vClave = request.POST['contrasena']

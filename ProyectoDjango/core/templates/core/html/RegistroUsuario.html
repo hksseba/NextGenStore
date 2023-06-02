@@ -24,6 +24,7 @@
                       <form action="{% url 'agregarusuario' %}" method="POST" id="formregistro">
                         {% csrf_token %}
                         <div class="form">
+                          <input type="hidden" name="user_id" value="{{ user_id }}">
                         <input type="text" name="nombre" id="nombre" class="field" placeholder="Nombre">
                         <input type="text" name="apellido" id="apellido" class="field" placeholder="Apellido">
                         <input type="email" name="email" id="email" class="field" placeholder="Correo">

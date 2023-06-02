@@ -19,7 +19,7 @@ urlpatterns = [
     path('registrousuario',RegistroUsuario, name="registrousuario"),
     path('restablecercontra',RestablecerContrasena, name="restablecercontra"),
     path('usuario',Usuario1, name="usuario"),
-    path('formDireccion',formDireccion, name="formDireccion"),
+   path('formDireccion/<int:user_id>/', formDireccion, name='ingresar direccion'),
     path('agregar',agregar, name="agregar"),
     path('agregarusuario',agregarusuario, name="agregarusuario"),
 

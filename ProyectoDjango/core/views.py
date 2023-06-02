@@ -90,6 +90,40 @@ def agregar (request):
     
     return redirect('ingresarProducto')
 
+def modificar(request, id_producto):
+    categorias = Categoria.objects.all()
+    productos = Producto.objects.get(id_producto = id_producto)
+    contexto = {
+        "categorias": categorias,
+        "productos": productos
+    }
+    return render(request,'core/html/ModificarProducto.html',contexto)
+
+def modificarProducto(request):
+    vIdproducto = request.POST['id_producto']
+    vNombre = request.POST['nombreProducto']
+    vDesc = request.POST['descProducto']
+    vPrecio = request.POST['precioProducto']
+    vStock = request.POST['stockProducto']
+    vCategoria = request.POST['categoriaProducto']
+
+    producto = Producto.objects.get(id_producto = vIdproducto)
+    producto.nombre_producto = vNombre
+    producto.desc_producto = vDesc
+    producto.precio_producto = vPrecio
+    producto.stock_producto = vStock
+    
+    categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
+    producto.categoria = categoriaProducto
+
+    producto.save()
+    return redirect('PovAdmin')
+
+def eliminarProducto(request,id):
+    Productos = Producto.objects.get(id_producto = id)
+    Productos.delete()
+    return redirect('PovAdmin')
+
 def inicioSesion (request):
     lista = Usuario.objects.all()
     contexto = {

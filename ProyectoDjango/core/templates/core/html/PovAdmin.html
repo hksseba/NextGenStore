@@ -43,13 +43,13 @@
                                 <td class="col-md-1 text-center"><strong>{{p.categoria}}</strong></td>
 
                                 <td class="col-md-1">
-                                <button type="button" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-remove"></span> Remover
-                                </button></td> 
+                                <a href="{% url 'eliminarProducto' p.id_producto %}"><button type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"></span> Remover
+                                </button></a></td> 
                                 <td class="col-md-1">
-                                    <button type="button" class="btn btn-info">
+                                    <a href="{% url 'modificar' p.id_producto %}"><button type="button" class="btn btn-info">
                                         <span class="glyphicon glyphicon-remove"></span> Editar
-                                    </button></td> 
+                                    </button></a></td> 
                             </tr>
 
                          {% endfor %}
@@ -59,9 +59,9 @@
                                 <td>   </td>
                                 <td>   </td>
                                 <td>
-                                <button type="button" class="btn btn-success">
+                                <a href="{% url 'ingresarProducto'%}"><button  ype="button" class="btn btn-success">
                                     Ingresar producto  <span class="glyphicon glyphicon-play"></span>
-                                </button></td>
+                                </button></a></td>
                             </tr>
 
                         </tbody>

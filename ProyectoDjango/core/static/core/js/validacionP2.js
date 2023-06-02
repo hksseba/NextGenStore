@@ -8,28 +8,33 @@ $(document).ready(function () {
       let enviar = false;
       const pattern = /^[a-zA-Z0-9-á-é-í-ó-ú ]*$/;
   
-      if (
-        nombreProducto == "" ||
-        !pattern.test(nombreProducto) ||
-        !esMayuscula(nombreProducto.trim().charAt(0)) ||
-        precio == "" ||
-        precio < 1
-      ) {
-        if (nombreProducto == "") {
-          msjMostrar += "Debe ingresar el nombre del producto ";
-        } else if (!pattern.test(nombreProducto)) {
-          msjMostrar += "<br>El nombre no puede contener caracteres especiales";
-        } else if (!esMayuscula(nombreProducto.trim().charAt(0))) {
-          msjMostrar += "<br>El nombre debe comenzar con mayúscula";
-        }
-  
+        if (
+            nombreProducto == ""){
+            msjMostrar += "Debe ingresar el nombre del producto ";  
+            enviar = true;
+            }
+
+        if (!pattern.test(nombreProducto)){
+            msjMostrar += "<br>El nombre no puede contener caracteres especiales";
+            enviar = true;
+           }
+           
+        if (!esMayuscula(nombreProducto.trim().charAt(0))  ){
+            msjMostrar += "<br>El nombre debe comenzar con mayúscula";
+            enviar = true
+           }
+
         if (precio == "" || precio < 1) {
           msjMostrar += "<br>Debe ingresar el precio del producto ";
+          enviar = true;
+        }
+        
+        if (stock == "" || stock < 1) {
+          msjMostrar += "<br>Debe ingresar el stock del producto ";
+          enviar = true;
         }
   
-        enviar = true;
-      }
-  
+
       if (enviar) {
         $("#warnings").html(msjMostrar);
         e.preventDefault();

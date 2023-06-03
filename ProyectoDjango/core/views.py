@@ -24,22 +24,28 @@ def carrito (request):
 
 def celulares (request):
     lista = Producto.objects.all()
+    listaCategoria = Categoria.objects.all()
     contexto = {
-        "productos": lista
+        "productos": lista,
+        "categorias": listaCategoria
     }
     return render(request,'core/html/Celulares.html', contexto) 
 
 def computadores (request):
     lista = Producto.objects.all()
+    listaCategoria = Categoria.objects.all()
     contexto = {
-        "productos": lista
+        "productos": lista,
+        "categorias": listaCategoria
     }
     return render(request, 'core/html/Computadores.html', contexto)
 
 def consolas (request):
     lista = Producto.objects.all()
+    listaCategoria = Categoria.objects.all()
     contexto = {
-        "productos": lista
+        "productos": lista,
+        "categorias": listaCategoria
     }
     return render(request, 'core/html/Consolas.html', contexto)
 

@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import *
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import authenticate,login, logout
+from django.contrib import messages
+
 # Create your views here.
 def agradecimiento(request):    
     lista = Pedido.objects.all()
@@ -72,7 +77,7 @@ def formDireccion(request):
     
     Direccion.objects.create(usuario=usuario1,comuna =vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
     
-    return redirect('paginaprincipal')
+    return redirect('iniciosesion')
 
 
 
@@ -137,6 +142,8 @@ def inicioSesion (request):
     }
     return render(request,'core/html/InicioSesion.html',contexto) 
 
+	
+
 def olvidoClave (request):
     lista = Usuario.objects.all()
     contexto = {
@@ -184,12 +191,43 @@ def agregarusuario(request):
     
     vRol = Rol.objects.get(id_rol=1)
     Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
-
+    PreguntaN = Pregunta.objects.all()
+    if Usuario.objects.filter(correo_usuario=vCorreo).exists():
+            # El correo electrónico ya está en uso, realiza una acción apropiada (por ejemplo, mostrar un mensaje de error)
+             return render(request, 'core/html/RegistroUsuario.html', { 'nombre': vNombre, 'apellido': vApellido, 'telefono': vTelefono,  'respuesta': vRespuesta, 'pregunta': PreguntaN})
+  
     usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
-    
+    user = User.objects.create_user(username = vCorreo, first_name =vNombre ,email = vCorreo, last_name = vApellido, password =vClave )
+
     return redirect('direccion', id_usuario=usuario.id_usuario)
 
+def iniciar_sesion(request):
+	correo1 = request.POST['email']
+	contra1 = request.POST['contra']
+	try:
+		user1 = User.objects.get(username = correo1)
+	except User.DoesNotExist:
+		messages.error(request,'El correo la contraseña son incorrectos')
+		return redirect('iniciosesion')
 
+	pass_valida = check_password(contra1, user1.password)
+	if not pass_valida:
+		messages.error(request,'El correo o la contraseña son incorrectos')
+		return redirect('iniciosesion')
+	usuario2 = Usuario.objects.get(correo_usuario = correo1, clave_usuario = contra1)
+	user = authenticate(username=correo1, password=contra1)
+	if user is not None:
+		login(request, user)
+		if(usuario2.rol.id_rol == 1):
+			return redirect ('PovAdmin')
+		else:
+			contexto = {"usuario":usuario2}
+			
+			return render(request,'core/html/PaginaPrincipal.html', contexto)
+	else: 
+            return redirect( 'iniciosesion') 
+            
+             
  
 def RestablecerContrasena (request):
     vClave = request.POST['contrasena']
@@ -202,5 +240,14 @@ def Usuario1 (request):
     contexto = {
         "productos": lista
     }
-    return render(request,'core/html/Usuario.html', contexto)
+    
+    if rol_usuario == 1:
+        # Renderizar una plantilla específica para el rol 1
+        return render(request, 'plantilla_rol1.html', contexto)
+    elif rol_usuario == 2:
+        # Renderizar una plantilla específica para el rol 2 (admin)
+        return render(request, 'plantilla_admin.html', contexto)
+    
+
+    
 

@@ -32,15 +32,15 @@
 								<form action="" method="POST" id="formrPregunta">
 									{% csrf_token %}
 									<div class="form">
-										<input type="text" name="" id="email" class="field" placeholder="Correo">
+										<input type="text" name="email" id="email" class="field" placeholder="Correo">
 										<label for="lang">Seleccione la pregunta</label>
-										<select name="languages" id="lang" class="field">
-											<option value="1">¿Cómo se llamaba tu primera mascota?</option>
-											<option value="2">¿Nombre de tu primer amigo/a?</option>
-											<option value="3">¿Cual fue tu primer colegio?</option>
+										<select name="pregunta" id="lang" class="field">      
+											{% for p in preguntas %} 
+										  		<option value="{{p.id_pregunta}}"> {{p.nombre_pregunta}} </option>
+											{% endfor %}             
 										</select>
 										<p>Ingrese la respuesta</p>
-										<input type="text" name="" id="respuesta" class="field" placeholder="Respuesta">
+										<input type="text" name="respuesta" id="respuesta" class="field" placeholder="Respuesta">
 										<button type="submit" class="ebtn">Aceptar</button>
 										<p class="warnings" id="warnings"></p>
 									</div>

@@ -146,10 +146,26 @@ def inicioSesion (request):
 
 def olvidoClave (request):
     lista = Usuario.objects.all()
+    listap = Pregunta.objects.all()
     contexto = {
-        "Usuario": lista
+        "usuario": lista,
+        "preguntas": listap
     }
     return render(request,'core/html/olvidoClave.html', contexto)
+
+def comprobarOlvidoClave(request):
+    vCorreo = request.POST['email']
+    vRespuesta = request.POST['respuesta']
+    vPregunta = request.POST['pregunta']
+
+    Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
+    PreguntaN = Pregunta.objects.all()
+    user = Usuario.objects.all()
+    if vCorreo == user.correo_usuario and   Preguntaxd == user.pregunta and vRespuesta == user.respuesta_usuario:
+        return render(request,'core/html/RestablecerContrasena.html')
+    else:
+        return redirect('olvidoclave')
+
 
 def PaginaPrincipal (request):
     lista = Producto.objects.all()
@@ -218,14 +234,13 @@ def iniciar_sesion(request):
 	user = authenticate(username=correo1, password=contra1)
 	if user is not None:
 		login(request, user)
-		if(usuario2.rol.id_rol == 1):
+		if(usuario2.rol.id_rol == 2):
 			return redirect ('PovAdmin')
 		else:
 			contexto = {"usuario":usuario2}
-			
 			return render(request,'core/html/PaginaPrincipal.html', contexto)
 	else: 
-            return redirect( 'iniciosesion') 
+            return redirect('iniciosesion') 
             
              
  

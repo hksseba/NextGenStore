@@ -6,23 +6,20 @@
 	{% endblock titulo %}
 
 	{% block imagenP %}
-	<img src="{% static 'core/img/producto1.jfif' %}" alt="Producto 1">
+	{% for p in productos %}
+	<img class="media-object" src="{{ p.foto_producto.url }}" style="width: 200px; height: 300px;" >
 	{% endblock imagenP %}
 
 	{% block nombreP %}
-	<h1>Vivo Y21s Midnight Blue</h1>
+	<h1>{{p.nombre_producto}}</h1>
 	{% endblock nombreP %}					
 
 	{% block precio-estrellas %}
-	<h5 class="precio">$169.990</h5>
-	<div class="sold_stars ml-auto"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+	<h5 class="precio">${{p.precio_producto}}</h5>
+	<div class="sold_stars ml-auto">{{p.stock_producto}}</div>
 	{% endblock precio-estrellas %}
 
 	{% block especificacionesP %}
-	<h3>Especificaciones técnicas</h3>
-	<p>Memoria interna: 128GB</p>
-	<p>GPS integrado: No</p>
-	<p>Temporada: Toda temporada</p>
-	<p>Profundidad: 8</p>
-	<p>Peso: 182 gramos</p>	
+	<h3>{{p.desc_producto}}</h3>
+	{% endfor %}
 	{% endblock especificacionesP %}

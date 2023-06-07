@@ -211,8 +211,12 @@ def agregarusuario(request):
     vClave = request.POST['contrasena']
     vRespuesta = request.POST['respuesta']
     vPregunta = request.POST['pregunta']
+
+    if vCorreo.endswith('@NextGenStore.cl'):
+        vRol = Rol.objects.get(id_rol=2)
+    else:
+        vRol = Rol.objects.get(id_rol=1)
     
-    vRol = Rol.objects.get(id_rol=1)
     Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
     PreguntaN = Pregunta.objects.all()
     if Usuario.objects.filter(correo_usuario=vCorreo).exists():

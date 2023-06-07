@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def agradecimiento(request):    
@@ -250,6 +251,7 @@ def RestablecerContrasena (request):
 
     return render(request,'core/html/RestablecerContrasena.html')
 
+@login_required
 def Usuario1(request):    
     
     usuario = Usuario.objects.get(correo_usuario = request.user.email)
@@ -258,6 +260,6 @@ def Usuario1(request):
     
 def cerrar_sesion(request):
     logout(request)
-    redirect('inicioSesion')
+    return redirect('iniciosesion')
     
 

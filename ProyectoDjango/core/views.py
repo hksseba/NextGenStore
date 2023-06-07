@@ -29,13 +29,17 @@ def carrito (request):
     return render(request,'core/html/Carrito.html',contexto)  
 
 def celulares (request):
-    lista = Producto.objects.all()
     listaCategoria = Categoria.objects.all()
-    contexto = {
-        "productos": lista,
-        "categorias": listaCategoria
-    }
-    return render(request,'core/html/Celulares.html', contexto) 
+    lista = Producto.objects.all()
+    if listaCategoria.id_categoria == 1:
+        
+        contexto = {
+            "productos": lista,
+            "categorias": listaCategoria
+        }
+        return render(request,'core/html/Celulares.html', contexto) 
+    else:
+        return render(request,'core/html/Celulares.html')
 
 def computadores (request):
     lista = Producto.objects.all()
@@ -175,7 +179,7 @@ def PaginaPrincipal(request):
         "user": request.user
     }
     return render(request, 'core/html/PaginaPrincipal.html', contexto)
-      
+
 def PovAdmin (request):
     lista = Producto.objects.all()
     contexto = {
@@ -183,10 +187,11 @@ def PovAdmin (request):
     }
     return render(request,'core/html/PovAdmin.html', contexto) 
  
-def Producto1 (request):
-    lista = Producto.objects.all()
+def Producto1 (request, id):
+    producto = Producto.objects.get(id_producto=id)
+    
     contexto = {
-        "productos": lista
+        "p": producto
     }
     return render(request,'core/html/Producto1.html', contexto) 
 
@@ -257,6 +262,36 @@ def Usuario1(request):
     usuario = Usuario.objects.get(correo_usuario = request.user.email)
     direcciones = Direccion.objects.get(usuario = usuario)
     return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones})
+
+def modificarUsuario(request, id_producto):
+    categorias = Categoria.objects.all()
+    productos = Producto.objects.get(id_producto = id_producto)
+    contexto = {
+        "categorias": categorias,
+        "productos": productos
+    }
+    return render(request,'core/html/ModificarProducto.html',contexto)
+
+def modificarUsuario1(request):
+    vIdproducto = request.POST['id_producto']
+    vNombre = request.POST['nombreProducto']
+    vDesc = request.POST['descProducto']
+    vPrecio = request.POST['precioProducto']
+    vStock = request.POST['stockProducto']
+    vCategoria = request.POST['categoriaProducto']
+
+    producto = Producto.objects.get(id_producto = vIdproducto)
+    producto.nombre_producto = vNombre
+    producto.desc_producto = vDesc
+    producto.precio_producto = vPrecio
+    producto.stock_producto = vStock
+    
+    categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
+    producto.categoria = categoriaProducto
+
+    producto.save()
+    return redirect('PovAdmin')
+
     
 def cerrar_sesion(request):
     logout(request)

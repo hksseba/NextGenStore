@@ -1,4 +1,4 @@
-s{% extends 'core/html/PlantillaGeneral.html' %}
+{% extends 'core/html/PlantillaGeneral.html' %}
 
 	{% load static %}
 
@@ -9,10 +9,9 @@ s{% extends 'core/html/PlantillaGeneral.html' %}
 	{% block links %}
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'core/css/Estilos.css'%}">
-	<link rel="stylesheet" type="text/css" href="{% static 'core/css/EstiloBuscador.css'%}">
-	<link rel="stylesheet" type="text/css" href="{% static 'core/css/Footer.css'%}">
+	<link rel="stylesheet" href="{% static 'core/css/Footer.css'%}">
+	<link rel="stylesheet" href="{% static 'core/css/cardp.css'%}">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="{% static 'core/css/cardp.css'%}">
 	{% endblock links %}
 
 
@@ -26,7 +25,7 @@ s{% extends 'core/html/PlantillaGeneral.html' %}
 			<div class="vertical-menu">
 				<a href="{% url 'productos'%}">Varios</a>
 				<a href="{% url 'computadores'%}">Computadores</a>
-				<a href="{% url 'celulares'%}">Celulares</a>
+				<a href="{% url 'celulares'%}" >Celulares</a>
 				<a href="{% url 'consolas'%}" class="active">Consolas</a>
 			</div>
 		</div>
@@ -34,39 +33,42 @@ s{% extends 'core/html/PlantillaGeneral.html' %}
 	{% endblock banner %}
 
 	{% block productos %}
+
+
 		<div class="container mydiv">
 			<div class="row">
-				{% for p in productos %}
-					{% if categoria.id_categoria == 1 %}	
-						<div class="col-md-4" style="padding-bottom: 20px;">
-							<a href="{% url 'producto1'%}">
-								<div class="bbb_deals">
-									<div class="bbb_deals_slider_container">
-										<div class=" bbb_deals_item">
-											<div class="bbb_deals_image"><img  src="{{ p.foto_producto.url }}" style="width: 300px; height: 300px;" ></div>
-											<div class="bbb_deals_content">
-												<div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-													<div class="bbb_deals_item_category"><a>{{p.categoria}}</a></div>
+				{% for p in productos %}	
+					<div class="col-md-4" style="padding-bottom: 20px;">
+						<a href="{% url 'producto1' p.id_producto %}">
+							<div class="bbb_deals">
+								<div class="bbb_deals_slider_container">
+									<div class=" bbb_deals_item">
+										<div class="bbb_deals_image"><img  src="{{ p.foto_producto.url }}" style="width: 300px; height: 300px;" ></div>
+										<div class="bbb_deals_content">
+											<div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+												<input type="hidden" name="id_producto" value="{{ p.id_producto }}">
+												<div class="bbb_deals_item_category"><a>{{p.categoria}}</a></div>
+											</div>
+											<div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+												<div class="bbb_deals_item_name">{{p.nombre_producto}}</div>
+												<div class="bbb_deals_item_price ml-auto">${{p.precio_producto}}</div>
+											</div>
+											<div class="available">
+												<div class="available_line d-flex flex-row justify-content-start">
+													<div class="available_title">Disponible:<span>{{p.stock_producto}}</span></div>
 												</div>
-												<div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-													<div class="bbb_deals_item_name">{{p.nombre_producto}}</div>
-													<div class="bbb_deals_item_price ml-auto">{{p.precio_producto}}</div>
-												</div>
-												<div class="available">
-													<div class="available_line d-flex flex-row justify-content-start">
-														<div class="available_title">Disponible:<span>{{p.stock_producto}}</span></div>
-														<div class="sold_stars ml-auto"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
-													</div>
-													<div class="available_bar"><span style="width:17%"></span></div>
-												</div>
+												<div class="available_bar"><span style="width:17%"></span></div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</a>
-						</div>
-					{% endif %}
+							</div>
+						</a>
+					</div>	
 				{% endfor %}
 			</div>
 		</div>
+
+
 	{% endblock productos %}
+

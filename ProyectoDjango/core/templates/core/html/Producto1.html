@@ -6,8 +6,8 @@
 	{% endblock titulo %}
 
 	{% block imagenP %}
-	{% for p in productos %}
-	<img class="media-object" src="{{ p.foto_producto.url }}" style="width: 200px; height: 300px;" >
+	<input type="hidden" name="id_producto" value="{{ p.id_producto }}">
+	<img class="media-object" src="{{ p.foto_producto.url }}" style="width: 350px; height: 400px;" >
 	{% endblock imagenP %}
 
 	{% block nombreP %}
@@ -16,10 +16,9 @@
 
 	{% block precio-estrellas %}
 	<h5 class="precio">${{p.precio_producto}}</h5>
-	<div class="sold_stars ml-auto">{{p.stock_producto}}</div>
+	<h6>Stock: {{p.stock_producto}}</h6>
 	{% endblock precio-estrellas %}
 
 	{% block especificacionesP %}
 	<h3>{{p.desc_producto}}</h3>
-	{% endfor %}
 	{% endblock especificacionesP %}

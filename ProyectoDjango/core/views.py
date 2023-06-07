@@ -167,12 +167,13 @@ def comprobarOlvidoClave(request):
         return redirect('olvidoclave')
 
 
-def PaginaPrincipal (request):
+def PaginaPrincipal(request):
     lista = Producto.objects.all()
     contexto = {
-        "productos": lista
+        "productos": lista,
+        "user": request.user
     }
-    return render(request,'core/html/PaginaPrincipal.html', contexto)
+    return render(request, 'core/html/PaginaPrincipal.html', contexto)
       
 def PovAdmin (request):
     lista = Producto.objects.all()
@@ -237,8 +238,7 @@ def iniciar_sesion(request):
 		if(usuario2.rol.id_rol == 2):
 			return redirect ('PovAdmin')
 		else:
-			contexto = {"usuario":usuario2}
-			return render(request,'core/html/PaginaPrincipal.html', contexto)
+			return redirect('usuario')
 	else: 
             return redirect('iniciosesion') 
             
@@ -250,19 +250,14 @@ def RestablecerContrasena (request):
 
     return render(request,'core/html/RestablecerContrasena.html')
 
-def Usuario1 (request):      
-    lista = Usuario.objects.all()
-    contexto = {
-        "productos": lista
-    }
+def Usuario1(request):    
     
-    if rol_usuario == 1:
-        # Renderizar una plantilla específica para el rol 1
-        return render(request, 'plantilla_rol1.html', contexto)
-    elif rol_usuario == 2:
-        # Renderizar una plantilla específica para el rol 2 (admin)
-        return render(request, 'plantilla_admin.html', contexto)
+    usuario = Usuario.objects.get(correo_usuario = request.user.email)
+    direcciones = Direccion.objects.get(usuario = usuario)
+    return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones})
     
-
+def cerrar_sesion(request):
+    logout(request)
+    redirect('inicioSesion')
     
 

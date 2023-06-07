@@ -25,11 +25,20 @@
                         <img src="{% static 'core/img/usuariocomprador.jpg'%}" class="rounded-circle mt-5" width="150">
                         <div class="container">
                         <div class="row mt-3">
+                            
                             <div class="col-md-3">
-                                <h5>Nombre completo</h5>
+                                <h5>Nombre </h5>
                             </div>
                             <div class="col-md-9 text-secondary mb-0">
-                                Enzo Andres Fernandez Silva
+                                {{usuario.nombre_usuario}}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <h5>Apellido</h5>
+                            </div>
+                            <div class="col-md-9 text-secondary mb-0">
+                                {{usuario.apellido_usuario}}
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -37,33 +46,27 @@
                                 <h5>Correo electrónico</h5>
                             </div>
                             <div class="col-md-9 text-secondary mb-0">
-                                enzo.dez@gmail.com
+                                {{usuario.correo_usuario}}
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-3">
-                                <h5>Contraseña</h5>
+                                <h5>Telefono</h5>
                             </div>
                             <div class="col-md-9 text-secondary mb-0">
-                                ************
+                                {{usuario.telefono_usuario}}
                             </div>
                         </div>
-                        <div class="row mt-3">
+                        <div class="row mt-3">                            
                             <div class="col-md-3">
-                                <h5>Número de teléfono</h5>
-                            </div>
+                                <h5>Direccion</h5>
+                            </div>                         
                             <div class="col-md-9 text-secondary mb-0">
-                                +5696969696
+                                {{direcciones.nombre_direccion}} {{direcciones.num_direccion}}
                             </div>
+                         
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                <h5>Dirección</h5>
-                            </div>
-                            <div class="col-md-9 text-secondary mb-0">
-                                Colina 1, Santiago
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                     <div class="card-footer">
@@ -72,7 +75,7 @@
                                 <button type="button" class="btn btn-primary btn-block">Editar</button>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-secondary btn-block">Guardar</button>
+                                <a href="{% url 'cerrar_sesion'%}"><button type="button" class="btn btn-secondary btn-block">Cerrar sesion</button></a>
                             </div>
                         </div>
                     </div>

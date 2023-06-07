@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import iniciar_sesion,modificarProducto,modificar,eliminarProducto,agregarusuario,agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario1,formDireccion,comprobarOlvidoClave
+from .views import cerrar_sesion,iniciar_sesion,modificarProducto,modificar,eliminarProducto,agregarusuario,agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario1,formDireccion,comprobarOlvidoClave
 
 urlpatterns = [
     path('recibo', agradecimiento,name="recibo"),
@@ -26,6 +26,8 @@ urlpatterns = [
     path('modificarProducto/',modificarProducto,name="modificarProducto"),
     path('agregarusuario',agregarusuario, name="agregarusuario"),
     path('iniciar_sesion',iniciar_sesion, name="iniciar_sesion"),
-    path('comprobarOlvidoClave',comprobarOlvidoClave, name="comprobarOlvidoClave")
+    path('comprobarOlvidoClave',comprobarOlvidoClave, name="comprobarOlvidoClave"),
+    path('cerrar_sesion',cerrar_sesion, name="cerrar_sesion")
+
 
 ]

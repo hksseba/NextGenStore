@@ -267,34 +267,39 @@ def Usuario1(request):
     direcciones = Direccion.objects.get(usuario = usuario)
     return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones})
 
-def modificarUsuario(request, id_producto):
-    categorias = Categoria.objects.all()
-    productos = Producto.objects.get(id_producto = id_producto)
+def modificarUsuario(request):
+    listaComunas = Comuna.objects.all()
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    direccion = Direccion.objects.get(usuario = usuario)
     contexto = {
-        "categorias": categorias,
-        "productos": productos
+        "comunas": listaComunas,
+        "datos": usuario,
+        "direccion": direccion
     }
-    return render(request,'core/html/ModificarProducto.html',contexto)
+    return render(request,'core/html/ModificarUsuario.html',contexto)
 
-def modificarUsuario1(request):
-    vIdproducto = request.POST['id_producto']
-    vNombre = request.POST['nombreProducto']
-    vDesc = request.POST['descProducto']
-    vPrecio = request.POST['precioProducto']
-    vStock = request.POST['stockProducto']
-    vCategoria = request.POST['categoriaProducto']
+def modificarUsuarios(request):
+    vNombre = request.POST['nombreM']
+    vApellido = request.POST['apellido']
+    vTelefono = request.POST['telefono']
+    vComuna = request.POST['comuna']
+    vDireccion = request.POST['direccion']
+    vNumero = request.POST['numdireccion']
+    vRegistroComuna = Comuna.objects.get(id_comuna = vComuna)
 
-    producto = Producto.objects.get(id_producto = vIdproducto)
-    producto.nombre_producto = vNombre
-    producto.desc_producto = vDesc
-    producto.precio_producto = vPrecio
-    producto.stock_producto = vStock
-    
-    categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
-    producto.categoria = categoriaProducto
-
-    producto.save()
-    return redirect('PovAdmin')
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    direccion = Direccion.objects.get(usuario = usuario)
+    direccion.comuna = vRegistroComuna
+    direccion.nombre_direccion = vDireccion
+    direccion.num_direccion =vNumero
+    usuario.nombre_usuario = vNombre
+    usuario.apellido_usuario = vApellido
+    usuario.telefono_usuario = vTelefono
+    usuario.nombre_usuario = vNombre
+    usuario.nombre_usuario = vNombre
+    usuario.save()
+    direccion.save()
+    return redirect('usuario')
 
     
 def cerrar_sesion(request):

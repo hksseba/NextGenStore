@@ -42,9 +42,15 @@
 			<li>
 				<a class="nav-item" href="{% url 'carrito' %} "><img src="{% static 'core/img/online-shopping.png' %}" class="mr-2" height="30" ></a>
 			</li> 
-			<li>
-				<a class="nav-item" href="{% url 'iniciosesion'%}"><img src="{% static 'core/img/perfil.png' %}" class="mr-2" height="30" ></a>   
-			</li>       
+			{% if request.user.is_authenticated %}
+                <li>
+                    <a class="nav-item" href="{% url 'usuario' %}"><img src="{% static 'core/img/perfil.png'%}" class="mr-2" height="30" ></a>
+                </li>
+            {% else %}
+                <li>
+                    <a class="nav-item" href="{% url 'iniciosesion' %}"><img src="{% static 'core/img/perfil.png'%}" class="mr-2" height="30" ></a>   
+                </li>
+            {% endif %}      
 		</div>
 	</nav>
 	{% block banner %}

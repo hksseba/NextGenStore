@@ -213,7 +213,7 @@ def agregarusuario(request):
     vPregunta = request.POST['pregunta']
 
     if vCorreo.endswith('@NextGenStore.cl'):
-        vRol = Rol.objects.get(id_rol=2)
+        vRol = Rol.objects.get(id_rol = 22)
     else:
         vRol = Rol.objects.get(id_rol=1)
     
@@ -245,7 +245,7 @@ def iniciar_sesion(request):
 	user = authenticate(username=correo1, password=contra1)
 	if user is not None:
 		login(request, user)
-		if(usuario2.rol.id_rol == 2):
+		if(usuario2.rol.id_rol == 22):
 			return redirect ('PovAdmin')
 		else:
 			return redirect('usuario')
@@ -263,7 +263,7 @@ def RestablecerContrasena (request):
 @login_required
 def Usuario1(request):    
     
-    usuario = Usuario.objects.get(correo_usuario = request.user.email)
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
     direcciones = Direccion.objects.get(usuario = usuario)
     return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones})
 

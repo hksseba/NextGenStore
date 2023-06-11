@@ -29,17 +29,13 @@ def carrito (request):
     return render(request,'core/html/Carrito.html',contexto)  
 
 def celulares (request):
-    listaCategoria = Categoria.objects.filter(id_categoria=1)
     lista = Producto.objects.all()
-    if listaCategoria.id_categoria == lista.id_categoria:
-        listaproducto = lista
-        contexto = {
-            "productos": listaproducto,
-            "categorias": listaCategoria
-        }
-        return render(request,'core/html/Celulares.html', contexto) 
-    else:
-        return render(request,'core/html/Celulares.html')
+    listaCategoria = Categoria.objects.all()
+    contexto = {
+        "productos": lista,
+        "categorias": listaCategoria
+    }   
+    return render(request,'core/html/Celulares.html')
 
 def computadores (request):
     lista = Producto.objects.all()

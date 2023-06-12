@@ -29,16 +29,18 @@ def carrito (request):
     return render(request,'core/html/Carrito.html',contexto)  
 
 def celulares (request):
-    lista = Producto.objects.all()
+    celular = Categoria.objects.get(id_categoria = 1)
+    lista = Producto.objects.all().filter(categoria = celular)
     listaCategoria = Categoria.objects.all()
     contexto = {
         "productos": lista,
         "categorias": listaCategoria
     }   
-    return render(request,'core/html/Celulares.html')
+    return render(request,'core/html/Celulares.html', contexto)
 
 def computadores (request):
-    lista = Producto.objects.all()
+    computador = Categoria.objects.get(id_categoria = 2)
+    lista = Producto.objects.all().filter(categoria = computador)
     listaCategoria = Categoria.objects.all()
     contexto = {
         "productos": lista,
@@ -47,7 +49,8 @@ def computadores (request):
     return render(request, 'core/html/Computadores.html', contexto)
 
 def consolas (request):
-    lista = Producto.objects.all()
+    consola = Categoria.objects.get(id_categoria = 3)
+    lista = Producto.objects.all().filter(categoria = consola)
     listaCategoria = Categoria.objects.all()
     contexto = {
         "productos": lista,
@@ -181,6 +184,7 @@ def PovAdmin (request):
     contexto = {
         "productos": lista
     }
+    
     return render(request,'core/html/PovAdmin.html', contexto) 
  
 def Producto1 (request, id):
@@ -209,7 +213,7 @@ def agregarusuario(request):
     vPregunta = request.POST['pregunta']
 
     if vCorreo.endswith('@NextGenStore.cl'):
-        vRol = Rol.objects.get(id_rol = 22)
+        vRol = Rol.objects.get(id_rol = 2)
     else:
         vRol = Rol.objects.get(id_rol=1)
     
@@ -241,7 +245,7 @@ def iniciar_sesion(request):
 	user = authenticate(username=correo1, password=contra1)
 	if user is not None:
 		login(request, user)
-		if(usuario2.rol.id_rol == 22):
+		if(usuario2.rol.id_rol == 2):
 			return redirect ('PovAdmin')
 		else:
 			return redirect('usuario')

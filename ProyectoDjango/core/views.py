@@ -28,6 +28,13 @@ def carrito (request):
     }
     return render(request,'core/html/Carrito.html',contexto)  
 
+def agregarCarrito (request, id_producto):
+    producto = Producto.objects.get (id_producto = id_producto )
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    pedido, created = Pedido.objects.get_or_create( usuario = usuario)
+    Detalle.objects.create(pedido=pedido, producto=producto, cantidad=1, subtotal=producto.precio)
+    return redirect('carrito') 
+
 def celulares (request):
     celular = Categoria.objects.get(id_categoria = 1)
     lista = Producto.objects.all().filter(categoria = celular)
@@ -188,8 +195,7 @@ def PovAdmin (request):
     return render(request,'core/html/PovAdmin.html', contexto) 
  
 def Producto1 (request, id):
-    producto = Producto.objects.get(id_producto=id)
-    
+    producto = Producto.objects.get(id_producto=id)   
     contexto = {
         "p": producto
     }

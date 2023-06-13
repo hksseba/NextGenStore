@@ -69,8 +69,6 @@ class Pedido (models.Model):
     total_pedido = models.IntegerField( verbose_name='Total del pedido')
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
-        return self.estado_pedido
 
 class Direccion (models.Model):
     id_direccion  = models.AutoField(primary_key = True, verbose_name='Id de la direccion')

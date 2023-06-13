@@ -173,7 +173,7 @@ def comprobarOlvidoClave(request):
     PreguntaN = Pregunta.objects.all()
     user = Usuario.objects.all()
     if vCorreo == user.correo_usuario and   Preguntaxd == user.pregunta and vRespuesta == user.respuesta_usuario:
-        return render(request,'core/html/RestablecerContrasena.html')
+        return redirect('RestablecerContrasena', id_usuario= user.id_usuario)
     else:
         return redirect('olvidoclave')
 
@@ -258,11 +258,24 @@ def iniciar_sesion(request):
 	else: 
             return redirect('iniciosesion') 
             
+def RestablecerContrasena(request, id_usuario):
+    contexto = {
+        "id_usuario": id_usuario
+    }
+    return render(request, 'core/html/RestablecerContrasena.html', contexto)
              
  
-def RestablecerContrasena (request):
+def formRestablecerContrasena (request):
     vClave = request.POST['contrasena']
-    Usuario.objects.create(clave_usuario = vClave)
+    vClave2 = request.POST['rcontrasena']
+
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    user = User.objects.get(username = request.usuario.correo_usuario)
+    if vClave == vClave2:
+        usuario.clave_usuario = vClave
+        user.password = vClave
+        usuario.save()
+        user.save()
 
     return render(request,'core/html/RestablecerContrasena.html')
 

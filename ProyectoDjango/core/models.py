@@ -65,12 +65,7 @@ class Usuario (models.Model):
         return self.nombre_usuario
 
 class Pedido (models.Model):
-    id_pedido = models.AutoField(primary_key = True, verbose_name='Id del pedido')
-    fecha_pedido = models.DateField(verbose_name = 'Fecha del pedido')
-    fecha_despacho = models.DateField(verbose_name = 'Fecha despacho del pedido')
-    fecha_entrega = models.DateField(verbose_name = 'Fecha de entrega del pedido')
-    estado_pedido = models.CharField(max_length=50, verbose_name='Estado del pedido')
-    costo_pedido = models.IntegerField( verbose_name='Costo del pedido')
+    id_pedido = models.AutoField(primary_key = True, verbose_name='Id del pedido')   
     total_pedido = models.IntegerField( verbose_name='Total del pedido')
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
 

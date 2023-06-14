@@ -62,12 +62,12 @@ formulario.addEventListener('submit',e =>{
           enviar = true;
         }
         
-          if (enviar == false){
-            msjMostrar = msjMostrar + "<br> enviado"
-            msj.innerHTML= msjMostrar;
-            window.location.href = "InicioSesion.html";   
-            formulario.reset();      
-          } 
+        if (enviar) {
+            e.preventDefault()
+          
+          } else if(enviar == false){
+            mostrarError("Enviado correctamente.");
+          }
              
     });
 

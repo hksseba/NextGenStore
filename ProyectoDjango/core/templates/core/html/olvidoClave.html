@@ -29,7 +29,7 @@
 								<h2 class="text-center">¿Olvidaste tu contraseña?</h2>
 								<p>Puedes restablecer tu contraseña aqui.</p>
 								<p>Ingrese su correo</p>
-								<form action="" method="POST" id="formrPregunta">
+								<form action="{% url 'comprobarOlvidoClave' %}" method="POST" id="formrPregunta">
 									{% csrf_token %}
 									<div class="form">
 										<input type="text" name="email" id="email" class="field" placeholder="Correo">

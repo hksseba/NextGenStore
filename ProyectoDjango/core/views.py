@@ -171,9 +171,9 @@ def comprobarOlvidoClave(request):
 
     Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
     PreguntaN = Pregunta.objects.all()
-    user = Usuario.objects.all()
-    if vCorreo == user.correo_usuario and   Preguntaxd == user.pregunta and vRespuesta == user.respuesta_usuario:
-        return redirect('RestablecerContrasena', id_usuario= user.id_usuario)
+    usuario = Usuario.objects.get(correo_usuario = vCorreo )
+    if vCorreo == usuario.correo_usuario and   Preguntaxd == usuario.pregunta and vRespuesta == usuario.respuesta_usuario:
+        return redirect('RestablecerContrasena', id_usuario = usuario.id_usuario)
     else:
         return redirect('olvidoclave')
 
@@ -238,7 +238,7 @@ def iniciar_sesion(request):
 	correo1 = request.POST['email']
 	contra1 = request.POST['contra']
 	try:
-		user1 = User.objects.get(username = correo1)
+		user1 = User.objects.get( username = correo1)
 	except User.DoesNotExist:
 		messages.error(request,'El correo la contraseña son incorrectos')
 		return redirect('iniciosesion')
@@ -268,16 +268,16 @@ def RestablecerContrasena(request, id_usuario):
 def formRestablecerContrasena (request):
     vClave = request.POST['contrasena']
     vClave2 = request.POST['rcontrasena']
+    id = request.POST['id_usuario']
 
-    usuario = Usuario.objects.get(correo_usuario = request.user.username)
-    user = User.objects.get(username = request.usuario.correo_usuario)
+    usuario = Usuario.objects.get(id_usuario = id)
+    user = User.objects.get(username = usuario.correo_usuario)
     if vClave == vClave2:
         usuario.clave_usuario = vClave
-        user.password = vClave
+        user.set_password(vClave)
         usuario.save()
         user.save()
-
-    return render(request,'core/html/RestablecerContrasena.html')
+    return redirect ('iniciosesion')
 
 @login_required
 def Usuario1(request):    

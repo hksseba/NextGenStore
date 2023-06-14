@@ -22,9 +22,18 @@ def productos (request):
     return render(request,'core/html/Buscador.html', contexto)
 
 def carrito (request):
-    lista = Producto.objects.all()
+    usuario = Usuario.objects.get( correo_usuario = request.user.username)
+    pedido = Pedido.objects.filter( usuario = usuario ).latest('id_pedido')
+    
+    # Obtener los detalles del pedido
+    detalles_pedido = Detalle.objects.filter(pedido=pedido)
+    
+    # Obtener los productos asociados a los detalles del pedido
+    productos = [detalle.producto for detalle in detalles_pedido]
+    
+    # Pasar los productos a la plantilla
     contexto = {
-        "productos": lista
+        'productos': productos
     }
     return render(request,'core/html/Carrito.html',contexto)  
 
@@ -32,8 +41,8 @@ def agregarCarrito (request, id_producto):
     producto = Producto.objects.get (id_producto = id_producto )
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     pedido, created = Pedido.objects.get_or_create( usuario = usuario)
-    Detalle.objects.create(pedido=pedido, producto=producto, cantidad=1, subtotal=producto.precio)
-    return redirect('carrito') 
+    Detalle.objects.create(pedido=pedido, producto=producto, cantidad=1, subtotal=producto.precio_producto)
+    return redirect('carrito' ) 
 
 def celulares (request):
     celular = Categoria.objects.get(id_categoria = 1)

@@ -28,12 +28,11 @@ def carrito (request):
     # Obtener los detalles del pedido
     detalles_pedido = Detalle.objects.filter(pedido=pedido)
     
-    # Obtener los productos asociados a los detalles del pedido
-    productos = [detalle.producto for detalle in detalles_pedido]
+
     
     # Pasar los productos a la plantilla
     contexto = {
-        'productos': productos
+        'detalles': detalles_pedido
     }
     return render(request,'core/html/Carrito.html',contexto)  
 

@@ -21,20 +21,19 @@ def productos (request):
     }
     return render(request,'core/html/Buscador.html', contexto)
 
-def carrito (request):
-    usuario = Usuario.objects.get( correo_usuario = request.user.username)
-    pedido = Pedido.objects.filter( usuario = usuario ).latest('id_pedido')
-    
-    # Obtener los detalles del pedido
-    detalles_pedido = Detalle.objects.filter(pedido=pedido)
-    
+def carrito(request):
+    usuario = Usuario.objects.get(correo_usuario=request.user.username)
+    try:
+        pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
+        detalles_pedido = Detalle.objects.filter(pedido=pedido)
+    except Pedido.DoesNotExist:
+        detalles_pedido = []
 
-    
-    # Pasar los productos a la plantilla
     contexto = {
         'detalles': detalles_pedido
     }
-    return render(request,'core/html/Carrito.html',contexto)  
+    return render(request, 'core/html/Carrito.html', contexto)
+
 
 def agregarCarrito (request, id_producto):
     producto = Producto.objects.get (id_producto = id_producto )

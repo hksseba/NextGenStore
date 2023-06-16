@@ -7,7 +7,7 @@ const numdireccion = document.getElementById("numdireccion");
 const formulario = document.getElementById("formregistro3");
 const msj = document.getElementById("warnings");
 formulario.addEventListener('submit', e => {
-
+   e.preventDefault();
     let hayErrores = false; // Variable para controlar si hay errores o no
     function mostrarError(mensaje) {
       msj.innerHTML = mensaje;

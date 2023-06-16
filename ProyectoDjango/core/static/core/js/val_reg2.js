@@ -27,6 +27,7 @@ formulario.addEventListener('submit', e => {
     // Validar longitud del nombre y apellido
     if (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) {
       mostrarError("El nombre debe tener entre 4 y 20 caracteres.");
+      console.log('Evento submit activado');
       hayErrores = true;
     }
     if (!nombre.value.trim().match(/^[a-zA-ZáéíóúÁÉÍÓÚ\s-]*$/)) {

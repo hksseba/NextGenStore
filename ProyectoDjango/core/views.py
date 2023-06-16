@@ -5,8 +5,12 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
+def es_admin(user):
+    return user.is_authenticated and user.rol.id_rol == 2
+
 def agradecimiento(request):    
     lista = Pedido.objects.all()
     contexto = {
@@ -196,6 +200,7 @@ def PaginaPrincipal(request):
     }
     return render(request, 'core/html/PaginaPrincipal.html', contexto)
 
+@user_passes_test(es_admin)
 def PovAdmin (request):
     lista = Producto.objects.all()
     contexto = {

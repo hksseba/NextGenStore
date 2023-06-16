@@ -1,9 +1,10 @@
+
 const nombre = document.getElementById("nombre");
 const apellido = document.getElementById("apellido");
 const fono = document.getElementById("telefono");
-const formulario = document.getElementById("formregistro");
 const nombredireccion = document.getElementById("direccion");
 const numdireccion = document.getElementById("numdireccion");
+const formulario = document.getElementById("formregistro3");
 const msj = document.getElementById("warnings");
 formulario.addEventListener('submit', e => {
   

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import formRestablecerContrasena,RestablecerContrasena,agregarCarrito,modificarUsuarios,modificarUsuario,cerrar_sesion,iniciar_sesion,modificarProducto,modificar,eliminarProducto,agregarusuario,agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario1,formDireccion,comprobarOlvidoClave,RegistroAdmin
+from .views import agregaradmin,formRestablecerContrasena,RestablecerContrasena,agregarCarrito,modificarUsuarios,modificarUsuario,cerrar_sesion,iniciar_sesion,modificarProducto,modificar,eliminarProducto,agregarusuario,agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto,inicioSesion,olvidoClave,PaginaPrincipal,PovAdmin,Producto1,RegistroUsuario,RestablecerContrasena,Usuario1,formDireccion,comprobarOlvidoClave,RegistroAdmin
 
 urlpatterns = [
     path('recibo', agradecimiento,name="recibo"),
@@ -32,7 +32,9 @@ urlpatterns = [
     path('modificarUsuario',modificarUsuario, name="modificarUsuario"),
     path('modificarUsuarios',modificarUsuarios, name="modificarUsuarios"),
     path('agregarCarrito/<int:id_producto>/',agregarCarrito, name="agregarCarrito"),
-    path('RegistroAdmin',RegistroAdmin, name="RegistroAdmin")
+    path('RegistroAdmin',RegistroAdmin, name="RegistroAdmin"),
+    path('agregaradmin',agregaradmin, name="agregaradmin")
+
 
 
 

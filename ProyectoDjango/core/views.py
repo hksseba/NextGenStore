@@ -8,8 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
-def es_admin(user):
-    return user.is_authenticated and user.rol.id_rol == 2
+
 
 def agradecimiento(request):    
     lista = Pedido.objects.all()
@@ -99,10 +98,8 @@ def formDireccion(request):
     
     Direccion.objects.create(usuario=usuario1,comuna =vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
     
-    if usuario1 == 1:
-        return redirect('iniciosesion')
-    else:
-        return redirect('usuario1')
+    return redirect('iniciosesion')
+   
 
 
 
@@ -200,7 +197,7 @@ def PaginaPrincipal(request):
     }
     return render(request, 'core/html/PaginaPrincipal.html', contexto)
 
-@user_passes_test(es_admin)
+
 def PovAdmin (request):
     lista = Producto.objects.all()
     contexto = {
@@ -221,7 +218,7 @@ def RegistroAdmin (request):
     contexto = {
         "preguntas": lista
     }
-    return render(request,'core/html/RegistroUsuario.html',contexto)
+    return render(request,'core/html/RegistroAdmin.html',contexto)
 
 def agregaradmin(request):
     vNombre = request.POST['nombre']
@@ -231,11 +228,14 @@ def agregaradmin(request):
     vClave = request.POST['contrasena']
     vRespuesta = request.POST['respuesta']
     vPregunta = request.POST['pregunta']
-
+    
     if vCorreo.endswith('@NextGenStore.cl'):
+
         vRol = Rol.objects.get(id_rol = 2)
     else:
         messages.warning(request, 'El correo no corresponde a un administrador')
+        return redirect('RegistroAdmin')
+        
     
     Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
     PreguntaN = Pregunta.objects.all()

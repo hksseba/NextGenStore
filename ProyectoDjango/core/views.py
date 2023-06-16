@@ -95,7 +95,10 @@ def formDireccion(request):
     
     Direccion.objects.create(usuario=usuario1,comuna =vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
     
-    return redirect('iniciosesion')
+    if usuario1 == 1:
+        return redirect('iniciosesion')
+    else:
+        return redirect('usuario1')
 
 
 
@@ -207,6 +210,39 @@ def Producto1 (request, id):
         "p": producto
     }
     return render(request,'core/html/Producto1.html', contexto) 
+
+def RegistroAdmin (request):
+    lista = Pregunta.objects.all()
+    contexto = {
+        "preguntas": lista
+    }
+    return render(request,'core/html/RegistroUsuario.html',contexto)
+
+def agregaradmin(request):
+    vNombre = request.POST['nombre']
+    vApellido = request.POST['apellido']
+    vTelefono = request.POST['telefono']
+    vCorreo = request.POST['email']
+    vClave = request.POST['contrasena']
+    vRespuesta = request.POST['respuesta']
+    vPregunta = request.POST['pregunta']
+
+    if vCorreo.endswith('@NextGenStore.cl'):
+        vRol = Rol.objects.get(id_rol = 2)
+    else:
+        messages.warning(request, 'El correo no corresponde a un administrador')
+    
+    Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
+    PreguntaN = Pregunta.objects.all()
+    if Usuario.objects.filter(correo_usuario=vCorreo).exists():
+            # El correo electrónico ya está en uso, realiza una acción apropiada (por ejemplo, mostrar un mensaje de error)
+             return render(request, 'core/html/RegistroUsuario.html', { 'nombre': vNombre, 'apellido': vApellido, 'telefono': vTelefono,  'respuesta': vRespuesta, 'pregunta': PreguntaN})
+  
+    usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
+    user = User.objects.create_user(username = vCorreo, first_name =vNombre ,email = vCorreo, last_name = vApellido, password =vClave )
+
+    return redirect('direccion', id_usuario=usuario.id_usuario)
+
 
 def RegistroUsuario (request):
     listaxd = Pregunta.objects.all()
@@ -332,4 +368,3 @@ def cerrar_sesion(request):
     logout(request)
     return redirect('iniciosesion')
     
-

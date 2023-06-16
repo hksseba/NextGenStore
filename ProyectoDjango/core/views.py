@@ -29,11 +29,16 @@ def carrito(request):
     try:
         pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
         detalles_pedido = Detalle.objects.filter(pedido=pedido)
+        precio_total = sum(detalle.producto.precio_producto for detalle in detalles_pedido)
+        precio_final = sum(detalle.producto.precio_producto for detalle in detalles_pedido) +10000
+
     except Pedido.DoesNotExist:
         detalles_pedido = []
 
     contexto = {
-        'detalles': detalles_pedido
+        'detalles': detalles_pedido,
+        'precio_total': precio_total,
+        'precio_final':precio_final
     }
     return render(request, 'core/html/Carrito.html', contexto)
 
@@ -44,6 +49,22 @@ def agregarCarrito (request, id_producto):
     pedido, created = Pedido.objects.get_or_create( usuario = usuario)
     Detalle.objects.create(pedido=pedido, producto=producto, cantidad=1, subtotal=producto.precio_producto)
     return redirect('carrito' ) 
+
+def finalizar_pedido(request):
+    usuario = Usuario.objects.get(correo_usuario=request.user.username)
+    try:
+        pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
+        detalles_pedido = Detalle.objects.filter(pedido=pedido)
+        
+        # Eliminar los detalles del pedido y el pedido en sí
+        detalles_pedido.delete()
+        pedido.delete()
+
+        # Redireccionar a una página de confirmación de pago exitoso o a donde desees
+        return redirect('pago_exitoso')
+    except Pedido.DoesNotExist:
+        # Manejar el caso en que no haya un pedido existente
+        return redirect('carrito')
 
 def celulares (request):
     celular = Categoria.objects.get(id_categoria = 1)

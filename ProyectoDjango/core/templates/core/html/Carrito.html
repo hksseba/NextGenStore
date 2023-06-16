@@ -25,9 +25,8 @@
                 <div class="col-md-8 cart">
                     <div class="title">
                         <div class="row">                           
-                           
                             <div class="col"><h4><b>Carrito de compra</b></h4></div>
-                            <div class="col align-self-center text-right text-muted">3 PRODUCTOS</div>
+                            <div class="col align-self-center text-right text-muted">{{ detalles.count }} PRODUCTOS</div>
                         </div>
                     </div>    
                     <div class="row border-top border-bottom">
@@ -36,37 +35,37 @@
                                 <div class="row main align-items-center">
                                     <div class="col-2 col-xs-1 col-md-3 col-lg-2"><img class="carrimg" src="{{ d.producto.foto_producto.url }}"></div>
                                     <div class="col col-xs-3 col-md-6 col-lg">
-                                        <div class="row text-muted">{{d.producto.categoria}}</div>
-                                        <div class="row">{{d.producto.nombre_producto}}</div>
+                                        <div class="row text-muted">{{ d.producto.categoria }}</div>
+                                        <div class="row">{{ d.producto.nombre_producto }}</div>
                                     </div>
                                     <div class="col col-xs-4 col-md-3 col-lg">
-                                        <a href="#">-</a><a href="#" class="border">{{d.cantidad}}</a><a href="#">+</a>
+                                        <a href="#">-</a><a href="#" class="border">{{ d.cantidad }}</a><a href="#">+</a>
                                     </div>
-                                    <div class="col col-xs-4">&dollar;{{ d.producto.precio_producto}} <span class="close">&#10005;</span></div>
+                                    <div class="col col-xs-4">&dollar;{{ d.producto.precio_producto }} <span class="close">&#10005;</span></div>
                                 </div>
                             {% endfor %}
                         {% else %}
                             <p>No hay productos en el carrito.</p>
                         {% endif %}
                     </div>                      
-                
                 </div>
                 <div class="col-md-4 summary">
                     <div><h5><b>Resumen</b></h5></div>
                     <hr>
                     <div class="row">
-                        <div class="col" style="padding-left:0;">PRODUCTOS 3</div>
-                        <div class="col text-right">&dollar; 828.980</div>
+                        <div class="col" style="padding-left:0;">PRODUCTOS {{ detalles.count }}</div>
+                        <div class="col text-right">&dollar; {{precio_total }}</div>
                     </div>
-                    <form>
+                    <form method="POST" >
+                        {% csrf_token %}
                         <p>ENVIO</p>
                         <select><option class="text-muted">ENVIO ESTANDAR- &dollar;10000</option></select>
+                        <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                            <div class="col">PRECIO TOTAL</div>
+                            <div class="col text-right">&dollar; {{ precio_final  }}</div>
+                        </div>
+                        <button type="submit" class="abtn">PAGAR</button>
                     </form>
-                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                        <div class="col">PRECIO TOTAL</div>
-                        <div class="col text-right">&dollar; 838.980</div>
-                    </div>
-                    <a href="{% url 'recibo' %}"><button class="abtn">PAGAR</button></a>
                 </div>
             </div>
         </div> 
@@ -77,5 +76,5 @@
 
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 {% endblock js %}

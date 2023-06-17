@@ -32,6 +32,7 @@
 	{% endblock titulo %}
     
     {% block productos %}
+
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-sm-12 col-md-10 col-md-offset-1">
@@ -54,7 +55,6 @@
                                     <div class="media-body">
                                         <h4 class="media-heading"><a href="#">{{p.nombre_producto}}</a></h4>
                                         <h5 class="media-heading"> <a href="#">Id:{{p.id_producto}}</a></h5>
-                                        <span>Estado: </span><span class="text-danger"><strong>Sin Stock</strong></span>
                                     </div>
                                 </div></td>
                                 <td class="col-md-1 text-center"><strong>{{p.stock_producto}}</strong></td>

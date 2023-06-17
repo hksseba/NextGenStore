@@ -67,6 +67,7 @@ class Usuario (models.Model):
 class Pedido (models.Model):
     id_pedido = models.AutoField(primary_key = True, verbose_name='Id del pedido')   
     total_pedido = models.IntegerField( verbose_name='Total del pedido', null=True)
+    estado_pedido = models.BooleanField(verbose_name= "Estado del pedido ")
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
 
 

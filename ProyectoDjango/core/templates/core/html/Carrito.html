@@ -64,8 +64,11 @@
                             <div class="col">PRECIO TOTAL</div>
                             <div class="col text-right">&dollar; {{ precio_final  }}</div>
                         </div>
-                        <a href = "{% url 'pagarPedido' %} "><button type="submit" class="abtn">PAGAR</button></a>
-                    </form>
+                        <form method="POST" action ="{% url 'carrito' %}">
+                            {% csrf_token %}
+                            <!-- Resto del formulario de pago -->
+                            <button type="submit" class="abtn">PAGAR</button> 
+                        </form>
                 </div>
             </div>
         </div> 

@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import pagarPedido,eliminarPedido,disminuirPedido,aumentarPedido,agregaradmin, formRestablecerContrasena, RestablecerContrasena, agregarCarrito, modificarUsuarios, modificarUsuario, cerrar_sesion, iniciar_sesion, modificarProducto, modificar, eliminarProducto, agregarusuario, agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto, inicioSesion, olvidoClave, PaginaPrincipal, PovAdmin, Producto1, RegistroUsuario, RestablecerContrasena, Usuario1, formDireccion, comprobarOlvidoClave, RegistroAdmin
+from .views import eliminarPedido,disminuirPedido,aumentarPedido,agregaradmin, formRestablecerContrasena, RestablecerContrasena, agregarCarrito, modificarUsuarios, modificarUsuario, cerrar_sesion, iniciar_sesion, modificarProducto, modificar, eliminarProducto, agregarusuario, agregar, agradecimiento, productos, carrito, celulares, computadores, consolas, direccion, ingresarProducto, inicioSesion, olvidoClave, PaginaPrincipal, PovAdmin, Producto1, RegistroUsuario, RestablecerContrasena, Usuario1, formDireccion, comprobarOlvidoClave, RegistroAdmin
 
 urlpatterns = [
     path('recibo', agradecimiento, name="recibo"),
@@ -40,7 +40,6 @@ urlpatterns = [
     path('aumentarPedido/<int:id_detalle>/', aumentarPedido, name="aumentarPedido"),
     path('disminuirPedido/<int:id_detalle>/', disminuirPedido, name="disminuirPedido"),
     path('eliminarPedido/<int:id_detalle>/', eliminarPedido, name="eliminarPedido"),
-    path('pagarPedido', pagarPedido, name="pagarPedido"),
 
 
 

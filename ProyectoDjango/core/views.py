@@ -29,23 +29,39 @@ def carrito(request):
     try:
         pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
         detalles_pedido = Detalle.objects.filter(pedido=pedido)
-        precio_total = sum(detalle.subtotal for detalle in detalles_pedido)
-        precio_final = sum(detalle.subtotal for detalle in detalles_pedido) +10000
     except Pedido.DoesNotExist:
         detalles_pedido = []
 
+    precio_total = sum(detalle.producto.precio_producto for detalle in detalles_pedido)
+    precio_final = sum(detalle.producto.precio_producto for detalle in detalles_pedido) + 10000
     contexto = {
         'detalles': detalles_pedido,
         'precio_total': precio_total,
-        'precio_final':precio_final
+        'precio_final': precio_final
     }
+
+    if request.method == 'POST':
+        # Marcar el pedido actual como pagado
+        pedido.estado_pedido = True
+        pedido.save()
+
+        # Crear un nuevo pedido para el usuario
+        nuevo_pedido = Pedido.objects.create(usuario=usuario, estado_pedido = 0)
+
+        # Actualizar el pedido actual en el contexto con el nuevo pedido
+        pedido = nuevo_pedido
+        contexto['pedido'] = pedido
+        detalles_pedido = Detalle.objects.filter(pedido=pedido)
+        contexto['detalles'] = detalles_pedido
+
     return render(request, 'core/html/Carrito.html', contexto)
+
 
 
 def agregarCarrito (request, id_producto):
     producto = Producto.objects.get (id_producto = id_producto )
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
-    pedido, created = Pedido.objects.get_or_create( usuario = usuario)
+    pedido, created = Pedido.objects.get_or_create( usuario = usuario , estado_pedido = 0)
     Detalle.objects.create(pedido=pedido, producto=producto, cantidad=1, subtotal=producto.precio_producto)
     return redirect('carrito' ) 
 
@@ -74,11 +90,7 @@ def eliminarPedido(request, id_detalle):
     detalle.delete()
     return redirect('carrito')
 
-def pagarPedido(request):
-      usuario = Usuario.objects.get(correo_usuario=request.user.username)   
-      pedido = Pedido.objects.create( usuario = usuario)
-    # Redirigir al carrito nuevamente
-      return redirect('carrito')
+
 
 def celulares (request):
     celular = Categoria.objects.get(id_categoria = 1)

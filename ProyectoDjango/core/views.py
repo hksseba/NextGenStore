@@ -159,7 +159,29 @@ def formDireccion(request):
     
     return redirect('iniciosesion')
    
+def DireccionAdmin(request, id_usuario):
+    listaComunas = Comuna.objects.all()
+    listaRegiones = Region.objects.all()
+    contexto = {
+        "comunas": listaComunas,
+        "regiones": listaRegiones,
+        "id_usuario": id_usuario
+    }
+    return render(request, 'core/html/DireccionAdmin.html', contexto)
 
+
+def formDireccionAdmin(request):
+    
+    vComuna = request.POST['comuna']
+    vDireccion = request.POST['direccion']
+    vNumero = request.POST['numdireccion']
+    vRegistroComuna = Comuna.objects.get(id_comuna = vComuna)
+  
+    usuario1 = Usuario.objects.get(id_usuario=request.POST['id_usuario'])
+    
+    Direccion.objects.create(usuario=usuario1,comuna =vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
+    
+    return redirect('PovAdmin')
 
 
 def ingresarProducto(request):
@@ -335,7 +357,7 @@ def agregaradmin(request):
         usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
         user = User.objects.create_user(username = vCorreo, first_name =vNombre ,email = vCorreo, last_name = vApellido, password =vClave )
 
-        return redirect('direccion', id_usuario=usuario.id_usuario)
+        return redirect('DireccionAdmin', id_usuario=usuario.id_usuario)
      
           
 

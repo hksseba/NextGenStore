@@ -28,7 +28,7 @@
                     <div class="left"></div>
                     <div class="right">
                         <h2>Dirección</h2>
-                      <form action="{% url 'formDireccion' %}" method="POST" id="formdireccion">
+                      <form action="{% url 'formDireccionAdmin' %}" method="POST" id="formdireccion">
                         {% csrf_token %}
                         <div class="form">
                           <input type="hidden" name="id_usuario" value="{{ id_usuario }}">      

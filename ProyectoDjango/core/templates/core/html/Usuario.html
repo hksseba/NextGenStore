@@ -71,7 +71,7 @@
                 </div>
                     <div class="card-footer">
                         <div class="row">
-                            {% if usuario.rol_id == 1 %}
+                            {% if usuario.rol_id == 2 %}
                             <div class="col-md-6">                   
                                <a href="{% url 'modificarUsuario' %}">  <button type="button" class="btn btn-primary btn-block">Editar</button></a>
                             </div>
@@ -99,6 +99,60 @@
             <div class="col-lg-2 col-md-1 col-xs-1"></div>       
         </div>
     </div>
+    <div class="col-1"></div>
+                <div class="col-sm-12 col-md-10 col-md-offset-1">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th class="text-center">Stock</th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Categoria</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for p in productos %}
+                            <tr>
+                                <td class="col-md-6">
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ p.foto_producto.url }}" style="width: 72px; height: 72px;" > </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#">{{p.nombre_producto}}</a></h4>
+                                        <h5 class="media-heading"> <a href="#">Id:{{p.id_producto}}</a></h5>
+                                        <span>Estado: </span><span class="text-danger"><strong>Sin Stock</strong></span>
+                                    </div>
+                                </div></td>
+                                <td class="col-md-1 text-center"><strong>{{p.stock_producto}}</strong></td>
+                                <td class="col-md-1 text-center"><strong>${{p.precio_producto}}</strong></td>
+                                <td class="col-md-1 text-center"><strong>{{p.categoria}}</strong></td>
+
+                                <td class="col-md-1">
+                                <a href="{% url 'eliminarProducto' p.id_producto %}"><button type="button" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"></span> Remover
+                                </button></a></td> 
+                                <td class="col-md-1">
+                                    <a href="{% url 'modificar' p.id_producto %}"><button type="button" class="btn btn-info">
+                                        <span class="glyphicon glyphicon-remove"></span> Editar
+                                    </button></a></td> 
+                            </tr>
+
+                         {% endfor %}
+
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>   </td>
+                                <td>
+                                <a href="{% url 'ingresarProducto'%}"><button  ype="button" class="btn btn-success">
+                                    Ingresar producto  <span class="glyphicon glyphicon-play"></span>
+                                </button></a></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-1"></div>
 	{% endblock productos %}
         
         

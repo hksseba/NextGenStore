@@ -40,7 +40,7 @@ urlpatterns = [
     path('aumentarPedido/<int:id_detalle>/', aumentarPedido, name="aumentarPedido"),
     path('disminuirPedido/<int:id_detalle>/', disminuirPedido, name="disminuirPedido"),
     path('eliminarPedido/<int:id_detalle>/', eliminarPedido, name="eliminarPedido"),
-    path('DireccionAdmin', DireccionAdmin, name="DireccionAdmin"),
+    path('DireccionAdmin/<int:id_usuario>/', DireccionAdmin, name="DireccionAdmin"),
     path('formDireccionAdmin', formDireccionAdmin, name="formDireccionAdmin")
 
 

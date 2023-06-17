@@ -153,7 +153,6 @@ def formDireccion(request):
     vNumero = request.POST['numdireccion']
     vRegistroComuna = Comuna.objects.get(id_comuna = vComuna)
   
- 
     usuario1 = Usuario.objects.get(id_usuario=request.POST['id_usuario'])
     
     Direccion.objects.create(usuario=usuario1,comuna =vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
@@ -164,11 +163,16 @@ def formDireccion(request):
 
 
 def ingresarProducto(request):
-    listaCategorias = Categoria.objects.all()
-    contexto = {
-        "categorias": listaCategorias
-    }
-    return render(request, 'core/html/IngresarProducto.html', contexto)
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    if usuario.rol_id == 1:
+        listaCategorias = Categoria.objects.all()
+        contexto = {
+        "   categorias": listaCategorias
+        }
+        return render(request, 'core/html/IngresarProducto.html', contexto)
+    
+    else:
+         return redirect('paginaprincipal')
 
 def agregar (request):
     vNombre = request.POST['nombreProducto']
@@ -184,33 +188,41 @@ def agregar (request):
     return redirect('ingresarProducto')
 
 def modificar(request, id_producto):
-    categorias = Categoria.objects.all()
-    productos = Producto.objects.get(id_producto = id_producto)
-    contexto = {
-        "categorias": categorias,
-        "productos": productos
-    }
-    return render(request,'core/html/ModificarProducto.html',contexto)
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    if usuario.rol_id == 1:
+        categorias = Categoria.objects.all()
+        productos = Producto.objects.get(id_producto = id_producto)
+        contexto = {
+            "categorias": categorias,
+            "productos": productos
+        }
+        return render(request,'core/html/ModificarProducto.html',contexto)
+    else:
+         return redirect('paginaprincipal')
 
 def modificarProducto(request):
-    vIdproducto = request.POST['id_producto']
-    vNombre = request.POST['nombreProducto']
-    vDesc = request.POST['descProducto']
-    vPrecio = request.POST['precioProducto']
-    vStock = request.POST['stockProducto']
-    vCategoria = request.POST['categoriaProducto']
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    if usuario.rol_id == 1:
+        vIdproducto = request.POST['id_producto']
+        vNombre = request.POST['nombreProducto']
+        vDesc = request.POST['descProducto']
+        vPrecio = request.POST['precioProducto']
+        vStock = request.POST['stockProducto']
+        vCategoria = request.POST['categoriaProducto']
 
-    producto = Producto.objects.get(id_producto = vIdproducto)
-    producto.nombre_producto = vNombre
-    producto.desc_producto = vDesc
-    producto.precio_producto = vPrecio
-    producto.stock_producto = vStock
-    
-    categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
-    producto.categoria = categoriaProducto
+        producto = Producto.objects.get(id_producto = vIdproducto)
+        producto.nombre_producto = vNombre
+        producto.desc_producto = vDesc
+        producto.precio_producto = vPrecio
+        producto.stock_producto = vStock
+        
+        categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
+        producto.categoria = categoriaProducto
 
-    producto.save()
-    return redirect('PovAdmin')
+        producto.save()
+        return redirect('PovAdmin')
+    else:
+         return redirect('paginaprincipal')
 
 def eliminarProducto(request,id):
     Productos = Producto.objects.get(id_producto = id)
@@ -260,7 +272,7 @@ def PaginaPrincipal(request):
 @login_required
 def PovAdmin(request):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
-    if usuario.id_rol == 1:  # Verificar si el rol es de administrador
+    if usuario.rol_id == 1:  # Verificar si el rol es de administrador
         productos_a_eliminar = Producto.objects.filter(stock_producto=0)
 
         # Eliminar los productos con stock cero
@@ -274,7 +286,7 @@ def PovAdmin(request):
         return render(request, 'core/html/PovAdmin.html', contexto)
     else:
         # Redirigir a una página de acceso denegado u otra acción apropiada para usuarios no administradores
-        return redirect('inicioSesion')
+        return redirect('paginaprincipal')
 
 
  
@@ -286,39 +298,46 @@ def Producto1 (request, id):
     return render(request,'core/html/Producto1.html', contexto) 
 
 def RegistroAdmin (request):
-    lista = Pregunta.objects.all()
-    contexto = {
+     usuario = Usuario.objects.get(correo_usuario = request.user.username)
+     if usuario.rol_id == 1:
+        lista = Pregunta.objects.all()
+        contexto = {
         "preguntas": lista
-    }
-    return render(request,'core/html/RegistroAdmin.html',contexto)
+        }
+        return render(request,'core/html/RegistroAdmin.html',contexto)
+     else:
+        return redirect('paginaprincipal')
 
 def agregaradmin(request):
-    vNombre = request.POST['nombre']
-    vApellido = request.POST['apellido']
-    vTelefono = request.POST['telefono']
-    vCorreo = request.POST['email']
-    vClave = request.POST['contrasena']
-    vRespuesta = request.POST['respuesta']
-    vPregunta = request.POST['pregunta']
-    
-    if vCorreo.endswith('@NextGenStore.cl'):
 
-        vRol = Rol.objects.get(id_rol = 2)
-    else:
-        messages.warning(request, 'El correo no corresponde a un administrador')
-        return redirect('RegistroAdmin')
+        vNombre = request.POST['nombre']
+        vApellido = request.POST['apellido']
+        vTelefono = request.POST['telefono']
+        vCorreo = request.POST['email']
+        vClave = request.POST['contrasena']
+        vRespuesta = request.POST['respuesta']
+        vPregunta = request.POST['pregunta']
         
-    
-    Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
-    PreguntaN = Pregunta.objects.all()
-    if Usuario.objects.filter(correo_usuario=vCorreo).exists():
-            # El correo electrónico ya está en uso, realiza una acción apropiada (por ejemplo, mostrar un mensaje de error)
-             return render(request, 'core/html/RegistroUsuario.html', { 'nombre': vNombre, 'apellido': vApellido, 'telefono': vTelefono,  'respuesta': vRespuesta, 'pregunta': PreguntaN})
-  
-    usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
-    user = User.objects.create_user(username = vCorreo, first_name =vNombre ,email = vCorreo, last_name = vApellido, password =vClave )
+        if vCorreo.endswith('@NextGenStore.cl'):
 
-    return redirect('direccion', id_usuario=usuario.id_usuario)
+            vRol = Rol.objects.get(id_rol = 2)
+        else:
+            messages.warning(request, 'El correo no corresponde a un administrador')
+            return redirect('RegistroAdmin')
+            
+        
+        Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
+        PreguntaN = Pregunta.objects.all()
+        if Usuario.objects.filter(correo_usuario=vCorreo).exists():
+                # El correo electrónico ya está en uso, realiza una acción apropiada (por ejemplo, mostrar un mensaje de error)
+                return render(request, 'core/html/RegistroUsuario.html', { 'nombre': vNombre, 'apellido': vApellido, 'telefono': vTelefono,  'respuesta': vRespuesta, 'pregunta': PreguntaN})
+    
+        usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
+        user = User.objects.create_user(username = vCorreo, first_name =vNombre ,email = vCorreo, last_name = vApellido, password =vClave )
+
+        return redirect('direccion', id_usuario=usuario.id_usuario)
+     
+          
 
 
 def RegistroUsuario (request):
@@ -339,9 +358,9 @@ def agregarusuario(request):
     vPregunta = request.POST['pregunta']
 
     if vCorreo.endswith('@NextGenStore.cl'):
-        vRol = Rol.objects.get(id_rol = 2)
+        vRol = Rol.objects.get(id_rol = 1)
     else:
-        vRol = Rol.objects.get(id_rol=1)
+        vRol = Rol.objects.get(id_rol=2)
     
     Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
     PreguntaN = Pregunta.objects.all()

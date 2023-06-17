@@ -29,11 +29,12 @@ def carrito(request):
     try:
         pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
         detalles_pedido = Detalle.objects.filter(pedido=pedido)
+    
     except Pedido.DoesNotExist:
         detalles_pedido = []
 
-    precio_total = sum(detalle.producto.precio_producto for detalle in detalles_pedido)
-    precio_final = sum(detalle.producto.precio_producto for detalle in detalles_pedido) + 10000
+    precio_total = sum(detalle.subtotal for detalle in detalles_pedido)
+    precio_final = sum(detalle.subtotal for detalle in detalles_pedido) + 10000
     contexto = {
         'detalles': detalles_pedido,
         'precio_total': precio_total,
@@ -77,12 +78,14 @@ def disminuirPedido(request, id_detalle):
     detalle = Detalle.objects.get(id_detalle=id_detalle)
     detalle.cantidad -= 1
 
-    if detalle.cantidad <= 0:
+    if detalle.cantidad == 0:
         detalle.delete()
         return redirect('carrito')
     else:
         detalle.subtotal = detalle.cantidad * detalle.producto.precio_producto
         detalle.save()
+        return redirect('carrito')
+        
 
 def eliminarPedido(request, id_detalle):
     detalle = Detalle.objects.get(id_detalle=id_detalle)

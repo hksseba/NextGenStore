@@ -189,7 +189,7 @@ def ingresarProducto(request):
     if usuario.rol_id == 1:
         listaCategorias = Categoria.objects.all()
         contexto = {
-        "   categorias": listaCategorias
+        "categorias": listaCategorias
         }
         return render(request, 'core/html/IngresarProducto.html', contexto)
     
@@ -445,7 +445,11 @@ def Usuario1(request):
     
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     direcciones = Direccion.objects.get(usuario = usuario)
-    return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones})
+    pedidos = Pedido.objects.filter(estado_pedido=True, usuario=usuario)
+    detalles = Detalle.objects.filter(pedido__in=pedidos)
+
+
+    return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones, 'detalles': detalles })
 
 def modificarUsuario(request):
     listaComunas = Comuna.objects.all()

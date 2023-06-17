@@ -33,15 +33,15 @@
                         {% if detalles %}
                             {% for d in detalles %} 
                                 <div class="row main align-items-center">
-                                    <div class="col-2 col-xs-1 col-md-3 col-lg-2"><img class="carrimg" src="{{ d.producto.foto_producto.url }}"></div>
-                                    <div class="col col-xs-3 col-md-6 col-lg">
+                                    <div class="col-2 col-xs-1 col-md-2 col-lg-2"><img class="carrimg" src="{{ d.producto.foto_producto.url }}"></div>
+                                    <div class="col col-xs-2 col-md-7 col-lg">
                                         <div class="row text-muted">{{ d.producto.categoria }}</div>
                                         <div class="row">{{ d.producto.nombre_producto }}</div>
                                     </div>
-                                    <div class="col col-xs-4 col-md-3 col-lg">
-                                        <a href="#">-</a><a href="#" class="border">{{ d.cantidad }}</a><a href="#">+</a>
+                                    <div class="col col-xs-6 col-md-3 col-lg">
+                                        <a href="{% url 'disminuirPedido' id_detalle=d.id_detalle %}" > - &nbsp;</a><a class="border">{{ d.cantidad }}</a> <a href="{% url 'aumentarPedido' id_detalle=d.id_detalle %}" >+</a>
                                     </div>
-                                    <div class="col col-xs-4">&dollar;{{ d.producto.precio_producto }} <span class="close">&#10005;</span></div>
+                                    <div class="col col-xs-3">&dollar;{{ d.subtotal }} <a href = "{% url 'eliminarPedido' id_detalle=d.id_detalle %} "> <span class="close"> &#10005; </span></a> </div>
                                 </div>
                             {% endfor %}
                         {% else %}
@@ -64,7 +64,7 @@
                             <div class="col">PRECIO TOTAL</div>
                             <div class="col text-right">&dollar; {{ precio_final  }}</div>
                         </div>
-                        <button type="submit" class="abtn">PAGAR</button>
+                        <a href = "{% url 'pagarPedido' %} "><button type="submit" class="abtn">PAGAR</button></a>
                     </form>
                 </div>
             </div>

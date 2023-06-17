@@ -29,9 +29,8 @@ def carrito(request):
     try:
         pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
         detalles_pedido = Detalle.objects.filter(pedido=pedido)
-        precio_total = sum(detalle.producto.precio_producto for detalle in detalles_pedido)
-        precio_final = sum(detalle.producto.precio_producto for detalle in detalles_pedido) +10000
-
+        precio_total = sum(detalle.subtotal for detalle in detalles_pedido)
+        precio_final = sum(detalle.subtotal for detalle in detalles_pedido) +10000
     except Pedido.DoesNotExist:
         detalles_pedido = []
 
@@ -50,21 +49,36 @@ def agregarCarrito (request, id_producto):
     Detalle.objects.create(pedido=pedido, producto=producto, cantidad=1, subtotal=producto.precio_producto)
     return redirect('carrito' ) 
 
-def finalizar_pedido(request):
-    usuario = Usuario.objects.get(correo_usuario=request.user.username)
-    try:
-        pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
-        detalles_pedido = Detalle.objects.filter(pedido=pedido)
-        
-        # Eliminar los detalles del pedido y el pedido en sí
-        detalles_pedido.delete()
-        pedido.delete()
+def aumentarPedido(request, id_detalle):
+    detalle = Detalle.objects.get(id_detalle=id_detalle)
+    detalle.cantidad += 1
+    detalle.subtotal = detalle.cantidad * detalle.producto.precio_producto
+    detalle.save()
 
-        # Redireccionar a una página de confirmación de pago exitoso o a donde desees
-        return redirect('pago_exitoso')
-    except Pedido.DoesNotExist:
-        # Manejar el caso en que no haya un pedido existente
+    # Redirigir a la vista del carrito nuevamente
+    return redirect('carrito')
+
+def disminuirPedido(request, id_detalle):
+    detalle = Detalle.objects.get(id_detalle=id_detalle)
+    detalle.cantidad -= 1
+
+    if detalle.cantidad <= 0:
+        detalle.delete()
         return redirect('carrito')
+    else:
+        detalle.subtotal = detalle.cantidad * detalle.producto.precio_producto
+        detalle.save()
+
+def eliminarPedido(request, id_detalle):
+    detalle = Detalle.objects.get(id_detalle=id_detalle)
+    detalle.delete()
+    return redirect('carrito')
+
+def pagarPedido(request):
+      usuario = Usuario.objects.get(correo_usuario=request.user.username)   
+      pedido = Pedido.objects.create( usuario = usuario)
+    # Redirigir al carrito nuevamente
+      return redirect('carrito')
 
 def celulares (request):
     celular = Categoria.objects.get(id_categoria = 1)

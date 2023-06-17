@@ -259,11 +259,7 @@ def PaginaPrincipal(request):
 
 
 def PovAdmin(request):
-    productos_a_eliminar = Producto.objects.filter(stock_producto=0)
-
-    # Eliminar los productos con stock cero
-    productos_a_eliminar.delete()
-
+    
     lista = Producto.objects.all()  # Volver a obtener la lista actualizada de productos
     contexto = {
         "productos": lista

@@ -19,5 +19,7 @@
 	{% endblock precio-estrellas %}
 
 	{% block especificacionesP %}
-	<h3>{{p.desc_producto}}</h3>
+	<div class="especificaciones-container">
+	<h3>{{ p.desc_producto|linebreaksbr }}</h3>
+	</div>
 	{% endblock especificacionesP %}

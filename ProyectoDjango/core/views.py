@@ -29,12 +29,11 @@ def carrito(request):
     try:
         pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
         detalles_pedido = Detalle.objects.filter(pedido=pedido)
-    
     except Pedido.DoesNotExist:
         detalles_pedido = []
 
     precio_total = sum(detalle.subtotal for detalle in detalles_pedido)
-    precio_final = sum(detalle.subtotal for detalle in detalles_pedido) + 10000
+    precio_final = precio_total + 10000
     contexto = {
         'detalles': detalles_pedido,
         'precio_total': precio_total,
@@ -46,8 +45,14 @@ def carrito(request):
         pedido.estado_pedido = True
         pedido.save()
 
+        # Descontar el stock de los productos en los detalles del pedido
+        for detalle in detalles_pedido:
+            producto = Producto.objects.get(id_producto=detalle.producto_id)
+            producto.stock_producto -= detalle.cantidad
+            producto.save()
+
         # Crear un nuevo pedido para el usuario
-        nuevo_pedido = Pedido.objects.create(usuario=usuario, estado_pedido = 0)
+        nuevo_pedido = Pedido.objects.create(usuario=usuario, estado_pedido=0)
 
         # Actualizar el pedido actual en el contexto con el nuevo pedido
         pedido = nuevo_pedido
@@ -55,6 +60,7 @@ def carrito(request):
         contexto['detalles'] = detalles_pedido
 
     return render(request, 'core/html/Carrito.html', contexto)
+
 
 
 
@@ -67,12 +73,17 @@ def agregarCarrito (request, id_producto):
 
 def aumentarPedido(request, id_detalle):
     detalle = Detalle.objects.get(id_detalle=id_detalle)
-    detalle.cantidad += 1
-    detalle.subtotal = detalle.cantidad * detalle.producto.precio_producto
-    detalle.save()
-
-    # Redirigir a la vista del carrito nuevamente
+    producto = Producto.objects.get(id_producto = detalle.producto_id)
+    if detalle.cantidad <= producto.stock_producto -1 :
+         detalle.cantidad += 1
+         detalle.subtotal = detalle.cantidad * detalle.producto.precio_producto
+         detalle.save()  
+    else: 
+         detalle.cantidad = producto.stock_producto 
+    
     return redirect('carrito')
+    # Redirigir a la vista del carrito nuevamente
+    
 
 def disminuirPedido(request, id_detalle):
     detalle = Detalle.objects.get(id_detalle=id_detalle)
@@ -247,13 +258,20 @@ def PaginaPrincipal(request):
     return render(request, 'core/html/PaginaPrincipal.html', contexto)
 
 
-def PovAdmin (request):
-    lista = Producto.objects.all()
+def PovAdmin(request):
+    productos_a_eliminar = Producto.objects.filter(stock_producto=0)
+
+    # Eliminar los productos con stock cero
+    productos_a_eliminar.delete()
+
+    lista = Producto.objects.all()  # Volver a obtener la lista actualizada de productos
     contexto = {
         "productos": lista
     }
-    
-    return render(request,'core/html/PovAdmin.html', contexto) 
+
+    return render(request, 'core/html/PovAdmin.html', contexto)
+
+
  
 def Producto1 (request, id):
     producto = Producto.objects.get(id_producto=id)   

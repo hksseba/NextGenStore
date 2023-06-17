@@ -257,19 +257,24 @@ def PaginaPrincipal(request):
     }
     return render(request, 'core/html/PaginaPrincipal.html', contexto)
 
-
+@login_required
 def PovAdmin(request):
-    productos_a_eliminar = Producto.objects.filter(stock_producto=0)
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    if usuario.id_rol == 1:  # Verificar si el rol es de administrador
+        productos_a_eliminar = Producto.objects.filter(stock_producto=0)
 
-    # Eliminar los productos con stock cero
-    productos_a_eliminar.delete()
+        # Eliminar los productos con stock cero
+        productos_a_eliminar.delete()
 
-    lista = Producto.objects.all()  # Volver a obtener la lista actualizada de productos
-    contexto = {
-        "productos": lista
-    }
+        lista = Producto.objects.all()  # Volver a obtener la lista actualizada de productos
+        contexto = {
+            "productos": lista
+        }
 
-    return render(request, 'core/html/PovAdmin.html', contexto)
+        return render(request, 'core/html/PovAdmin.html', contexto)
+    else:
+        # Redirigir a una página de acceso denegado u otra acción apropiada para usuarios no administradores
+        return redirect('inicioSesion')
 
 
  

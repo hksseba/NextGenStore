@@ -50,7 +50,6 @@ def carrito(request):
 
         # Actualizar el pedido actual en el contexto con el nuevo pedido
         pedido = nuevo_pedido
-        contexto['pedido'] = pedido
         detalles_pedido = Detalle.objects.filter(pedido=pedido)
         contexto['detalles'] = detalles_pedido
 

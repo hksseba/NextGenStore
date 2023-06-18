@@ -383,7 +383,7 @@ def agregarusuario(request):
     PreguntaN = Pregunta.objects.all()
     if Usuario.objects.filter(correo_usuario=vCorreo).exists():
             # El correo electrónico ya está en uso, realiza una acción apropiada (por ejemplo, mostrar un mensaje de error)
-             return render(request, 'core/html/RegistroUsuario.html', { 'nombre': vNombre, 'apellido': vApellido, 'telefono': vTelefono,  'respuesta': vRespuesta, 'pregunta': PreguntaN})
+             return redirect('registrousuario')
   
     usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
     user = User.objects.create_user(username = vCorreo, first_name =vNombre ,email = vCorreo, last_name = vApellido, password =vClave )
@@ -407,7 +407,7 @@ def iniciar_sesion(request):
 	user = authenticate(username=correo1, password=contra1)
 	if user is not None:
 		login(request, user)
-		if(usuario2.rol.id_rol == 2):
+		if(usuario2.rol.id_rol == 1):
 			return redirect ('PovAdmin')
 		else:
 			return redirect('usuario')

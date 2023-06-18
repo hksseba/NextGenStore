@@ -27,9 +27,14 @@ formulario.addEventListener('submit', e => {
     // Validar longitud del nombre y apellido
     if (nombre.value.trim().length < 4 || nombre.value.trim().length > 20) {
       mostrarError("El nombre debe tener entre 4 y 20 caracteres.");
-      console.log('Evento submit activado');
       hayErrores = true;
     }
+
+    if(!nombre.charAt(0) === nombre[0].toUpperCase()) {
+      mostrarError("La primera letra del nombre debe ser mayúscula.");
+      hayErrores = true;
+    }
+    
     if (!nombre.value.trim().match(/^[a-zA-ZáéíóúÁÉÍÓÚ\s-]*$/)) {
       mostrarError("El nombre no debe contener números ni caracteres especiales.");
       hayErrores = true;
@@ -79,4 +84,5 @@ formulario.addEventListener('submit', e => {
         mostrarError("Enviado correctamente.");
       }
   });
+  
   

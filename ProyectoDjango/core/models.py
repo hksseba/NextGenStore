@@ -41,7 +41,7 @@ class Comuna (models.Model):
 class Producto (models.Model):
     id_producto  = models.AutoField(primary_key = True, verbose_name='Id del producto')
     nombre_producto = models.CharField(max_length=20, verbose_name='Nombre del producto', null = True, blank = False)
-    desc_producto = models.CharField(max_length=100, verbose_name='Descripcion del producto', null = True, blank = False)
+    desc_producto = models.CharField(max_length=500, verbose_name='Descripcion del producto', null = True, blank = False)
     precio_producto = models.IntegerField( verbose_name='Precio del producto', null = True, blank = False)
     foto_producto = models.ImageField( verbose_name='Imagen del producto', null = True, blank = False)
     stock_producto = models.IntegerField(verbose_name='Stock del producto', null = True, blank = False)

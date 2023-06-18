@@ -1,4 +1,4 @@
- $(document).ready(function () {
+$(document).ready(function () {
     $("#formProducto").submit(function (e) {
       var nombreProducto = $("#nombreProducto").val();
       var stock = $("#StockProducto").val();

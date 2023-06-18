@@ -18,7 +18,7 @@ def agradecimiento(request):
     return render(request, 'core/html/Agradecimiento.html', contexto)
 
 def productos (request):
-    lista = Producto.objects.all()
+    lista = Producto.objects.filter(stock_producto__gt = 0)
     contexto = {
         "productos": lista
     }
@@ -284,7 +284,7 @@ def comprobarOlvidoClave(request):
 
 
 def PaginaPrincipal(request):
-    lista = Producto.objects.all()
+    lista = Producto.objects.filter(stock_producto__gt = 0 )
     contexto = {
         "productos": lista,
         "user": request.user
@@ -295,11 +295,6 @@ def PaginaPrincipal(request):
 def PovAdmin(request):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:  # Verificar si el rol es de administrador
-        productos_a_eliminar = Producto.objects.filter(stock_producto=0)
-
-        # Eliminar los productos con stock cero
-        productos_a_eliminar.delete()
-
         lista = Producto.objects.all()  # Volver a obtener la lista actualizada de productos
         contexto = {
             "productos": lista

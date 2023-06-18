@@ -24,6 +24,25 @@
 			});
 		});
 	</script>
+    <script type="text/javascript">
+		//evento que verifica que el html este cargado antes de ejecutar
+		$(document).ready(function(){
+			//agrego evento click al botón
+			$("#consultarP").click(function(){
+				//metodo get para el servicio web y una variable data para guardar el JSON
+				$.get("http://127.0.0.1:8000/api/lista_productos",function(data){
+					//ciclo for para recorrer el JSON y guarda cada elemento de la lista en la variable item
+					$.each(data,function(i,item){
+						$("#tabla2").append("<tr>"+
+												"<td>"+ item.id_producto +"</td>"+
+												"<td>"+ item.nombre_producto +"</td>"+
+												"<td>"+ item.stock_producto +"</td>"+
+										   "</tr>");
+					});
+				});
+			});
+		});
+	</script>
 
 	{% endblock links %}
 
@@ -89,13 +108,15 @@
                 <div class="col-1"></div>
                 <div class="container">
                     <div class="row" style="text-align: center;">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <button type="button" class="btn btn-danger" id="consultar">Ver usuarios registrados en la pagina</button>
                         </div>
-                    </div>
-            
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-danger" id="consultarP">Ver productos a renovar stock</button>
+                        </div>
+                    </div>           
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <table class="table table-striped" id="tabla">
                                 <thead>
                                     <tr>
@@ -104,16 +125,22 @@
                                         <th>EMAIL</th> 
                                     </tr>
                                 </thead>
-            
-                                <tbody>
-            
-                                </tbody>
-            
-                            </table>
+                            </table>  
                         </div>
-                    </div>
-            
-                </div>
+                        
+                        <div class="col-md-6">
+                            <table class="table table-striped" id="tabla2">
+                                <thead>
+                                    <tr>
+                                        <th>ID PRODUCTO</th>
+                                        <th>NOMBRE PRODUCTO</th>
+                                        <th>STOCK PRODUCTO</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>  
+                    </div>           
+                    
     
            
         {% endblock productos %}

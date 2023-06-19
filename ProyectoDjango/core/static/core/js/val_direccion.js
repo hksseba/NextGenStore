@@ -1,25 +1,27 @@
-const nombredireccion = document.getElementById("direccion");
-const numdireccion = document.getElementById("numdireccion");
+$(document).ready(function() {
+  var formulario = $("#formdireccion");
+  var msj = $("#warnings");
 
-var msj = document.getElementById("warnings");
+  formulario.on("submit", function(e) {
+    
+    var nombredireccion = $("#direccion").val().trim();
+    var numdireccion = $("#numdireccion").val().trim();
+    let hayErrores = false; // Variable para controlar si hay errores o no
 
+    if (nombredireccion === "" || numdireccion === "") {
+      mostrarError("Ingrese una calle y un número.");
+      hayErrores = true
+    } 
 
-let msjMostrar = "";
-
-function validarDireccion(nombredireccion, numdireccion) {
-    if (nombredireccion.trim() === "" || numdireccion.trim() === "") {
-      return false; // La dirección o número de dirección están en blanco
+    if (hayErrores) {
+      e.preventDefault();
+      mostrarError
+    } else {
+      mostrarError("Enviado correctamente.");
     }
-    return true; // La dirección y número de dirección son válidos
-  }
-  
-  // Ejemplo de uso
+  });
 
-  
-  if (validarDireccion(nombredireccion, numdireccion)) {
-    msjMostrar = msjMostrar + "<br>Correcto";
-    msj.innerHTML= msjMostrar;
-  } else {
-    msjMostrar = msjMostrar + "<br>La dirección o número de dirección están en blanco";
-    msj.innerHTML= msjMostrar;
+  function mostrarError(mensaje) {
+    msj.html(mensaje);
   }
+});

@@ -88,6 +88,17 @@ $(document).ready(function() {
       hayErrores = true;
     }
 
+    const telefono = $("#telefono").val();
+    if(telefono.trim() === ""){
+      mostrarError("Ingrese un numero.");
+      hayErrores = true;
+    }
+  
+    if (/\D/.test(telefono)) {
+      mostrarError("El número no puede contener letras.");
+      hayErrores = true;
+    } 
+    
     // Si no hay errores, mostrar mensaje de éxito y reiniciar el formulario
     if (hayErrores) {
       e.preventDefault();

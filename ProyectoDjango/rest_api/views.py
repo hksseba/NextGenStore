@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from core.models import Usuario,Producto
 from .serializers import UsuriaoSerializer, UsuarioSerializer
 from rest_framework.authentication import TokenAuthentication
@@ -11,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 @csrf_exempt
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def lista_usuarios(request):
 
     if request.method == 'GET':
@@ -20,10 +21,23 @@ def lista_usuarios(request):
         
         return Response(serializer.data)
     
+@api_view(['POST'])  
+@permission_classes((IsAuthenticated,))  
+def crear_usuarios (request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = UsuriaoSerializer(data = data)
+        if serializer.is_valid():
+            print(data)
+            user = User.objects.create_user(username = data.get('correo_usuario'), first_name =data.get('nombre_usuario') ,email = data.get('correo_usuario'), last_name = data.get('apellido_usuario'), password =data.get('clave_usuario') )
+            serializer.save()
 
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         
-@api_view(['GET','PUT','POST','DELETE'])   
+@api_view(['GET','PUT','DELETE'])   
 @permission_classes((IsAuthenticated,))
 def detalle_usuarios(request,id):
     try:
@@ -43,14 +57,6 @@ def detalle_usuarios(request,id):
         else:
             return Response(serialiazer.errors, status= status.HTTP_400_BAD_REQUEST)
         
-    if request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = UsuriaoSerializer(data = data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method  == 'DELETE':
         usuario.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -60,12 +66,20 @@ def detalle_usuarios(request,id):
 
 @csrf_exempt
 @api_view(['GET'])   
-def lista_productos (request):
+def lista_productosStock (request):
     if request.method == 'GET':
         producto = Producto.objects.filter(stock_producto = 0 )
         serializer = UsuarioSerializer(producto , many  = True )
         return Response(serializer.data)
-  
+    
+@api_view(['GET'])    
+def lista_productos (request):
+    if request.method == 'GET':
+        producto = Producto.objects.all()
+        serializer = UsuarioSerializer(producto , many  = True )
+        return Response(serializer.data)    
+
+
 @api_view(['POST'])  
 @permission_classes((IsAuthenticated,))  
 def crear_productos (request):
@@ -79,7 +93,7 @@ def crear_productos (request):
             return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
         
 
-@api_view(['GET','PUT','POST','DELETE'])   
+@api_view(['GET','PUT','DELETE'])   
 @permission_classes((IsAuthenticated,))
 def detalle_productos(request,id):
     try:

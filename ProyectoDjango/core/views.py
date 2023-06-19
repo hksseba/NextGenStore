@@ -40,26 +40,11 @@ def carrito(request):
         'precio_final': precio_final
     }
 
-    def carrito(request):
-     usuario = Usuario.objects.get(correo_usuario=request.user.username)
-    try:
-        pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
-        detalles_pedido = Detalle.objects.filter(pedido=pedido)
-    except Pedido.DoesNotExist:
-        detalles_pedido = []
-
-    precio_total = sum(detalle.subtotal for detalle in detalles_pedido)
-    precio_final = precio_total + 10000
-    contexto = {
-        'detalles': detalles_pedido,
-        'precio_total': precio_total,
-        'precio_final': precio_final
-    }
-
     if request.method == 'POST' and detalles_pedido:
+        if pedido:
         # Marcar el pedido actual como pagado
-        pedido.estado_pedido = True
-        pedido.save()
+            pedido.estado_pedido = True
+            pedido.save()
 
         # Descontar el stock de los productos en los detalles del pedido
         for detalle in detalles_pedido:
@@ -76,7 +61,6 @@ def carrito(request):
         contexto['detalles'] = detalles_pedido
 
     return render(request, 'core/html/Carrito.html', contexto)
-
 
 
 

@@ -65,9 +65,19 @@ def lista_productos (request):
         producto = Producto.objects.filter(stock_producto = 0 )
         serializer = UsuarioSerializer(producto , many  = True )
         return Response(serializer.data)
-    
- 
-         
+  
+@api_view(['POST'])  
+@permission_classes((IsAuthenticated,))  
+def crear_productos (request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = UsuarioSerializer(data = data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+        
 
 @api_view(['GET','PUT','POST','DELETE'])   
 @permission_classes((IsAuthenticated,))
@@ -89,14 +99,6 @@ def detalle_productos(request,id):
             return Response(serialiazer.data)
         else:
             return Response(serialiazer.errors, status= status.HTTP_400_BAD_REQUEST)
-    if request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = UsuarioSerializer(data = data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status = status.HTPP_201_CREATED)
-        else:
-            return Response(serializer.errors, status = status.HTPP_400_BAD_REQUEST )
     elif request.method  == 'DELETE':
         producto.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

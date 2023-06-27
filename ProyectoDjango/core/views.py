@@ -108,7 +108,7 @@ def eliminarPedido(request, id_detalle):
 
 def celulares (request):
     celular = Categoria.objects.get(id_categoria = 1)
-    lista = Producto.objects.all().filter(categoria = celular)
+    lista = Producto.objects.all().filter(categoria = celular, stock_producto__gt = 0)
     listaCategoria = Categoria.objects.all()
     contexto = {
         "productos": lista,
@@ -118,7 +118,7 @@ def celulares (request):
 
 def computadores (request):
     computador = Categoria.objects.get(id_categoria = 2)
-    lista = Producto.objects.all().filter(categoria = computador)
+    lista = Producto.objects.all().filter(categoria = computador, stock_producto__gt = 0)
     listaCategoria = Categoria.objects.all()
     contexto = {
         "productos": lista,
@@ -128,7 +128,7 @@ def computadores (request):
 
 def consolas (request):
     consola = Categoria.objects.get(id_categoria = 3)
-    lista = Producto.objects.all().filter(categoria = consola)
+    lista = Producto.objects.all().filter(categoria = consola, stock_producto__gt = 0)
     listaCategoria = Categoria.objects.all()
     contexto = {
         "productos": lista,

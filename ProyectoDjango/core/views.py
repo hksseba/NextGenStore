@@ -132,7 +132,6 @@ def consolas (request):
     }
     return render(request, 'core/html/Consolas.html', contexto)
 
-@login_required
 def direccion(request, id_usuario):
     listaComunas = Comuna.objects.all()
     listaRegiones = Region.objects.all()

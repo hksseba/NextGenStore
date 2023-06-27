@@ -228,6 +228,7 @@ def modificarProducto(request):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:
         vIdproducto = request.POST['id_producto']
+        vFoto = request.FILES['fotoProducto']
         vNombre = request.POST['nombreProducto']
         vDesc = request.POST['descProducto']
         vPrecio = request.POST['precioProducto']
@@ -239,6 +240,7 @@ def modificarProducto(request):
         producto.desc_producto = vDesc
         producto.precio_producto = vPrecio
         producto.stock_producto = vStock
+        producto.foto_producto = vFoto
         
         categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
         producto.categoria = categoriaProducto

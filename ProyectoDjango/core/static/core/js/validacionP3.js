@@ -3,7 +3,8 @@
       var nombreProducto = $("#nombreProducto").val();
       var stock = $("#StockProducto").val();
       var precio = $("#Precio").val();
-  
+      var foto = document.getElementById('fotoProducto');
+      const file = foto.files[0];
       let msjMostrar = "";
       let enviar = false;
       const pattern = /^[a-zA-Z0-9-á-é-í-ó-ú ]*$/;
@@ -32,6 +33,10 @@
         if (stock == "" || stock < 1) {
           msjMostrar += "<br>Debe ingresar el stock del producto ";
           enviar = true;
+        }
+        if (!file || !file.type.includes('image')) {
+          errorContainer.textContent = 'Por favor, seleccione una imagen válida.';
+          return;
         }
   
 

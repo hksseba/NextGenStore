@@ -30,7 +30,7 @@
 			//agrego evento click al botón
 			$("#consultarP").click(function(){
 				//metodo get para el servicio web y una variable data para guardar el JSON
-				$.get("http://127.0.0.1:8000/api/lista_productos",function(data){
+				$.get("http://127.0.0.1:8000/api/lista_productosStock",function(data){
 					//ciclo for para recorrer el JSON y guarda cada elemento de la lista en la variable item
 					$.each(data,function(i,item){
 						$("#tabla2").append("<tr>"+
@@ -55,6 +55,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-sm-12 col-md-10 col-md-offset-1">
+                    <h3 style = "text-align: center;"> Vista de administrador</h3>
                     <table class="table table-hover">
                         <thead>
                             <tr>

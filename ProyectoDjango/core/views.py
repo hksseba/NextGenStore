@@ -161,15 +161,18 @@ def formDireccion(request):
     return redirect('iniciosesion')
    
 def DireccionAdmin(request, id_usuario):
-    listaComunas = Comuna.objects.all()
-    listaRegiones = Region.objects.all()
-    contexto = {
-        "comunas": listaComunas,
-        "regiones": listaRegiones,
-        "id_usuario": id_usuario
-    }
-    return render(request, 'core/html/DireccionAdmin.html', contexto)
-
+    usuario = Usuario.objects.get(correo_usuario = request.user.username)
+    if usuario.rol_id == 1:
+        listaComunas = Comuna.objects.all()
+        listaRegiones = Region.objects.all()
+        contexto = {
+            "comunas": listaComunas,
+            "regiones": listaRegiones,
+            "id_usuario": id_usuario
+        }
+        return render(request, 'core/html/DireccionAdmin.html', contexto)
+    else:
+         return redirect('paginaprincipal')
 
 def formDireccionAdmin(request):
     
@@ -278,10 +281,11 @@ def comprobarOlvidoClave(request):
     Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
     PreguntaN = Pregunta.objects.all()
     usuario = Usuario.objects.get(correo_usuario = vCorreo )
-    if vCorreo == usuario.correo_usuario and   Preguntaxd == usuario.pregunta and vRespuesta == usuario.respuesta_usuario:
-        return redirect('RestablecerContrasena', id_usuario = usuario.id_usuario)
-    else:
+    if vCorreo != usuario.correo_usuario and Preguntaxd != usuario.pregunta and vRespuesta != usuario.respuesta_usuario:
         return redirect('olvidoclave')
+    else:
+        return redirect('RestablecerContrasena', id_usuario = usuario.id_usuario)
+       
 
 
 def PaginaPrincipal(request):

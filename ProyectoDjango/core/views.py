@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
-
+@login_required
 def agradecimiento(request):    
     lista = Pedido.objects.all()
     contexto = {
@@ -24,6 +24,7 @@ def productos (request):
     }
     return render(request,'core/html/Buscador.html', contexto)
 
+@login_required
 def carrito(request):
     usuario = Usuario.objects.get(correo_usuario=request.user.username)
     try:
@@ -61,9 +62,6 @@ def carrito(request):
         contexto['detalles'] = detalles_pedido
 
     return render(request, 'core/html/Carrito.html', contexto)
-
-
-
 
 def agregarCarrito (request, id_producto):
     producto = Producto.objects.get (id_producto = id_producto )
@@ -104,8 +102,6 @@ def eliminarPedido(request, id_detalle):
     detalle.delete()
     return redirect('carrito')
 
-
-
 def celulares (request):
     celular = Categoria.objects.get(id_categoria = 1)
     lista = Producto.objects.all().filter(categoria = celular, stock_producto__gt = 0)
@@ -136,6 +132,7 @@ def consolas (request):
     }
     return render(request, 'core/html/Consolas.html', contexto)
 
+@login_required
 def direccion(request, id_usuario):
     listaComunas = Comuna.objects.all()
     listaRegiones = Region.objects.all()
@@ -159,7 +156,8 @@ def formDireccion(request):
     Direccion.objects.create(usuario=usuario1,comuna =vRegistroComuna, nombre_direccion=vDireccion, num_direccion=vNumero)
     
     return redirect('iniciosesion')
-   
+
+@login_required   
 def DireccionAdmin(request, id_usuario):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:
@@ -187,7 +185,7 @@ def formDireccionAdmin(request):
     
     return redirect('PovAdmin')
 
-
+@login_required
 def ingresarProducto(request):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:
@@ -213,6 +211,7 @@ def agregar (request):
     
     return redirect('ingresarProducto')
 
+@login_required
 def modificar(request, id_producto):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:
@@ -311,7 +310,6 @@ def PovAdmin(request):
         return redirect('paginaprincipal')
 
 
- 
 def Producto1 (request, id):
     producto = Producto.objects.get(id_producto=id)   
     contexto = {
@@ -319,6 +317,7 @@ def Producto1 (request, id):
     }
     return render(request,'core/html/Producto1.html', contexto) 
 
+@login_required
 def RegistroAdmin (request):
      usuario = Usuario.objects.get(correo_usuario = request.user.username)
      if usuario.rol_id == 1:
@@ -361,7 +360,7 @@ def agregaradmin(request):
      
           
 
-
+@login_required
 def RegistroUsuario (request):
     listaxd = Pregunta.objects.all()
     contexto = {
@@ -451,6 +450,7 @@ def Usuario1(request):
 
     return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones, 'detalles': detalles })
 
+@login_required
 def modificarUsuario(request):
     listaComunas = Comuna.objects.all()
     usuario = Usuario.objects.get(correo_usuario = request.user.username)

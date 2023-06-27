@@ -358,9 +358,6 @@ def agregaradmin(request):
 
         return redirect('DireccionAdmin', id_usuario=usuario.id_usuario)
      
-          
-
-@login_required
 def RegistroUsuario (request):
     listaxd = Pregunta.objects.all()
     contexto = {

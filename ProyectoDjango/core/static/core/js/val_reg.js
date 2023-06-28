@@ -102,8 +102,6 @@ $(document).ready(function() {
     // Si no hay errores, mostrar mensaje de éxito y reiniciar el formulario
     if (hayErrores) {
       e.preventDefault();
-    } else {
-      mostrarError("Enviado correctamente.");
-    }
+    } 
   });
 });

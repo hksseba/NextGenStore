@@ -37,7 +37,13 @@
                     <option value="{{p.id_pregunta}}"> {{p.nombre_pregunta}} </option>
                       {% endfor %}             
 										</select>
-                    
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li class="{{ message.tags }}">{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
 										<input type="text" value = "{{respuesta}}" name="respuesta" id="respuesta" class="field" placeholder="Ingresa tu respuesta">
                         <button type="submit" class="ebtn">Registrarse</button>
                         <p class="warnings" id="warnings"></p>
@@ -58,6 +64,6 @@
   {% block js %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script src="{% static 'core/js/val_reg3.js' %}"></script>
+  <script src="{% static 'core/js/val_reg.js' %}"></script>
 	{% endblock js %}
       

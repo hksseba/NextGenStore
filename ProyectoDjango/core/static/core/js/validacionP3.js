@@ -3,15 +3,20 @@
       var nombreProducto = $("#nombreProducto").val();
       var stock = $("#StockProducto").val();
       var precio = $("#Precio").val();
-      var foto = document.getElementById('fotoProducto');
-      const file = foto.files[0];
+      var foto = $("#fotoProducto").val();
       let msjMostrar = "";
       let enviar = false;
       const pattern = /^[a-zA-Z0-9-á-é-í-ó-ú ]*$/;
   
         if (
+          foto === ""){
+          msjMostrar += "Debe ingresar foto del producto ";  
+          enviar = true;
+        }
+        
+        if (
             nombreProducto == ""){
-            msjMostrar += "Debe ingresar el nombre del producto ";  
+            msjMostrar += "<br>Debe ingresar el nombre del producto ";  
             enviar = true;
             }
 
@@ -34,11 +39,7 @@
           msjMostrar += "<br>Debe ingresar el stock del producto ";
           enviar = true;
         }
-        if (!file || !file.type.includes('image')) {
-          errorContainer.textContent = 'Por favor, seleccione una imagen válida.';
-          return;
-        }
-  
+
 
       if (enviar) {
         $("#warnings").html(msjMostrar);

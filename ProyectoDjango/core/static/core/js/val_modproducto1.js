@@ -2,15 +2,14 @@ $(document).ready(function () {
     $("#formProducto").submit(function (e) {
       var nombreProducto = $("#nombreProducto").val();
       var stock = $("#StockProducto").val();
-      var precio = $("#Precio").val();
-  
+      var precio = $("#Precio").val();   
       let msjMostrar = "";
       let enviar = false;
       const pattern = /^[a-zA-Z0-9-á-é-í-ó-ú ]*$/;
-  
+
         if (
             nombreProducto == ""){
-            msjMostrar += "Debe ingresar el nombre del producto ";  
+            msjMostrar += "<br>Debe ingresar el nombre del producto ";  
             enviar = true;
             }
 

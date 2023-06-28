@@ -228,31 +228,34 @@ def modificar(request, id_producto):
 
 @login_required
 def modificarProducto(request):
- 
-        usuario = Usuario.objects.get(correo_usuario = request.user.username)
-        if usuario.rol_id == 1:
-            vIdproducto = request.POST['id_producto']
+    usuario = Usuario.objects.get(correo_usuario=request.user.username)
+    if usuario.rol_id == 1:
+        vIdproducto = request.POST['id_producto']
+        vNombre = request.POST['nombreProducto']
+        vDesc = request.POST['descProducto']
+        vPrecio = request.POST['precioProducto']
+        vStock = request.POST['stockProducto']
+        vCategoria = request.POST['categoriaProducto']
+
+        producto = Producto.objects.get(id_producto=vIdproducto)
+        producto.nombre_producto = vNombre
+        producto.desc_producto = vDesc
+        producto.precio_producto = vPrecio
+        producto.stock_producto = vStock
+
+        # Verificar si se ha proporcionado una nueva foto
+        if 'fotoProducto' in request.FILES:
             vFoto = request.FILES['fotoProducto']
-            vNombre = request.POST['nombreProducto']
-            vDesc = request.POST['descProducto']
-            vPrecio = request.POST['precioProducto']
-            vStock = request.POST['stockProducto']
-            vCategoria = request.POST['categoriaProducto']
-
-            producto = Producto.objects.get(id_producto = vIdproducto)
-            producto.nombre_producto = vNombre
-            producto.desc_producto = vDesc
-            producto.precio_producto = vPrecio
-            producto.stock_producto = vStock
             producto.foto_producto = vFoto
-            
-            categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
-            producto.categoria = categoriaProducto
 
-            producto.save()
-            return redirect('PovAdmin')
-        else:
-            return redirect('paginaprincipal')
+        categoriaProducto = Categoria.objects.get(id_categoria=vCategoria)
+        producto.categoria = categoriaProducto
+
+        producto.save()
+        return redirect('PovAdmin')
+    else:
+        return redirect('paginaprincipal')
+
   
   
 
@@ -389,9 +392,10 @@ def agregarusuario(request):
     
     Preguntaxd = Pregunta.objects.get(id_pregunta=vPregunta)
     PreguntaN = Pregunta.objects.all()
-    if Usuario.objects.filter(correo_usuario=vCorreo).exists():
+    if Usuario.objects.filter(correo_usuario=vCorreo).exists():     
+            messages.warning(request, 'El correo ya está en uso')           
             # El correo electrónico ya está en uso, realiza una acción apropiada (por ejemplo, mostrar un mensaje de error)
-             return redirect('registrousuario')
+            return redirect('registrousuario')
   
     usuario = Usuario.objects.create(rol=vRol, nombre_usuario=vNombre, apellido_usuario=vApellido, telefono_usuario=vTelefono, correo_usuario=vCorreo, clave_usuario=vClave, respuesta_usuario=vRespuesta, pregunta=Preguntaxd)
     user = User.objects.create_user(username = vCorreo, first_name =vNombre ,email = vCorreo, last_name = vApellido, password =vClave )

@@ -55,8 +55,6 @@ $(document).ready(function() {
     if (hayErrores) {
       e.preventDefault();
     
-    } else {
-      mostrarError("Enviado correctamente.");
-    }
+    } 
   });
 });

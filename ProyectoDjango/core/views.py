@@ -5,7 +5,8 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import authenticate,login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
 
 # Create your views here.
 
@@ -26,6 +27,7 @@ def productos (request):
 
 @login_required
 def carrito(request):
+    
     usuario = Usuario.objects.get(correo_usuario=request.user.username)
     try:
         pedido = Pedido.objects.filter(usuario=usuario).latest('id_pedido')
@@ -60,8 +62,8 @@ def carrito(request):
         pedido = nuevo_pedido
         detalles_pedido = Detalle.objects.filter(pedido=pedido)
         contexto['detalles'] = detalles_pedido
-
     return render(request, 'core/html/Carrito.html', contexto)
+  
 
 def agregarCarrito (request, id_producto):
     producto = Producto.objects.get (id_producto = id_producto )
@@ -156,7 +158,7 @@ def formDireccion(request):
     
     return redirect('iniciosesion')
 
-@login_required   
+@login_required(login_url='iniciosesion')
 def DireccionAdmin(request, id_usuario):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:
@@ -184,7 +186,7 @@ def formDireccionAdmin(request):
     
     return redirect('PovAdmin')
 
-@login_required
+@login_required(login_url='iniciosesion')   
 def ingresarProducto(request):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:
@@ -210,7 +212,7 @@ def agregar (request):
     
     return redirect('ingresarProducto')
 
-@login_required
+@login_required(login_url='iniciosesion')
 def modificar(request, id_producto):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:
@@ -224,31 +226,35 @@ def modificar(request, id_producto):
     else:
          return redirect('paginaprincipal')
 
+@login_required
 def modificarProducto(request):
-    usuario = Usuario.objects.get(correo_usuario = request.user.username)
-    if usuario.rol_id == 1:
-        vIdproducto = request.POST['id_producto']
-        vFoto = request.FILES['fotoProducto']
-        vNombre = request.POST['nombreProducto']
-        vDesc = request.POST['descProducto']
-        vPrecio = request.POST['precioProducto']
-        vStock = request.POST['stockProducto']
-        vCategoria = request.POST['categoriaProducto']
+ 
+        usuario = Usuario.objects.get(correo_usuario = request.user.username)
+        if usuario.rol_id == 1:
+            vIdproducto = request.POST['id_producto']
+            vFoto = request.FILES['fotoProducto']
+            vNombre = request.POST['nombreProducto']
+            vDesc = request.POST['descProducto']
+            vPrecio = request.POST['precioProducto']
+            vStock = request.POST['stockProducto']
+            vCategoria = request.POST['categoriaProducto']
 
-        producto = Producto.objects.get(id_producto = vIdproducto)
-        producto.nombre_producto = vNombre
-        producto.desc_producto = vDesc
-        producto.precio_producto = vPrecio
-        producto.stock_producto = vStock
-        producto.foto_producto = vFoto
-        
-        categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
-        producto.categoria = categoriaProducto
+            producto = Producto.objects.get(id_producto = vIdproducto)
+            producto.nombre_producto = vNombre
+            producto.desc_producto = vDesc
+            producto.precio_producto = vPrecio
+            producto.stock_producto = vStock
+            producto.foto_producto = vFoto
+            
+            categoriaProducto = Categoria.objects.get(id_categoria = vCategoria)
+            producto.categoria = categoriaProducto
 
-        producto.save()
-        return redirect('PovAdmin')
-    else:
-         return redirect('paginaprincipal')
+            producto.save()
+            return redirect('PovAdmin')
+        else:
+            return redirect('paginaprincipal')
+  
+  
 
 def eliminarProducto(request,id):
     Productos = Producto.objects.get(id_producto = id)
@@ -296,7 +302,7 @@ def PaginaPrincipal(request):
     }
     return render(request, 'core/html/PaginaPrincipal.html', contexto)
 
-@login_required
+@login_required(login_url='iniciosesion')  
 def PovAdmin(request):
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     if usuario.rol_id == 1:  # Verificar si el rol es de administrador
@@ -318,7 +324,7 @@ def Producto1 (request, id):
     }
     return render(request,'core/html/Producto1.html', contexto) 
 
-@login_required
+@login_required(login_url='iniciosesion')  
 def RegistroAdmin (request):
      usuario = Usuario.objects.get(correo_usuario = request.user.username)
      if usuario.rol_id == 1:
@@ -437,9 +443,8 @@ def formRestablecerContrasena (request):
         user.save()
     return redirect ('iniciosesion')
 
-@login_required
+@login_required(login_url='iniciosesion')  
 def Usuario1(request):    
-    
     usuario = Usuario.objects.get(correo_usuario = request.user.username)
     direcciones = Direccion.objects.get(usuario = usuario)
     pedidos = Pedido.objects.filter(estado_pedido=True, usuario=usuario)
@@ -448,7 +453,7 @@ def Usuario1(request):
 
     return render(request, 'core/html/Usuario.html', {'usuario': usuario, 'direcciones': direcciones, 'detalles': detalles })
 
-@login_required
+@login_required(login_url='iniciosesion')  
 def modificarUsuario(request):
     listaComunas = Comuna.objects.all()
     usuario = Usuario.objects.get(correo_usuario = request.user.username)

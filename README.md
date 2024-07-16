@@ -1,2 +1,2 @@
 # ProyectoSemestral2
-Proyecto semestral pero en conjunto con django
+Proyecto de E-commerce realizado en Django en conjunto con Oracle Sql como base de datos
